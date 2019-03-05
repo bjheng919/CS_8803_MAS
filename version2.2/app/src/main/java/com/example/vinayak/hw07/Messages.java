@@ -129,7 +129,12 @@ public class Messages extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(),LoginActivity.class);
             finish();
             startActivity(i);
-        }else if(id == R.id.editprofile)
+        }else if (id == R.id.survey){
+            Intent i = new Intent(getApplicationContext(),FillSurvey.class);
+            finish();
+            startActivity(i);
+        }
+        else if(id == R.id.editprofile)
         {
 
 
