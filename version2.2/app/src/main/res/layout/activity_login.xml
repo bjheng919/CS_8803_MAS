@@ -1,53 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="com.example.vinayak.hw07.LoginActivity">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/logo"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo"
+        android:layout_marginTop="95dp" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:id="@+id/logo_text"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_text" />
+
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.example.vinayak.hw07.LoginActivity">
+        android:layout_height="wrap_content"
+        android:id="@+id/etusename"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="20dp"
+        android:hint="Email" />
 
-        <ImageView
-            android:layout_width="400px"
-            android:layout_height="400px"
-            android:id="@+id/myimageView"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/etusename"
-            android:layout_gravity="center_horizontal"
-            android:hint="email" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/etpassword"
-            android:layout_gravity="right"
-            android:hint="password" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:id="@+id/etpassword"
+        android:hint="Password" />
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:gravity="center">
+
+        <Button
+            android:id="@+id/btnsignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:text="signup" />
 
         <Button
             android:id="@+id/btnlogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="login" />
-
-        <Button
-            android:id="@+id/btnsignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="signup" />
     </TableRow>
 
-    </LinearLayout>
+</LinearLayout>
 
 

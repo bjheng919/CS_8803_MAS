@@ -4,25 +4,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context="com.example.vinayak.hw07.ProfileDetails">
 
-
-    <TableRow
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/profdiscancel"
+        android:layout_gravity="start" />
+
+    <ImageView
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:id="@+id/profdisimage"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/noimage" />
+
+
+    <TextView
         android:layout_gravity="center"
-        android:gravity="center">
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/profdisname" />
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:id="@+id/profdisimage"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/noimage" />
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/profdisemail" />
 
-    </TableRow>
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/profdisgender" />
 
+    <Button
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Message"
+        android:id="@+id/profdisbtnmessage" />
 
+    <!--
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -115,27 +150,5 @@
                 android:id="@+id/profdisgender" />
         </TableRow>
     </TableLayout>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Message"
-            android:id="@+id/profdisbtnmessage" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            android:layout_marginTop="1dp"
-            android:id="@+id/profdiscancel"
-            android:layout_gravity="center_horizontal" />
-
-    </TableRow>
-
+    -->
 </LinearLayout>

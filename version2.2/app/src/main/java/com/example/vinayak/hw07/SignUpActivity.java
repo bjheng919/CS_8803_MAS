@@ -32,9 +32,9 @@ public class SignUpActivity extends AppCompatActivity {
         signup = (Button) findViewById(R.id.button_signup);
         cancel = (Button) findViewById(R.id.button_cancel);
 
-        email = (EditText) findViewById(R.id.editText_email);
-        password = (EditText) findViewById(R.id.editText_password);
-        cpassword = (EditText) findViewById(R.id.editText_password1);
+        email = (EditText) findViewById(R.id.signup_email);
+        password = (EditText) findViewById(R.id.signup_password);
+        cpassword = (EditText) findViewById(R.id.confirm_password);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override

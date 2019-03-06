@@ -37,8 +37,8 @@ public class LoginActivity extends AppCompatActivity {
 
         refAuth = FirebaseAuth.getInstance();
         refDatabse = FirebaseDatabase.getInstance();
-        ImageView myimageview = (ImageView) findViewById(R.id.myimageView);
-        myimageview.setImageResource(R.drawable.chat);
+//        ImageView myimageview = (ImageView) findViewById(R.id.myimageView);
+//        myimageview.setImageResource(R.drawable.chat);
         email = (EditText) findViewById(R.id.etusename);
         password = (EditText) findViewById(R.id.etpassword);
         loginButton = (Button) findViewById(R.id.btnlogin);

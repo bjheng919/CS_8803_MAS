@@ -32,16 +32,18 @@ public class FillSurvey extends AppCompatActivity {
 
     EditText etNation;
     RadioGroup rgRmType;
-    EditText etLeasingTime;
+    EditText etLsStartTime;
+    EditText etLsEndTime;
     RadioGroup rgRmmtNum;
     RadioGroup rgSmoking;
     RadioGroup rgPet;
     RadioGroup rgCook;
+    RadioGroup rgParty;
+    Button btnBack;
     Button btnUpdate;
-    Button btnDone;
 
     FirebaseAuth refAuth;
-    FirebaseDatabase refDatabse;
+    FirebaseDatabase refDatabase;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageref;
@@ -55,16 +57,18 @@ public class FillSurvey extends AppCompatActivity {
 
         etNation = (EditText) findViewById(R.id.etNation);
         rgRmType = (RadioGroup) findViewById(R.id.surveyroomtype);
-        etLeasingTime = (EditText) findViewById(R.id.etLeasingTime);
+        etLsStartTime = (EditText) findViewById(R.id.surveyLsStartTime);
+        etLsEndTime = (EditText) findViewById(R.id.surveyLsEndTime);
         rgRmmtNum = (RadioGroup) findViewById(R.id.surveyroommatenum);
         rgSmoking = (RadioGroup) findViewById(R.id.surveysmoking);
         rgPet = (RadioGroup) findViewById(R.id.surveypet);
         rgCook = (RadioGroup) findViewById(R.id.surveycooking);
-        btnUpdate = (Button) findViewById(R.id.surveycreate);
-        btnDone = (Button) findViewById(R.id.surveydone);
+        rgParty = (RadioGroup) findViewById(R.id.surveyparty);
+        btnBack = (Button) findViewById(R.id.surveyback);
+        btnUpdate = (Button) findViewById(R.id.surveyupdate);
 
         refAuth = FirebaseAuth.getInstance();
-        refDatabse = FirebaseDatabase.getInstance();
+        refDatabase = FirebaseDatabase.getInstance();
 
         storageref = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
 
@@ -83,9 +87,7 @@ public class FillSurvey extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -94,38 +96,42 @@ public class FillSurvey extends AppCompatActivity {
                 UserSurvey survey = new UserSurvey();
 
                 survey.setNation(etNation.getText().toString().trim());
-                survey.setRmType(getSelectedRadioText(rgRmType));
-                survey.setLeasingTime(etLeasingTime.getText().toString().trim());
-                survey.setRmmtNum(getSelectedRadioText(rgRmmtNum));
-                survey.setSmoke(getSelectedRadioText(rgSmoking));
-                survey.setPet(getSelectedRadioText(rgPet));
-                survey.setCook(getSelectedRadioText(rgCook));
+                survey.setRmType(getSelectedRadioButtonText(rgRmType));
+                survey.setLsStartTime(etLsStartTime.getText().toString().trim());
+                survey.setLsEndTime(etLsEndTime.getText().toString().trim());
+                survey.setRmmtNum(getSelectedRadioButtonText(rgRmmtNum));
+                survey.setSmoke(getSelectedRadioButtonText(rgSmoking));
+                survey.setPet(getSelectedRadioButtonText(rgPet));
+                survey.setCook(getSelectedRadioButtonText(rgCook));
+                survey.setParty(getSelectedRadioButtonText(rgParty));
 
                 String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-                final DatabaseReference pushid = refDatabse.getReference().child("surveys").child(uuid);
+                final DatabaseReference pushid = refDatabase.getReference().child("surveys").child(uuid);
                 pushid.setValue(survey).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(),"Survey created successfully",Toast.LENGTH_LONG).show();
                     }
                 });
+
+                Intent i = new Intent(getApplicationContext(),Messages.class);
+                finish();
+                startActivity(i);
             }
         });
 
-        btnDone.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),Messages.class);
                 finish();
                 startActivity(i);
-
-                return;
             }
         });
     }
 
-    private String getSelectedRadioText(RadioGroup rg) {
+    private String getSelectedRadioButtonText(RadioGroup rg) {
         return ((RadioButton) findViewById(rg.getCheckedRadioButtonId())).getText().toString();
     }
 }

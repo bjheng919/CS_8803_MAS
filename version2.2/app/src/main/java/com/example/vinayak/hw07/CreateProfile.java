@@ -30,8 +30,8 @@ import java.util.UUID;
 
 public class CreateProfile extends AppCompatActivity {
 
-    ImageView ivimage;
-    ImageButton ibgallery;
+    // ImageView ivimage;
+    ImageView ibgallery;
     Button btncreate;
     EditText etfname;
     EditText etlname;
@@ -39,22 +39,21 @@ public class CreateProfile extends AppCompatActivity {
     RadioGroup rggender;
 
     String imgurl=null;
+    static String myuuid = null;
 
     FirebaseAuth refAuth;
-    FirebaseDatabase refDatabse;
+    FirebaseDatabase refDatabase;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageref;
-
-    static String myuuid = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile);
 
-        ivimage = (ImageView) findViewById(R.id.cpivimage);
-        ibgallery = (ImageButton) findViewById(R.id.cpibgallery);
+        // ivimage = (ImageView) findViewById(R.id.cpivimage);
+        ibgallery = (ImageView) findViewById(R.id.cpibgallery);
         btncreate = (Button) findViewById(R.id.cpbtncreate);
         etfname = (EditText) findViewById(R.id.cpetfname);
         etlname = (EditText) findViewById(R.id.cpetlname);
@@ -62,50 +61,36 @@ public class CreateProfile extends AppCompatActivity {
         rggender = (RadioGroup) findViewById(R.id.cprgender);
 
         refAuth = FirebaseAuth.getInstance();
-        refDatabse = FirebaseDatabase.getInstance();
+        refDatabase = FirebaseDatabase.getInstance();
 
         storageref = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
-
-
-
 
         DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");
 
         mrefcheckprofile.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 int flag=0;
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-
                     UserProfile tempprof = postSnapshot.getValue(UserProfile.class);
-
-                    if(tempprof.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
-                    {
+                    if(tempprof.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                         flag=1;
                         myuuid=tempprof.getUuid();
                         break;
                     }
                 }
 
-                if(flag==1)
-                {
+                if(flag==1) {
                     Intent i = new Intent(getApplication(), Messages.class);
-
                     finish();
                     startActivity(i);
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
-
-
-
 
         etemail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         etemail.setEnabled(false);
@@ -113,7 +98,6 @@ public class CreateProfile extends AppCompatActivity {
         ibgallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
@@ -124,89 +108,60 @@ public class CreateProfile extends AppCompatActivity {
         btncreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(etfname.getText().toString().trim().length()<1)
-                {
+                if(etfname.getText().toString().trim().length()<1) {
                     etfname.setError("Please enter the correct First name");
-                }
-                else if(etlname.getText().toString().trim().length()<1)
-                {
+                } else if(etlname.getText().toString().trim().length()<1) {
                     etlname.setError("Please enter the correct Last name");
-                }
-                else {
-
+                } else {
                     final UserProfile profile = new UserProfile();
 
                     profile.setFname(etfname.getText().toString().trim());
                     profile.setLname(etlname.getText().toString().trim());
                     profile.setEmail(etemail.getText().toString().trim());
 
-                    if(rggender.getCheckedRadioButtonId()==R.id.cprbmale)
-                        profile.setGender("male");
-                    else
-                        profile.setGender("female");
+                    if(rggender.getCheckedRadioButtonId()==R.id.cprbmale) {
+                        profile.setGender("Male");
+                    } else {
+                        profile.setGender("Female");
+                    }
 
-
-                    final DatabaseReference pushid = refDatabse.getReference().child("users").push();
-
+                    final DatabaseReference pushid = refDatabase.getReference().child("users").push();
                     profile.setUuid(pushid.getKey());
-
                     myuuid=pushid.getKey();
-
                     profile.setImage(imgurl);
 
-
-
-                    ////
-                    if(imgurl!=null)
-                    {
+                    if(imgurl!=null) {
                         final StorageReference ImagesRef = storageref.child("profileImages/"+ UUID.randomUUID()+".jpg");
 
                         ImagesRef.putFile(Uri.parse(imgurl)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                                profile.setImage(ImagesRef.getPath());
-
-
-
-                                pushid.setValue(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-
-                                            Toast.makeText(getApplicationContext(),"Profile created successfully",Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
+                            profile.setImage(ImagesRef.getPath());
+                            pushid.setValue(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(),"Profile created successfully",Toast.LENGTH_LONG).show();
+                                }
+                            });
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
                             }
                         });
-
-
-                    }
-                    else {
-
+                    } else {
                         pushid.setValue(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-
                                 Toast.makeText(getApplicationContext(),"Profile created successfully",Toast.LENGTH_LONG).show();
                             }
                         });
-
                     }
                 }
-
             }
         });
-
-
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -219,19 +174,14 @@ public class CreateProfile extends AppCompatActivity {
                     Uri selectedImageUri = data.getData();
                     if (null != selectedImageUri) {
                         // Set the image in ImageView
-                        ivimage.setImageURI(selectedImageUri);
+                        ibgallery.setImageURI(selectedImageUri);
                         imgurl = selectedImageUri.toString();
-
                     }
-
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.d("test",e.getMessage());
             Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-
 }

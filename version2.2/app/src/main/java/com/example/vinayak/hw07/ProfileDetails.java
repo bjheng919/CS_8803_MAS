@@ -23,8 +23,7 @@ public class ProfileDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_details);
 
-        TextView tvfname =(TextView) findViewById(R.id.profdisfname);
-        TextView tvlname =(TextView) findViewById(R.id.profdislname);
+        TextView tvname = (TextView) findViewById(R.id.profdisname);
         TextView tvemail =(TextView) findViewById(R.id.profdisemail);
         TextView tvgender =(TextView) findViewById(R.id.profdisgender);
 
@@ -35,8 +34,7 @@ public class ProfileDetails extends AppCompatActivity {
 
         usertemp = (UserProfile) getIntent().getExtras().getSerializable("profiledetails");
 
-        tvfname.setText(usertemp.getFname());
-        tvlname.setText(usertemp.getLname());
+        tvname.setText(usertemp.getFname() + " " + usertemp.getLname());
         tvgender.setText(usertemp.getGender());
         tvemail.setText(usertemp.getEmail());
 

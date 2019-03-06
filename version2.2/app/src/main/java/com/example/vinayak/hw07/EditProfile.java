@@ -30,9 +30,9 @@ import java.util.UUID;
 
 public class EditProfile extends AppCompatActivity {
 
-    ImageView ivimage;
-    ImageButton ibgallery;
-    Button btncancel;
+    // ImageView ivimage;
+    ImageView ibgallery;
+    Button btnback;
     Button btnupdate;
     EditText etfname;
     EditText etlname;
@@ -57,9 +57,9 @@ public class EditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        ivimage = (ImageView) findViewById(R.id.epivimage);
-        ibgallery = (ImageButton) findViewById(R.id.epibgallery);
-        btncancel = (Button) findViewById(R.id.epbtncancel);
+        // ivimage = (ImageView) findViewById(R.id.epivimage);
+        ibgallery = (ImageView) findViewById(R.id.epibgallery);
+        btnback = (Button) findViewById(R.id.epbtnback);
         btnupdate = (Button) findViewById(R.id.epbtnupdate);
         etfname = (EditText) findViewById(R.id.epetfname);
         etlname = (EditText) findViewById(R.id.epetlname);
@@ -70,7 +70,7 @@ public class EditProfile extends AppCompatActivity {
 
         storageref = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
 
-        btncancel.setOnClickListener(new View.OnClickListener() {
+        btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -104,7 +104,7 @@ public class EditProfile extends AppCompatActivity {
                         etfname.setText(tempprof.getFname());
                         etlname.setText(tempprof.getLname());
 
-                        if(tempprof.getGender().equals("male"))
+                        if(tempprof.getGender().equals("Male"))
                         {
                             rbmale.setChecked(true);
                             rbfemale.setChecked(false);
@@ -130,13 +130,13 @@ public class EditProfile extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
 
-                                    Picasso.with(getApplicationContext()).load(uri).into(ivimage);
+                                    Picasso.with(getApplicationContext()).load(uri).into(ibgallery);
                                 }
                             });
 
                         }
                         else {
-                            ivimage.setImageResource(R.mipmap.noimage);
+                            ibgallery.setImageResource(R.mipmap.noimage);
                             imageurl=null;
                             earlierimage=0;
                         }
@@ -192,9 +192,9 @@ public class EditProfile extends AppCompatActivity {
                     profile.setEmail(etemail.getText().toString().trim());
 
                     if(rggender.getCheckedRadioButtonId()==R.id.eprbmale)
-                        profile.setGender("male");
+                        profile.setGender("Male");
                     else
-                        profile.setGender("female");
+                        profile.setGender("Female");
 
                     profile.setImage(imageurl);
                     profile.setUuid(uuid);
@@ -321,7 +321,7 @@ public class EditProfile extends AppCompatActivity {
                     Uri selectedImageUri = data.getData();
                     if (null != selectedImageUri) {
                         // Set the image in ImageView
-                        ivimage.setImageURI(selectedImageUri);
+                        ibgallery.setImageURI(selectedImageUri);
                         imageurl = selectedImageUri.toString();
 
                     }

@@ -1,13 +1,27 @@
 package com.example.vinayak.hw07;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Vinayaka on 11/22/2016.
  */
 public class UserSurvey implements Serializable{
 
-    String nation, rmType, leasingTime, rmmtNum, smoke, pet, cook;
+    String nation;
+    String rmType;
+    String lsStartTime;
+    String lsEndTime;
+    String rmmtNum;
+    String smoke;
+    String pet;
+    String cook;
+    String party;
+
+    public String getParty() { return party; }
+
+    public void setParty(String party) { this.party = party; }
 
     public String getNation() { return nation; }
 
@@ -17,9 +31,13 @@ public class UserSurvey implements Serializable{
 
     public void setRmType(String rmType) { this.rmType = rmType; }
 
-    public String getLeasingTime() { return leasingTime; }
+    public String getLsStartTime() { return lsStartTime; }
 
-    public void setLeasingTime(String leasingTime) { this.leasingTime = leasingTime; }
+    public void setLsStartTime(String lsStartTime) { this.lsStartTime = lsStartTime; }
+
+    public String getLsEndTime() { return lsEndTime; }
+
+    public void setLsEndTime(String lsEndTime) { this.lsEndTime = lsEndTime; }
 
     public String getRmmtNum() { return rmmtNum; }
 

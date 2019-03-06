@@ -36,10 +36,6 @@ public class Messages extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
 
-
-
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,19 +52,18 @@ public class Messages extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        OnlyMessages om = new OnlyMessages();
+        OnlyRecommendation or = new OnlyRecommendation();
 //        Bundle tempb1 = new Bundle();
 //        tempb1.putSerializable("profiles",profileList);
 //        om.setArguments(tempb1);
-        adapter.addFragment(om, "Messages");
+        adapter.addFragment(or, "Recommendation");
 
 
-        OnlyContacts oc = new OnlyContacts();
+        OnlyGroups og = new OnlyGroups();
 //        Bundle tempb = new Bundle();
 //        tempb.putSerializable("profiles",profileList);
 //        oc.setArguments(tempb);
-
-        adapter.addFragment(oc, "Contacts");
+        adapter.addFragment(og, "Groups");
         viewPager.setAdapter(adapter);
     }
 
