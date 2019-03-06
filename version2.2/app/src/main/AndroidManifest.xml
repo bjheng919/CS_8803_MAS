@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.vinayak.hw07.CreateProfile" />
+        <activity android:name="com.example.vinayak.hw07.FillSurvey" />
         <activity android:name="com.example.vinayak.hw07.LoginActivity" />
         <activity android:name="com.example.vinayak.hw07.Messages" />
         <activity android:name="com.example.vinayak.hw07.EditProfile" />

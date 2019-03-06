@@ -7,42 +7,8 @@
     tools:context="com.example.vinayak.hw07.FillSurvey">
 
     <TextView
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Gender"
-        android:id="@+id/sgender" />
 
-    <RadioGroup
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:id="@+id/surveygender"
-        >
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Male"
-
-            android:checked="true"
-            android:id="@+id/surveymale" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="-32dp"
-            android:text="Female"
-            android:id="@+id/surveyfemale" />
-    </RadioGroup>
-
-    <TextView
-
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,14 +18,15 @@
 
 
     <EditText
+        android:id="@+id/etNation"
         android:layout_width="fill_parent"
         android:layout_height="36dip"
-        android:padding="5dip"
         android:layout_margin="10dip"
-        android:textColorHint="#AAAAAA"
-        android:textSize="18dip"
+        android:hint="Please input nationality"
+        android:padding="5dip"
         android:singleLine="true"
-        android:hint="Please input nationality"   />
+        android:textColorHint="#AAAAAA"
+        android:textSize="18dip" />
 
     <TextView
 
@@ -130,14 +97,15 @@
 
 
     <EditText
+        android:id="@+id/etLeasingTime"
         android:layout_width="fill_parent"
         android:layout_height="36dip"
-        android:padding="5dip"
         android:layout_margin="10dip"
-        android:textColorHint="#AAAAAA"
-        android:textSize="18dip"
+        android:hint="Please input leasing time"
+        android:padding="5dip"
         android:singleLine="true"
-        android:hint="Please input leasing time"   />
+        android:textColorHint="#AAAAAA"
+        android:textSize="18dip" />
 
     <TextView
 
@@ -291,35 +259,6 @@
             android:id="@+id/surveycookingn" />
     </RadioGroup>
 
-    <TextView
-
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Non-disturbing time"
-        android:id="@+id/snodisturbtime" />
-
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="36dip"
-        android:padding="5dip"
-        android:layout_margin="10dip"
-        android:textColorHint="#AAAAAA"
-        android:textSize="18dip"
-        android:singleLine="true"
-        android:hint="Please input non-disturbing time"   />
-
-    <TextView
-
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Party"
-        android:id="@+id/sparty" />
-
     <RadioGroup
 
         android:layout_width="wrap_content"
@@ -328,13 +267,6 @@
         android:orientation="vertical"
         android:id="@+id/surveyparty"
         >
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yes"
-            android:checked="true"
-            android:id="@+id/surveypartyy" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -352,18 +284,18 @@
         android:gravity="center">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Update"
             android:id="@+id/surveycreate"
-            android:layout_gravity="center_horizontal" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="Update" />
 
         <Button
+            android:id="@+id/surveydone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
             android:layout_marginLeft="10dp"
-            android:id="@+id/surveycancel" />
+            android:text="Done" />
     </TableRow>
 
 </LinearLayout>
