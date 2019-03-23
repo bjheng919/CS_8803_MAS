@@ -39,6 +39,10 @@ public class OnlyRecommendation extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +68,8 @@ public class OnlyRecommendation extends Fragment {
                         profilelist.add(tempuser);
                     }
                 }
+                listView.setAdapter(adapter);
+                adapter.setNotifyOnChange(true);
 
             }
 
