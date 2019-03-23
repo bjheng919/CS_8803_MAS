@@ -3,6 +3,7 @@ package com.example.vinayak.hw07;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -32,9 +33,9 @@ public class OnlyGroups extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     ListView listView;
-    ArrayList<UserProfile> profilelisttemp = new ArrayList<UserProfile>();
-    ArrayList<UserProfile> profilelistfinal = new ArrayList<UserProfile>();
-    CustomUsersAdapter adapter;
+    ArrayList<String> grouplist = new ArrayList<String>();
+    ArrayList<GroupProfile> profilelistfinal = new ArrayList<GroupProfile>();
+    CustomGroupsAdapter adapter;
 
     public OnlyGroups() {
         // Required empty public constructor
@@ -61,9 +62,9 @@ public class OnlyGroups extends Fragment {
         // Inflate the layout for this fragment
 
 
-        final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("users");
+        final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid);
 
-        profilelisttemp.removeAll(profilelisttemp);
+        grouplist.removeAll(grouplist);
         profilelistfinal.removeAll(profilelistfinal);
 
         mref.addValueEventListener(new ValueEventListener() {
@@ -72,17 +73,13 @@ public class OnlyGroups extends Fragment {
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
-                    UserProfile tempuser = postSnapshot.getValue(UserProfile.class);
+                    String groupname = postSnapshot.child("name").getValue().toString();
 
-                    ///
-
-                    if (!tempuser.getEmail().equalsIgnoreCase(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-                        profilelisttemp.add(tempuser);
-                    }
+                    grouplist.add(groupname);
                 }
 
 
-                final DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference().child("Messages").child(CreateProfile.myuuid);
+                final DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference().child("groups");
 
                 mref2.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -90,10 +87,13 @@ public class OnlyGroups extends Fragment {
 
                         profilelistfinal.removeAll(profilelistfinal);
 
-                        for(int i=0;i<profilelisttemp.size();i++)
-                        {
-                            if(dataSnapshot.hasChild(profilelisttemp.get(i).getUuid()))
-                                profilelistfinal.add(profilelisttemp.get(i));
+                        for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+
+                            GroupProfile groupprofile = postSnapshot.getValue(GroupProfile.class);
+
+                            if(grouplist.contains(groupprofile.getGroupName())) {
+                                profilelistfinal.add(groupprofile);
+                            }
                         }
 
                         listView.setAdapter(adapter);
@@ -115,18 +115,12 @@ public class OnlyGroups extends Fragment {
             }
         });
 
-        adapter = new CustomUsersAdapter(getContext(), R.layout.custommsgusers,profilelistfinal);
+        adapter = new CustomGroupsAdapter(getContext(), R.layout.custommsgusers,profilelistfinal);
 
         return inflater.inflate(R.layout.fragment_only_messages, container, false);
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
 
     @Override
@@ -141,7 +135,7 @@ public class OnlyGroups extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent ii = new Intent(getActivity(),MyChat.class);
+                Intent ii = new Intent(getActivity(),GroupChat.class);
                 ii.putExtra("chatwith",profilelistfinal.get(i));
                 getActivity().finish();
                 startActivity(ii);

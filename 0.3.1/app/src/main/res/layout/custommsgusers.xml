@@ -17,20 +17,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:layout_marginTop="18dp"
-            android:id="@+id/msgcustomconfname" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="18dp"
             android:id="@+id/msgcustomconlname" />
+
+        <TextView
+            android:id="@+id/msgcustomconfname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="18dp"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_marginTop="15dp"

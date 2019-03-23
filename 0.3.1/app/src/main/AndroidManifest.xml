@@ -31,6 +31,7 @@
             android:label="@string/title_activity_fullscreen"
             android:theme="@style/FullscreenTheme" />
         <activity android:name="com.example.vinayak.hw07.MyChat" />
+        <activity android:name="com.example.vinayak.hw07.GroupChat" />
         <activity android:name="com.example.vinayak.hw07.SignUpActivity"></activity>
     </application>
 

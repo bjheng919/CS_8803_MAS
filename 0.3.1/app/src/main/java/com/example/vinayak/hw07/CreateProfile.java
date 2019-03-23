@@ -40,6 +40,7 @@ public class CreateProfile extends AppCompatActivity {
 
     String imgurl=null;
     static String myuuid = null;
+    static String myname = null;
 
     FirebaseAuth refAuth;
     FirebaseDatabase refDatabase;
@@ -77,6 +78,7 @@ public class CreateProfile extends AppCompatActivity {
                     if(tempprof.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                         flag=1;
                         myuuid=tempprof.getUuid();
+                        myname=tempprof.getFname();
                         break;
                     }
                 }
@@ -118,6 +120,7 @@ public class CreateProfile extends AppCompatActivity {
                     profile.setFname(etfname.getText().toString().trim());
                     profile.setLname(etlname.getText().toString().trim());
                     profile.setEmail(etemail.getText().toString().trim());
+                    myname=etfname.getText().toString().trim();
 
                     if(rggender.getCheckedRadioButtonId()==R.id.cprbmale) {
                         profile.setGender("Male");

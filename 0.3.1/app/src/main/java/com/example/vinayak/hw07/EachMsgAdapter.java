@@ -50,14 +50,16 @@ public class EachMsgAdapter extends ArrayAdapter<EachMessage> {
 
 
         final TextView tvtext = (TextView) convertView.findViewById(R.id.cusmsgtvtext);
+        final TextView tvfrom = (TextView) convertView.findViewById(R.id.cusmsgtvfrom);
         TextView tvtime = (TextView) convertView.findViewById(R.id.cusmsgtvtime);
         final ImageView ivmsgimage =  (ImageView) convertView.findViewById(R.id.cusmsgivthumb);
-
+        final LinearLayout sendermsg = (LinearLayout) convertView.findViewById(R.id.sendermsg);
         tvtime.setText(msg.getTime());
 
         if(msg.getText()!=null)
         {
             tvtext.setText(msg.getText());
+            tvfrom.setText(msg.getSender()+": ");
             ivmsgimage.setVisibility(View.GONE);
         }
         else {
@@ -87,6 +89,7 @@ public class EachMsgAdapter extends ArrayAdapter<EachMessage> {
 
 
         tvtext.setTextColor(Color.BLACK);
+        tvfrom.setTextColor(Color.BLACK);
         tvtime.setTextColor(Color.BLACK);
 
         if(CreateProfile.myuuid.equals(msg.getFrom()))
@@ -103,6 +106,7 @@ public class EachMsgAdapter extends ArrayAdapter<EachMessage> {
                 ivmsgimage.setLayoutParams(params2);
 
             tvtime.setLayoutParams(params);
+            sendermsg.setLayoutParams(params);
 
         }else {
 
@@ -118,7 +122,7 @@ public class EachMsgAdapter extends ArrayAdapter<EachMessage> {
                 ivmsgimage.setLayoutParams(params2);
 
             tvtime.setLayoutParams(params);
-
+            sendermsg.setLayoutParams(params);
         }
 
         if(msg.getRead()==0)
