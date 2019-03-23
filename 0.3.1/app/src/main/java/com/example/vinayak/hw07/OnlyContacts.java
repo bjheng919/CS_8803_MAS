@@ -64,6 +64,8 @@ public class OnlyContacts extends Fragment {
                         profilelist.add(tempuser);
                     }
                 }
+				listView.setAdapter(adapter);
+                adapter.setNotifyOnChange(true);
 
             }
 
