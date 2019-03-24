@@ -1,10 +1,14 @@
 package com.example.vinayak.hw07;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -15,7 +19,9 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     private TextView tabDeal;
     private TextView tabPoi;
     private TextView tabUser;
-    private SearchView searchView;
+    private SearchView searchView;;
+    private DrawerLayout mDlMain;
+    private Button mBtnOpenLeftDrawer;
 
     private FrameLayout ly_content;
 
@@ -41,7 +47,10 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         tabUser = (TextView)this.findViewById(R.id.txt_user);
         ly_content = (FrameLayout) findViewById(R.id.fragment_container);
         searchView = (SearchView) findViewById(R.id.searchView);
-
+        mBtnOpenLeftDrawer = (Button) findViewById(R.id.btn_open_left_drawer);
+        mDlMain = (DrawerLayout) findViewById(R.id.dl_main);
+        mDlMain.setScrimColor(Color.TRANSPARENT);
+        mBtnOpenLeftDrawer.setOnClickListener(this);
         tabDeal.setOnClickListener(this);
         tabUser.setOnClickListener(this);
         tabPoi.setOnClickListener(this);
@@ -93,6 +102,9 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 }else{
                     transaction.show(f2);
                 }
+                break;
+            case R.id.btn_open_left_drawer:
+                mDlMain.openDrawer(Gravity.LEFT);
                 break;
 
         }
