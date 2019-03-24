@@ -75,7 +75,7 @@ public class EditProfile extends AppCompatActivity {
             public void onClick(View view) {
 
                 Toast.makeText(getApplicationContext(),"Update Cancelled",Toast.LENGTH_LONG).show();
-                Intent i = new Intent(getApplicationContext(),Messages.class);
+                Intent i = new Intent(getApplicationContext(),newMessages.class);
                 finish();
                 startActivity(i);
 
@@ -210,7 +210,7 @@ public class EditProfile extends AppCompatActivity {
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(getApplicationContext(),"Profile Updated successfully",Toast.LENGTH_LONG).show();
 
-                                        Intent i = new Intent(getApplicationContext(),Messages.class);
+                                        Intent i = new Intent(getApplicationContext(),newMessages.class);
                                         finish();
                                         startActivity(i);
 
@@ -241,7 +241,7 @@ public class EditProfile extends AppCompatActivity {
                                                     public void onSuccess(Void aVoid) {
                                                         Toast.makeText(getApplicationContext(),"Profile Updated successfully",Toast.LENGTH_LONG).show();
 
-                                                        Intent i = new Intent(getApplicationContext(),Messages.class);
+                                                        Intent i = new Intent(getApplicationContext(),newMessages.class);
                                                         finish();
                                                         startActivity(i);
 
@@ -272,7 +272,7 @@ public class EditProfile extends AppCompatActivity {
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(getApplicationContext(),"Profile Updated successfully",Toast.LENGTH_LONG).show();
 
-                                            Intent i = new Intent(getApplicationContext(),Messages.class);
+                                            Intent i = new Intent(getApplicationContext(),newMessages.class);
                                             finish();
                                             startActivity(i);
 
@@ -293,7 +293,7 @@ public class EditProfile extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(getApplicationContext(),"Profile Updated successfully",Toast.LENGTH_LONG).show();
 
-                                Intent i = new Intent(getApplicationContext(),Messages.class);
+                                Intent i = new Intent(getApplicationContext(),newMessages.class);
                                 finish();
                                 startActivity(i);
 
@@ -338,7 +338,7 @@ public class EditProfile extends AppCompatActivity {
 
     public void onBackPressed()
     {
-        Intent i = new Intent(getApplicationContext(),Messages.class);
+        Intent i = new Intent(getApplicationContext(),newMessages.class);
         finish();
         startActivity(i);
 

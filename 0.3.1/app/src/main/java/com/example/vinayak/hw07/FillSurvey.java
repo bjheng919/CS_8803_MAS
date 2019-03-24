@@ -124,7 +124,7 @@ public class FillSurvey extends AppCompatActivity {
                     }
                 });
 
-                Intent i = new Intent(getApplicationContext(),Messages.class);
+                Intent i = new Intent(getApplicationContext(),newMessages.class);
                 finish();
                 startActivity(i);
             }
@@ -133,7 +133,7 @@ public class FillSurvey extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),Messages.class);
+                Intent i = new Intent(getApplicationContext(),newMessages.class);
                 finish();
                 startActivity(i);
             }

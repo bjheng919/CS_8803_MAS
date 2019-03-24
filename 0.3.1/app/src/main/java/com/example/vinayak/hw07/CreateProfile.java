@@ -84,7 +84,7 @@ public class CreateProfile extends AppCompatActivity {
                 }
 
                 if(flag==1) {
-                    Intent i = new Intent(getApplication(), Messages.class);
+                    Intent i = new Intent(getApplication(), newMessages.class);
                     finish();
                     startActivity(i);
                 }
