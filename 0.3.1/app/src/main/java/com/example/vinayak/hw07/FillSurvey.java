@@ -1,10 +1,7 @@
 package com.example.vinayak.hw07;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +10,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -21,12 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
-
-import java.util.UUID;
 
 public class FillSurvey extends AppCompatActivity {
 
@@ -47,9 +37,6 @@ public class FillSurvey extends AppCompatActivity {
 
     FirebaseAuth refAuth;
     FirebaseDatabase refDatabase;
-
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageref;
 
     String uuid = null;
 
@@ -75,8 +62,6 @@ public class FillSurvey extends AppCompatActivity {
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
-
-        storageref = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
 
 
         DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");

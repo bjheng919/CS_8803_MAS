@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -33,6 +34,9 @@ public class OnlyRecommendation extends Fragment {
 
     ListView listView;
     ArrayList<UserProfile> profilelist=new ArrayList<UserProfile>();
+    UserSurvey currSurvey;
+    UserSurvey tempSurvey;
+    String tempUuid;
     CustomContactsAdapter adapter;
 
     public OnlyRecommendation() {
@@ -47,36 +51,71 @@ public class OnlyRecommendation extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-        //profilelist = (ArrayList<UserProfile>) getArguments().getSerializable("profiles");
+        // Find the current user's survey
+        final DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference().child("surveys");
+        mref2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren())
+                    if (postSnapshot.getKey().equals(CreateProfile.myuuid)) {
+                        currSurvey = postSnapshot.getValue(UserSurvey.class);
+                        System.out.println("Found current user's survey: "  + CreateProfile.myuuid + " ----------------------------------------");
+                        break;
+                    }
+            }
 
-        DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("users");
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
 
+        // Add the similarity value to each other user's survey
+        final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("surveys");
         profilelist.removeAll(profilelist);
-
-
         mref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    tempUuid = postSnapshot.getKey();
+                    System.out.println("Checking tempUuid: " + tempUuid + " ----------------------------------------");
 
-                    UserProfile tempuser = postSnapshot.getValue(UserProfile.class);
+                    if (!tempUuid.equals(CreateProfile.myuuid)) {
+                        tempSurvey = postSnapshot.getValue(UserSurvey.class);
+                        System.out.println("Set tempSurvey to uuid: " + tempUuid + " ----------------------------------------");
 
-                    if (!tempuser.getEmail().equalsIgnoreCase(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-                        profilelist.add(tempuser);
+                        // Find the temp user's UserProfile, and set similarity value
+                        final DatabaseReference mref3 = FirebaseDatabase.getInstance().getReference().child("users");
+                        mref3.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                System.out.println("Searching UserProfile for: " + tempUuid + " ----------------------------------------");
+                                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                                    if (postSnapshot.getKey().equals(tempUuid)) {
+                                        UserProfile tempProfile = postSnapshot.getValue(UserProfile.class);
+                                        int similarity = calculateSimilarity(currSurvey, tempSurvey);
+                                        tempProfile.setSimilarity(similarity);
+                                        profilelist.add(tempProfile);
+                                        System.out.println("One user added: " + tempUuid + "; Similarity: " + similarity + " ----------------------------------------");
+                                        break;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {}
+                        });
+
                     }
                 }
+
+                Collections.sort(profilelist, Collections.reverseOrder());
                 listView.setAdapter(adapter);
                 adapter.setNotifyOnChange(true);
 
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         adapter = new CustomContactsAdapter(getContext(), R.layout.customcontacts,profilelist);
@@ -133,5 +172,22 @@ public class OnlyRecommendation extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private int calculateSimilarity(UserSurvey curr, UserSurvey other) {
+        int count = 0;
+        if (curr.getSameNation().equals("Yes") && other.getSameNation().equals("Yes") && curr.getNation().equals(other.getNation())) count++;
+        if (curr.getSameNation().equals("No") && other.getSameNation().equals("No") && !curr.getNation().equals(other.getNation())) count++;
+        if (curr.getCook().equals(other.getCook())) count++;
+        if (curr.getLsEndTime().equals(other.getLsEndTime())) count++;
+        if (curr.getLsStartTime().equals(other.getLsStartTime())) count++;
+        if (curr.getParty().equals(other.getParty())) count++;
+        if (curr.getPet().equals(other.getPet())) count++;
+        if (curr.getRentHigh().equals(other.getRentHigh())) count++;
+        if (curr.getRentLow().equals(other.getRentLow())) count++;
+        if (curr.getRmmtNum().equals(other.getRmmtNum())) count++;
+        if (curr.getRmType().equals(other.getRmType())) count++;
+        if (curr.getSmoke().equals(other.getSmoke())) count++;
+        return count;
     }
 }

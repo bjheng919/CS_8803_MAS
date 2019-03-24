@@ -5,9 +5,10 @@ import java.io.Serializable;
 /**
  * Created by Vinayaka on 11/22/2016.
  */
-public class UserProfile implements Serializable{
+public class UserProfile implements Serializable, Comparable<UserProfile> {
 
-    String fname, lname, email, gender, image,uuid;
+    String fname, lname, email, gender, image, uuid;
+    int similarity;
 
     public String getUuid() {
         return uuid;
@@ -56,4 +57,10 @@ public class UserProfile implements Serializable{
     public void setImage(String image) {
         this.image = image;
     }
+
+    public int getSimilarity() { return similarity; }
+
+    public void setSimilarity(int similarity) { this.similarity = similarity; }
+
+    public int compareTo(UserProfile other) { return this.getSimilarity() - other.getSimilarity(); }
 }

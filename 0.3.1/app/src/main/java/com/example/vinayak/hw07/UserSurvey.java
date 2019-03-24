@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by Vinayaka on 11/22/2016.
  */
-public class UserSurvey implements Serializable{
+public class UserSurvey implements Serializable {
 
     String nation;
     String rmType;
