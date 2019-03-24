@@ -63,4 +63,6 @@ public class UserProfile implements Serializable, Comparable<UserProfile> {
     public void setSimilarity(int similarity) { this.similarity = similarity; }
 
     public int compareTo(UserProfile other) { return this.getSimilarity() - other.getSimilarity(); }
+
+    public String toString() { return "Profile: " + this.uuid; }
 }

@@ -65,8 +65,6 @@ public class CustomContactsAdapter  extends ArrayAdapter<UserProfile> {
             });
         }
 
-
-
         return convertView;
     }
 }
