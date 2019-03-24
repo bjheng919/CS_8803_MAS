@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class GroupProfile implements Serializable{
 
-    String groupName, commitNum, totalNum, uuid, image;
+    String groupName, commitNum, totalNum, uuid, image, creatorUuid;
 
     public String getImage() {
         return image;
@@ -48,4 +48,9 @@ public class GroupProfile implements Serializable{
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
+
+    public String getCreatorUuid() { return creatorUuid; }
+
+    public void setCreatorUUid(String creatorUuid) { this.creatorUuid = creatorUuid; }
+
 }
