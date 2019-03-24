@@ -8,8 +8,7 @@
     <RelativeLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_overlay">
+        android:layout_height="match_parent">
 
 
 
@@ -133,7 +132,7 @@
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:background="@color/black_overlay"
+        android:background="@color/textColorPrimary"
 
         >
 
