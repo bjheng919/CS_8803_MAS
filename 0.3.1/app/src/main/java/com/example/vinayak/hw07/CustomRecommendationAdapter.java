@@ -20,13 +20,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by Vinayaka on 11/22/2016.
  */
-public class CustomContactsAdapter  extends ArrayAdapter<UserProfile> {
+public class CustomRecommendationAdapter extends ArrayAdapter<GroupProfile> {
 
-    List<UserProfile> mData;
+    List<GroupProfile> mData;
     Context mContext;
     int mResource;
 
-    public CustomContactsAdapter(Context context, int resource, List<UserProfile> objects) {
+    public CustomRecommendationAdapter(Context context, int resource, List<GroupProfile> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mData = objects;
@@ -40,22 +40,22 @@ public class CustomContactsAdapter  extends ArrayAdapter<UserProfile> {
             convertView = inflater.inflate(mResource, parent, false);
         }
 
-        UserProfile user = mData.get(position);
+        GroupProfile group = mData.get(position);
 
         TextView tvfnmae = (TextView) convertView.findViewById(R.id.customconfname);
         TextView tvlnmae = (TextView) convertView.findViewById(R.id.customconlname);
 
         final CircleImageView ivimage = (CircleImageView) convertView.findViewById(R.id.customconimage);
 
-        tvfnmae.setText(user.getFname());
-        tvlnmae.setText(user.getLname());
+        tvfnmae.setText(group.getGroupName());
+        tvlnmae.setText(group.getCommitNum()+"/"+group.getTotalNum());
 
-        if(user.getImage()==null) {
+        if(group.getImage()==null) {
             ivimage.setImageResource(R.mipmap.noimage);
         } else {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
-            StorageReference storageref = storageReference.child(user.getImage());
+            StorageReference storageref = storageReference.child(group.getImage());
 
             storageref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
@@ -64,8 +64,6 @@ public class CustomContactsAdapter  extends ArrayAdapter<UserProfile> {
                 }
             });
         }
-
-
 
         return convertView;
     }

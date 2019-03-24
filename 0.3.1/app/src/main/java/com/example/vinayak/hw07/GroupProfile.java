@@ -5,9 +5,10 @@ import java.io.Serializable;
 /**
  * Created by Vinayaka on 11/22/2016.
  */
-public class GroupProfile implements Serializable{
+public class GroupProfile implements Serializable, Comparable<GroupProfile> {
 
     String groupName, commitNum, totalNum, uuid, image, creatorUuid;
+    int similarity;
 
     public String getImage() {
         return image;
@@ -51,6 +52,12 @@ public class GroupProfile implements Serializable{
 
     public String getCreatorUuid() { return creatorUuid; }
 
-    public void setCreatorUUid(String creatorUuid) { this.creatorUuid = creatorUuid; }
+    public void setCreatorUuid(String creatorUuid) { this.creatorUuid = creatorUuid; }
+
+    public int getSimilarity() { return similarity; }
+
+    public void setSimilarity(int similarity) { this.similarity = similarity; }
+
+    public int compareTo(GroupProfile other) { return this.getSimilarity() - other.getSimilarity(); }
 
 }

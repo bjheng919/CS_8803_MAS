@@ -3,6 +3,7 @@ package com.example.vinayak.hw07;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -33,11 +36,12 @@ public class OnlyRecommendation extends Fragment {
     private OnlyMessages.OnFragmentInteractionListener mListener;
 
     ListView listView;
-    ArrayList<String> tempUuidList = new ArrayList<>();
-    ArrayList<UserProfile> profileList=new ArrayList<UserProfile>();
+    ArrayList<String> tempGroupUuidList = new ArrayList<>();
+    ArrayList<UserSurvey> tempGroupSurveyList = new ArrayList<>();
+    ArrayList<GroupProfile> groupProfileList=new ArrayList<>();
+    String currGroupUuidList;
     UserSurvey currSurvey;
-    ArrayList<UserSurvey> tempSurveyList = new ArrayList<>();
-    CustomContactsAdapter adapter;
+    CustomRecommendationAdapter adapter;
 
     public OnlyRecommendation() {
         // Required empty public constructor
@@ -53,63 +57,69 @@ public class OnlyRecommendation extends Fragment {
                              Bundle savedInstanceState) {
 
         // Find the current user's survey
-        final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("surveys");
+        final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("surveys").child(CreateProfile.myuuid);
+        groupProfileList.removeAll(groupProfileList);
         mref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    if (postSnapshot.getKey().equals(CreateProfile.myuuid)) {
-                        currSurvey = postSnapshot.getValue(UserSurvey.class);
-                        System.out.println("Found current user's survey: " + CreateProfile.myuuid + " ----------------------------------------");
-                        break;
-                    }
-                }
+                currSurvey = dataSnapshot.getValue(UserSurvey.class);
 
-                // Add the similarity value to each other user's survey
-                final DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference().child("surveys");
-                profileList.removeAll(profileList);
-                // System.out.println("Removed all contents in profileList. ----------------------------------------");
-                mref2.addValueEventListener(new ValueEventListener() {
+                // Find the current user's groupUuidList
+                final DatabaseReference mref0 = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid);
+                mref0.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot surveySnapshot: dataSnapshot.getChildren()) {
-                            String tempUuid = surveySnapshot.getKey();
-                            System.out.println("Checking whether tempUuid is currUuid: " + tempUuid + " ----------------------------------------");
-                            if (!tempUuid.equals(CreateProfile.myuuid)) {
-                                tempSurveyList.add(surveySnapshot.getValue(UserSurvey.class));
-                                tempUuidList.add(tempUuid);
-                            }
-                        }
+                        currGroupUuidList = dataSnapshot.child("groupUuidList").getValue().toString();
 
-                        // Find all temp users' UserProfile, set their similarity value, and add to profileList
-                        final DatabaseReference mref3 = FirebaseDatabase.getInstance().getReference().child("users");
-                        mref3.addValueEventListener(new ValueEventListener() {
+                        // Get all the groups surveys except those containing current user
+                        final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("groupSurveys");
+                        mref1.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                                    if (tempUuidList.indexOf(userSnapshot.getKey()) >= 0) {
-                                        // System.out.println("Searching UserProfile for: " + userSnapshot.getKey() + " ----------------------------------------");
-                                        UserProfile tempProfile = userSnapshot.getValue(UserProfile.class);
-                                        int similarity = calculateSimilarity(currSurvey, tempSurveyList.get(tempUuidList.indexOf(userSnapshot.getKey())));
-                                        tempProfile.setSimilarity(similarity);
-                                        profileList.add(tempProfile);
-                                        System.out.println("One user added: " + userSnapshot.getKey() + "; Similarity: " + similarity + " ----------------------------------------");
+                                for (DataSnapshot groupSnapshot : dataSnapshot.getChildren()) {
+                                    String tempGroupUuid = groupSnapshot.getKey();
+                                    if (!currGroupUuidList.contains(tempGroupUuid)) {
+                                        tempGroupUuidList.add(tempGroupUuid);
+                                        tempGroupSurveyList.add(groupSnapshot.getValue(UserSurvey.class));
                                     }
                                 }
 
-                                System.out.println("ProfileList: " + profileList);
+                                // Set similarity for all temp group profile and add them to groupProfileList
+                                final DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference().child("groups");
+                                mref2.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot groupSnapshot : dataSnapshot.getChildren()) {
+                                            if (tempGroupUuidList.contains(groupSnapshot.getKey())) {
+                                                System.out.println("Checking groupuuid: " + groupSnapshot.getKey() + " -------------------------");
+                                                GroupProfile tempGroupProfile = groupSnapshot.getValue(GroupProfile.class);
+                                                int similarity = calculateSimilarity(currSurvey, tempGroupSurveyList.get(tempGroupUuidList.indexOf(groupSnapshot.getKey())));
+                                                tempGroupProfile.setSimilarity(similarity);
+                                                groupProfileList.add(tempGroupProfile);
+                                            }
+                                        }
 
-                                listView.setAdapter(adapter);
-                                adapter.setNotifyOnChange(true);
+                                        Collections.sort(groupProfileList, Collections.reverseOrder());
+                                        System.out.println(groupProfileList);
+                                        listView.setAdapter(adapter);
+                                        adapter.setNotifyOnChange(true);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
                             }
 
                             @Override
-                            public void onCancelled(DatabaseError databaseError) {}
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
                         });
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {}
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
                 });
             }
 
@@ -117,9 +127,9 @@ public class OnlyRecommendation extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        Collections.sort(profileList, Collections.reverseOrder());
 
-        adapter = new CustomContactsAdapter(getContext(), R.layout.customcontacts, profileList);
+
+        adapter = new CustomRecommendationAdapter(getContext(), R.layout.customcontacts, groupProfileList);
 
         return inflater.inflate(R.layout.fragment_only_contacts, container, false);
     }
@@ -137,7 +147,7 @@ public class OnlyRecommendation extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent ii = new Intent(getActivity(),ProfileDetails.class);
-                ii.putExtra("profiledetails",profileList.get(i));
+                ii.putExtra("profiledetails",groupProfileList.get(i));
                 getActivity().finish();
                 startActivity(ii);
             }

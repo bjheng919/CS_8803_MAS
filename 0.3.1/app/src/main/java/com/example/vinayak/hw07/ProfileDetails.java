@@ -30,7 +30,7 @@ public class ProfileDetails extends AppCompatActivity {
         final ImageView ivimage = (ImageView) findViewById(R.id.profdisimage);
 
 
-         usertemp = new UserProfile();
+        usertemp = new UserProfile();
 
         usertemp = (UserProfile) getIntent().getExtras().getSerializable("profiledetails");
 
