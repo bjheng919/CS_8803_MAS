@@ -33,10 +33,10 @@ public class OnlyRecommendation extends Fragment {
     private OnlyMessages.OnFragmentInteractionListener mListener;
 
     ListView listView;
-    ArrayList<UserProfile> profilelist=new ArrayList<UserProfile>();
+    ArrayList<String> tempUuidList = new ArrayList<>();
+    ArrayList<UserProfile> profileList=new ArrayList<UserProfile>();
     UserSurvey currSurvey;
-    UserSurvey tempSurvey;
-    String tempUuid;
+    ArrayList<UserSurvey> tempSurveyList = new ArrayList<>();
     CustomContactsAdapter adapter;
 
     public OnlyRecommendation() {
@@ -71,54 +71,53 @@ public class OnlyRecommendation extends Fragment {
 
         // Add the similarity value to each other user's survey
         final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("surveys");
-        profilelist.removeAll(profilelist);
+        profileList.removeAll(profileList);
+        System.out.println("Removed all contents in profileList. ----------------------------------------");
         mref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    tempUuid = postSnapshot.getKey();
-                    System.out.println("Checking tempUuid: " + tempUuid + " ----------------------------------------");
-
+                for (DataSnapshot surveySnapshot: dataSnapshot.getChildren()) {
+                    String tempUuid = surveySnapshot.getKey();
+                    System.out.println("Checking whether tempUuid is currUuid: " + tempUuid + " ----------------------------------------");
                     if (!tempUuid.equals(CreateProfile.myuuid)) {
-                        tempSurvey = postSnapshot.getValue(UserSurvey.class);
-                        System.out.println("Set tempSurvey to uuid: " + tempUuid + " ----------------------------------------");
-
-                        // Find the temp user's UserProfile, and set similarity value
-                        final DatabaseReference mref3 = FirebaseDatabase.getInstance().getReference().child("users");
-                        mref3.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                System.out.println("Searching UserProfile for: " + tempUuid + " ----------------------------------------");
-                                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                                    if (postSnapshot.getKey().equals(tempUuid)) {
-                                        UserProfile tempProfile = postSnapshot.getValue(UserProfile.class);
-                                        int similarity = calculateSimilarity(currSurvey, tempSurvey);
-                                        tempProfile.setSimilarity(similarity);
-                                        profilelist.add(tempProfile);
-                                        System.out.println("One user added: " + tempUuid + "; Similarity: " + similarity + " ----------------------------------------");
-                                        break;
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {}
-                        });
-
+                        tempSurveyList.add(surveySnapshot.getValue(UserSurvey.class));
+                        tempUuidList.add(tempUuid);
                     }
                 }
-
-                Collections.sort(profilelist, Collections.reverseOrder());
-                listView.setAdapter(adapter);
-                adapter.setNotifyOnChange(true);
-
+                System.out.println("TempUuidList: " + tempUuidList);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        adapter = new CustomContactsAdapter(getContext(), R.layout.customcontacts,profilelist);
+        // Find all temp users' UserProfile, set their similarity value, and add to profileList
+        final DatabaseReference mref3 = FirebaseDatabase.getInstance().getReference().child("users");
+        mref3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    if (tempUuidList.indexOf(userSnapshot.getKey()) >= 0) {
+                        System.out.println("Searching UserProfile for: " + userSnapshot.getKey() + " ----------------------------------------");
+                        UserProfile tempProfile = userSnapshot.getValue(UserProfile.class);
+                        int similarity = calculateSimilarity(currSurvey, tempSurveyList.get(tempUuidList.indexOf(userSnapshot.getKey())));
+                        tempProfile.setSimilarity(similarity);
+                        profileList.add(tempProfile);
+                        System.out.println("One user added: " + userSnapshot.getKey() + "; Similarity: " + similarity + " ----------------------------------------");
+                    }
+                }
+
+                listView.setAdapter(adapter);
+                adapter.setNotifyOnChange(true);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        Collections.sort(profileList, Collections.reverseOrder());
+
+        adapter = new CustomContactsAdapter(getContext(), R.layout.customcontacts,profileList);
 
         return inflater.inflate(R.layout.fragment_only_contacts, container, false);
     }
@@ -136,11 +135,11 @@ public class OnlyRecommendation extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent ii = new Intent(getActivity(),ProfileDetails.class);
-                ii.putExtra("profiledetails",profilelist.get(i));
+                ii.putExtra("profiledetails",profileList.get(i));
+                getActivity().finish();
                 startActivity(ii);
             }
         });
-
 
     }
 

@@ -42,8 +42,6 @@ public class CustomContactsAdapter  extends ArrayAdapter<UserProfile> {
 
         UserProfile user = mData.get(position);
 
-
-
         TextView tvfnmae = (TextView) convertView.findViewById(R.id.customconfname);
         TextView tvlnmae = (TextView) convertView.findViewById(R.id.customconlname);
 
@@ -52,14 +50,9 @@ public class CustomContactsAdapter  extends ArrayAdapter<UserProfile> {
         tvfnmae.setText(user.getFname());
         tvlnmae.setText(user.getLname());
 
-        if(user.getImage()==null)
-        {
-
+        if(user.getImage()==null) {
             ivimage.setImageResource(R.mipmap.noimage);
-
-        }else {
-
-
+        } else {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
             StorageReference storageref = storageReference.child(user.getImage());
@@ -67,12 +60,9 @@ public class CustomContactsAdapter  extends ArrayAdapter<UserProfile> {
             storageref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-
-                    Picasso.with(mContext).load(uri).into(ivimage);
+                Picasso.with(mContext).load(uri).into(ivimage);
                 }
             });
-
-
         }
 
 
