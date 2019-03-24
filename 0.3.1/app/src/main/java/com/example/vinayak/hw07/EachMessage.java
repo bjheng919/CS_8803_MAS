@@ -5,8 +5,16 @@ package com.example.vinayak.hw07;
  */
 public class EachMessage {
 
-    String text,time,image,from,to,pushid;
+    String text,time,image,from,to,pushid, sender;
     int read,imgdelcount;
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
 
     public int getImgdelcount() {
         return imgdelcount;

@@ -23,6 +23,7 @@
         <activity android:name="com.example.vinayak.hw07.FillSurvey" />
         <activity android:name="com.example.vinayak.hw07.LoginActivity" />
         <activity android:name="com.example.vinayak.hw07.Messages" />
+        <activity android:name="com.example.vinayak.hw07.newMessages" />
         <activity android:name="com.example.vinayak.hw07.EditProfile" />
         <activity android:name="com.example.vinayak.hw07.ProfileDetails" />
         <activity
@@ -31,6 +32,7 @@
             android:label="@string/title_activity_fullscreen"
             android:theme="@style/FullscreenTheme" />
         <activity android:name="com.example.vinayak.hw07.MyChat" />
+        <activity android:name="com.example.vinayak.hw07.GroupChat" />
         <activity android:name="com.example.vinayak.hw07.SignUpActivity"></activity>
     </application>
 

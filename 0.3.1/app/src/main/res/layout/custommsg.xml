@@ -6,26 +6,42 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/cusmsgtvtime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        android:id="@+id/cusmsgtvtext" />
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/cusmsgivthumb" />
-
+    <LinearLayout
+        android:id="@+id/sendermsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/cusmsgtvfrom"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_weight="1"
+
             android:text="Medium Text"
-            android:id="@+id/cusmsgtvtime" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/cusmsgtvtext"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:text="Medium Text"
+
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/cusmsgivthumb"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 
 
 </LinearLayout>
