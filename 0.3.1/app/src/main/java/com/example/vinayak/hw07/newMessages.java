@@ -1,11 +1,16 @@
 package com.example.vinayak.hw07;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,20 +18,22 @@ import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class newMessages extends AppCompatActivity implements View.OnClickListener{
     private TextView topBar;
     private TextView tabDeal;
     private TextView tabPoi;
     private TextView tabUser;
-    private SearchView searchView;;
     private DrawerLayout mDlMain;
     private Button mBtnOpenLeftDrawer;
-
+    private Toolbar toolbar;
     private FrameLayout ly_content;
 
     private OnlyRecommendation f1;
     private OnlyGroups f2;
+    private OnlySetting f3;
     private FragmentManager fragmentManager;
 
     @Override
@@ -34,6 +41,12 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_search);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         bindView();
         tabDeal.performClick();
 
@@ -41,12 +54,10 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
 
     //UI组件初始化与事件绑定
     private void bindView() {
-        topBar = (TextView)this.findViewById(R.id.txt_top);
         tabDeal = (TextView)this.findViewById(R.id.txt_deal);
         tabPoi = (TextView)this.findViewById(R.id.txt_poi);
         tabUser = (TextView)this.findViewById(R.id.txt_user);
         ly_content = (FrameLayout) findViewById(R.id.fragment_container);
-        searchView = (SearchView) findViewById(R.id.searchView);
         mBtnOpenLeftDrawer = (Button) findViewById(R.id.btn_open_left_drawer);
         mDlMain = (DrawerLayout) findViewById(R.id.dl_main);
         mDlMain.setScrimColor(Color.TRANSPARENT);
@@ -54,7 +65,6 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         tabDeal.setOnClickListener(this);
         tabUser.setOnClickListener(this);
         tabPoi.setOnClickListener(this);
-
     }
 
     //重置所有文本的选中状态
@@ -72,18 +82,21 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         if(f2!=null){
             transaction.hide(f2);
         }
+        if(f3!=null){
+            transaction.hide(f3);
+        }
 
     }
 
     @Override
     public void onClick(View v) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        hideAllFragment(transaction);
         switch(v.getId()){
             case R.id.txt_deal:
+                hideAllFragment(transaction);
                 selected();
                 tabDeal.setSelected(true);
-                searchView.setVisibility(View.VISIBLE);
+                mBtnOpenLeftDrawer.setVisibility(View.VISIBLE);
                 if(f1==null){
                     f1 = new OnlyRecommendation();
                     transaction.add(R.id.fragment_container,f1);
@@ -93,14 +106,27 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 break;
 
             case R.id.txt_poi:
+                hideAllFragment(transaction);
                 selected();
                 tabPoi.setSelected(true);
-                searchView.setVisibility(View.GONE);
+                mBtnOpenLeftDrawer.setVisibility(View.GONE);
                 if(f2==null){
                     f2 = new OnlyGroups();
                     transaction.add(R.id.fragment_container,f2);
                 }else{
                     transaction.show(f2);
+                }
+                break;
+            case R.id.txt_user:
+                hideAllFragment(transaction);
+                selected();
+                tabUser.setSelected(true);
+                mBtnOpenLeftDrawer.setVisibility(View.GONE);
+                if(f3==null){
+                    f3 = new OnlySetting();
+                    transaction.add(R.id.fragment_container,f3);
+                }else{
+                    transaction.show(f3);
                 }
                 break;
             case R.id.btn_open_left_drawer:
@@ -111,4 +137,48 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
 
         transaction.commit();
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public MenuInflater getMenuInflater() {
+
+
+        return super.getMenuInflater();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.signout) {
+
+            FirebaseAuth.getInstance().signOut();
+
+            Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+            finish();
+            startActivity(i);
+        }else if (id == R.id.survey){
+            Intent i = new Intent(getApplicationContext(),FillSurvey.class);
+            finish();
+            startActivity(i);
+        }
+        else if(id == R.id.editprofile)
+        {
+
+            Intent i = new Intent(getApplicationContext(),EditProfile.class);
+            finish();
+            startActivity(i);
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
