@@ -38,7 +38,8 @@ public class OnlyRecommendation extends Fragment {
     ListView listView;
     ArrayList<String> tempGroupUuidList = new ArrayList<>();
     ArrayList<UserSurvey> tempGroupSurveyList = new ArrayList<>();
-    ArrayList<GroupProfile> groupProfileList=new ArrayList<>();
+    ArrayList<GroupProfile> groupProfileList = new ArrayList<>();
+    ArrayList<UserSurvey> groupSurveyList = new ArrayList<>();
     String currGroupUuidList;
     UserSurvey currSurvey;
     CustomRecommendationAdapter adapter;
@@ -58,7 +59,6 @@ public class OnlyRecommendation extends Fragment {
 
         // Find the current user's survey
         final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("surveys").child(CreateProfile.myuuid);
-        groupProfileList.removeAll(groupProfileList);
         mref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -89,18 +89,22 @@ public class OnlyRecommendation extends Fragment {
                                 mref2.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
+                                        groupProfileList.removeAll(groupProfileList);
+                                        groupSurveyList.removeAll(groupProfileList);
                                         for (DataSnapshot groupSnapshot : dataSnapshot.getChildren()) {
                                             if (tempGroupUuidList.contains(groupSnapshot.getKey())) {
-                                                System.out.println("Checking groupuuid: " + groupSnapshot.getKey() + " -------------------------");
+                                                // System.out.println("Checking groupuuid: " + groupSnapshot.getKey() + " -------------------------");
                                                 GroupProfile tempGroupProfile = groupSnapshot.getValue(GroupProfile.class);
-                                                int similarity = calculateSimilarity(currSurvey, tempGroupSurveyList.get(tempGroupUuidList.indexOf(groupSnapshot.getKey())));
+                                                UserSurvey tempGroupSurvey = tempGroupSurveyList.get(tempGroupUuidList.indexOf(groupSnapshot.getKey()));
+                                                int similarity = calculateSimilarity(currSurvey, tempGroupSurvey);
                                                 tempGroupProfile.setSimilarity(similarity);
                                                 groupProfileList.add(tempGroupProfile);
+                                                groupSurveyList.add(tempGroupSurvey);
                                             }
                                         }
 
                                         Collections.sort(groupProfileList, Collections.reverseOrder());
-                                        System.out.println(groupProfileList);
+                                        // System.out.println(groupProfileList);
                                         listView.setAdapter(adapter);
                                         adapter.setNotifyOnChange(true);
                                     }
@@ -147,7 +151,8 @@ public class OnlyRecommendation extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent ii = new Intent(getActivity(),ProfileDetails.class);
-                ii.putExtra("profiledetails",groupProfileList.get(i));
+                ii.putExtra("groupProfile", groupProfileList.get(i));
+                ii.putExtra("groupSurvey", groupSurveyList.get(i));
                 getActivity().finish();
                 startActivity(ii);
             }

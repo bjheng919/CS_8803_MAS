@@ -16,33 +16,51 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileDetails extends AppCompatActivity {
 
-    UserProfile usertemp;
+    GroupProfile groupProfile;
+    UserSurvey groupSurvey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_details);
 
-        TextView tvname = (TextView) findViewById(R.id.profdisname);
-        TextView tvemail =(TextView) findViewById(R.id.profdisemail);
-        TextView tvgender =(TextView) findViewById(R.id.profdisgender);
+        TextView tvGroupName = (TextView) findViewById(R.id.profDetailTVGroupName);
+        TextView tvNation =(TextView) findViewById(R.id.profDetailTVNation);
+        TextView tvSameNation =(TextView) findViewById(R.id.profDetailTVSameNation);
+        TextView tvRmType =(TextView) findViewById(R.id.profDetailTVRmType);
+        TextView tvLsStartTime =(TextView) findViewById(R.id.profDetailTVLsStartTime);
+        TextView tvLsEndTime =(TextView) findViewById(R.id.profDetailTVLsEndTime);
+        TextView tvRentLow =(TextView) findViewById(R.id.profDetailTVRentLow);
+        TextView tvRentHigh =(TextView) findViewById(R.id.profDetailTVRentHigh);
+        TextView tvCook =(TextView) findViewById(R.id.profDetailTVCook);
+        TextView tvParty =(TextView) findViewById(R.id.profDetailTVParty);
+        TextView tvSmoke =(TextView) findViewById(R.id.profDetailTVSmoke);
+        TextView tvPet =(TextView) findViewById(R.id.profDetailTVPet);
 
-        final ImageView ivimage = (ImageView) findViewById(R.id.profdisimage);
+        groupProfile = new GroupProfile();
+        groupProfile = (GroupProfile) getIntent().getExtras().getSerializable("groupProfile");
 
+        groupSurvey = new UserSurvey();
+        groupSurvey = (UserSurvey) getIntent().getExtras().getSerializable("groupSurvey");
 
-        usertemp = new UserProfile();
+        tvGroupName.setText(groupProfile.getGroupName());
+        tvNation.setText(groupSurvey.getNation());
+        tvSameNation.setText(groupSurvey.getSameNation());
+        tvRmType.setText(groupSurvey.getRmType());
+        tvLsStartTime.setText(groupSurvey.getLsStartTime());
+        tvLsEndTime.setText(groupSurvey.getLsEndTime());
+        tvRentLow.setText(groupSurvey.getRentLow());
+        tvRentHigh.setText(groupSurvey.getRentHigh());
+        tvCook.setText(groupSurvey.getCook());
+        tvParty.setText(groupSurvey.getParty());
+        tvSmoke.setText(groupSurvey.getSmoke());
+        tvPet.setText(groupSurvey.getPet());
 
-        usertemp = (UserProfile) getIntent().getExtras().getSerializable("profiledetails");
-
-        tvname.setText(usertemp.getFname() + " " + usertemp.getLname());
-        tvgender.setText(usertemp.getGender());
-        tvemail.setText(usertemp.getEmail());
-
-        if(usertemp.getImage()!=null)
-        {
+        /* Original code for setting the picture in user profile page, but now there is no picture for group profile
+        if(groupProfile.getImage() != null) {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
-            StorageReference storageref = storageReference.child(usertemp.getImage());
+            StorageReference storageref = storageReference.child(groupProfile.getImage());
 
             storageref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
@@ -51,24 +69,22 @@ public class ProfileDetails extends AppCompatActivity {
                     Picasso.with(getApplicationContext()).load(uri).into(ivimage);
                 }
             });
-        }
-        else {
-
+        } else {
             ivimage.setImageResource(R.mipmap.noimage);
-
         }
+        */
 
-        findViewById(R.id.profdiscancel).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.profDetailBtnBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(getApplicationContext(),newMessages.class);
                 finish();
-
+                startActivity(i);
             }
         });
 
-        Button btnmsg = (Button) findViewById(R.id.profdisbtnmessage);
-
+        Button btnJoinGroup = (Button) findViewById(R.id.profDetailBtnJoinGroup);
+        /*
         btnmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +96,6 @@ public class ProfileDetails extends AppCompatActivity {
 
             }
         });
-
+        */
     }
 }
