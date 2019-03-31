@@ -41,6 +41,8 @@ public class CreateProfile extends AppCompatActivity {
     String imgurl=null;
     static String myuuid = null;
     static String myname = null;
+    boolean hasProfile = false;
+    boolean hasSurvey = false;
 
     FirebaseAuth refAuth;
     FirebaseDatabase refDatabase;
@@ -71,22 +73,44 @@ public class CreateProfile extends AppCompatActivity {
         mrefcheckprofile.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int flag=0;
-
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     UserProfile tempprof = postSnapshot.getValue(UserProfile.class);
                     if(tempprof.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-                        flag=1;
-                        myuuid=tempprof.getUuid();
-                        myname=tempprof.getFname();
+                        hasProfile = true;
+                        myuuid = tempprof.getUuid();
+                        myname = tempprof.getFname();
                         break;
                     }
                 }
 
-                if(flag==1) {
-                    Intent i = new Intent(getApplication(), newMessages.class);
-                    finish();
-                    startActivity(i);
+                if(hasProfile) { // current user has a UserProfile in database
+
+                    DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("surveys");
+
+                    mrefcheckprofile.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                if (myuuid.equals(postSnapshot.getKey())) {
+                                    hasSurvey = true;
+                                    break;
+                                }
+                            }
+
+                            if (hasProfile && hasSurvey) {
+                                Intent i = new Intent(getApplication(), newMessages.class);
+                                finish();
+                                startActivity(i);
+                            } else if (hasProfile) {
+                                Intent i = new Intent(getApplication(), FillSurvey.class);
+                                finish();
+                                startActivity(i);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    });
                 }
             }
 
