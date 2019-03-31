@@ -143,68 +143,56 @@
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:background="@color/textColorPrimary"
-
-        >
+        android:background="@color/textColorPrimary">
 
         <TextView
-            android:id="@+id/Sortby"
+            android:id="@+id/filterTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
-            android:text="Sort by"
+            android:text="Filter"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <Switch
-            android:id="@+id/commitornot"
+        <CheckBox
+            android:id="@+id/commitedCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="Roommate Commited" />
+            android:text="Roommate Commited"
+            android:onClick="onCBClicked" />
 
-
-        <RadioGroup
-            android:id="@+id/sortbypriority"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:layout_gravity="center"
+        <CheckBox
+            android:id="@+id/nationCB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
-            android:orientation="vertical">
+            android:text="Nationality"
+            android:onClick="onCBClicked" />
 
-            <RadioButton
-                android:id="@+id/nationality"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Nationality" />
+        <CheckBox
+            android:id="@+id/genderCB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:text="Gender"
+            android:onClick="onCBClicked" />
 
-            <RadioButton
-                android:id="@+id/gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="20dp"
-                android:text="Gender" />
+        <CheckBox
+            android:id="@+id/lifestyleCB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:text="LifeStyle"
+            android:onClick="onCBClicked" />
 
-            <RadioButton
-                android:id="@+id/lifestyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="20dp"
-                android:text="LifeStyle" />
-
-            <RadioButton
-                android:id="@+id/housing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="20dp"
-                android:text="Housing" />
-
-
-        </RadioGroup>
-
+        <CheckBox
+            android:id="@+id/rmTypeCB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="240dp"
+            android:text="Room Type"
+            android:onClick="onCBClicked" />
 
     </RelativeLayout>
 

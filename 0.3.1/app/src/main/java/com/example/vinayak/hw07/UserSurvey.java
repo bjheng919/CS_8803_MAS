@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by Vinayaka on 11/22/2016.
  */
-public class UserSurvey implements Serializable {
+public class UserSurvey implements Serializable, Comparable<UserSurvey> {
 
     String nation;
     String rmType;
@@ -21,6 +21,7 @@ public class UserSurvey implements Serializable {
     String cook;
     String party;
     String sameNation;
+    int similarity;
 
     public String getRentLow() { return rentLow; }
 
@@ -70,4 +71,9 @@ public class UserSurvey implements Serializable {
 
     public void setCook(String cook) { this.cook = cook; }
 
+    public int getSimilarity() { return similarity; }
+
+    public void setSimilarity(int similarity) { this.similarity = similarity; }
+
+    public int compareTo(UserSurvey other) { return this.similarity - other.similarity; }
 }
