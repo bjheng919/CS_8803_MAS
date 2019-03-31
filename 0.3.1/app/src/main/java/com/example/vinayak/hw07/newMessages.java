@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class newMessages extends AppCompatActivity implements View.OnClickListener{
+public class newMessages extends AppCompatActivity implements View.OnClickListener {
     private TextView topBar;
     private TextView tabDeal;
     private TextView tabPoi;
@@ -36,6 +37,8 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     private OnlySetting f3;
     private FragmentManager fragmentManager;
 
+    private boolean[] filterValues;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +47,13 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        filterValues = new boolean[5];
+        for (boolean filterValue : filterValues) { filterValue = false; }
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bindView();
         tabDeal.performClick();
-
     }
 
     //UI组件初始化与事件绑定
@@ -88,6 +92,51 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    public void onCBClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.commitedCB:
+                if (checked) {
+                    filterValues[0] = true;
+                } else {
+                    filterValues[0] = false;
+                }
+                break;
+            case R.id.nationCB:
+                if (checked) {
+                    filterValues[1] = true;
+                } else {
+                    filterValues[1] = false;
+                }
+                break;
+            case R.id.genderCB:
+                if (checked) {
+                    filterValues[2] = true;
+                } else {
+                    filterValues[2] = false;
+                }
+                break;
+            case R.id.lifestyleCB:
+                if (checked) {
+                    filterValues[3] = true;
+                } else {
+                    filterValues[3] = false;
+                }
+                break;
+            case R.id.rmTypeCB:
+                if (checked) {
+                    filterValues[4] = true;
+                } else {
+                    filterValues[4] = false;
+                }
+                break;
+        }
+        tabDeal.performClick();
+    }
+
     @Override
     public void onClick(View v) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -97,12 +146,9 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 selected();
                 tabDeal.setSelected(true);
                 mBtnOpenLeftDrawer.setVisibility(View.VISIBLE);
-                if(f1==null){
-                    f1 = new OnlyRecommendation();
-                    transaction.add(R.id.fragment_container,f1);
-                }else{
-                    transaction.show(f1);
-                }
+                f1 = new OnlyRecommendation();
+                f1.setFilterValues(filterValues);
+                transaction.add(R.id.fragment_container,f1);
                 break;
 
             case R.id.txt_poi:
@@ -117,6 +163,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                     transaction.show(f2);
                 }
                 break;
+
             case R.id.txt_user:
                 hideAllFragment(transaction);
                 selected();
@@ -129,10 +176,10 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                     transaction.show(f3);
                 }
                 break;
+
             case R.id.btn_open_left_drawer:
                 mDlMain.openDrawer(Gravity.LEFT);
                 break;
-
         }
 
         transaction.commit();
@@ -147,8 +194,6 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public MenuInflater getMenuInflater() {
-
-
         return super.getMenuInflater();
     }
 
@@ -156,29 +201,24 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
         if (id == R.id.signout) {
-
             FirebaseAuth.getInstance().signOut();
 
             Intent i = new Intent(getApplicationContext(),LoginActivity.class);
             finish();
             startActivity(i);
-        }else if (id == R.id.survey){
+        } else if (id == R.id.survey) {
             Intent i = new Intent(getApplicationContext(),FillSurvey.class);
             finish();
             startActivity(i);
-        }
-        else if(id == R.id.editprofile)
-        {
-
+        } else if(id == R.id.editprofile) {
             Intent i = new Intent(getApplicationContext(),EditProfile.class);
             finish();
             startActivity(i);
-
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }
