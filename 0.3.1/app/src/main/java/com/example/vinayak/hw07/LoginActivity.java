@@ -46,9 +46,9 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
 
-        if(user!=null)
+        if(user != null)
         {
-            final Intent i =new Intent(getApplicationContext(),CreateProfile.class);
+            final Intent i = new Intent(getApplicationContext(), CreateProfile.class);
             final String s = user.getEmail();
             i.putExtra("useremail", s);
 
@@ -59,8 +59,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 final String userEmail = email.getText().toString().trim();
                 String userPassword = password.getText().toString().trim();
 
