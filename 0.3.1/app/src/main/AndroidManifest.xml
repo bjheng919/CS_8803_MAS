@@ -26,6 +26,7 @@
         <activity android:name="com.example.vinayak.hw07.newMessages" />
         <activity android:name="com.example.vinayak.hw07.EditProfile" />
         <activity android:name="com.example.vinayak.hw07.ProfileDetails" />
+        <activity android:name="com.example.vinayak.hw07.GroupSetting" />
         <activity
             android:name=".FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

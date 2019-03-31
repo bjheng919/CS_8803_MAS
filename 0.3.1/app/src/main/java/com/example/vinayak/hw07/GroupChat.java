@@ -4,9 +4,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -14,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +42,7 @@ public class GroupChat extends AppCompatActivity {
     DatabaseReference mref;
     EachMsgAdapter adapter;
     ListView mychatlist;
+    Button groupSetting;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageref;
@@ -56,7 +63,7 @@ public class GroupChat extends AppCompatActivity {
 
         ImageButton btnsend = (ImageButton) findViewById(R.id.mychatbtnsend);
         ImageButton btngallery = (ImageButton) findViewById(R.id.mychatbtngallery);
-
+        groupSetting = (Button) findViewById(R.id.gp_setting);
         mychatlist =(ListView) findViewById(R.id.mychatlist);
 
         final EditText ettext = (EditText) findViewById(R.id.mychatettext);
@@ -96,6 +103,14 @@ public class GroupChat extends AppCompatActivity {
 
         tvfullname.setText("Chat With "+chatwith.getGroupName());
 
+        groupSetting.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), GroupSetting.class);
+                finish();
+                startActivity(i);
+            }
+        });
 
         btnsend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,5 +277,10 @@ public class GroupChat extends AppCompatActivity {
 
         return;
     }
+
+
+
+
+
 
 }
