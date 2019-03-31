@@ -1,13 +1,17 @@
 package com.example.vinayak.hw07;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,7 +19,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -38,6 +44,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     private FragmentManager fragmentManager;
 
     private boolean[] filterValues;
+    FloatingActionButton fab;///////////////////fab
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,16 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
 
         bindView();
         tabDeal.performClick();
+
+        /////////////fab below
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showChangeLangDialog();
+            }
+        });
+        //////////////fab end
+
     }
 
     //UI组件初始化与事件绑定
@@ -69,6 +86,9 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         tabDeal.setOnClickListener(this);
         tabUser.setOnClickListener(this);
         tabPoi.setOnClickListener(this);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);////////////////fab
+
     }
 
     //重置所有文本的选中状态
@@ -149,6 +169,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 f1 = new OnlyRecommendation();
                 f1.setFilterValues(filterValues);
                 transaction.add(R.id.fragment_container,f1);
+                fab.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.txt_poi:
@@ -156,6 +177,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 selected();
                 tabPoi.setSelected(true);
                 mBtnOpenLeftDrawer.setVisibility(View.GONE);
+                fab.setVisibility(View.GONE);
                 if(f2==null){
                     f2 = new OnlyGroups();
                     transaction.add(R.id.fragment_container,f2);
@@ -169,6 +191,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 selected();
                 tabUser.setSelected(true);
                 mBtnOpenLeftDrawer.setVisibility(View.GONE);
+                fab.setVisibility(View.GONE);
                 if(f3==null){
                     f3 = new OnlySetting();
                     transaction.add(R.id.fragment_container,f3);
@@ -220,5 +243,28 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         return super.onOptionsItemSelected(item);
     }
 
+    //////////////////show dialog to create group
+    public void showChangeLangDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        dialogBuilder.setView(dialogView);
 
+        final EditText edt = (EditText) dialogView.findViewById(R.id.alertedt);
+        edt.setHint("Enter your group name here");
+        dialogBuilder.setTitle("Create My Group");
+        dialogBuilder.setMessage("You will create a group whose profile is based on your survey.");
+        dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //do something with edt.getText().toString();
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+    }
 }
