@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context="com.example.vinayak.hw07.EditProfile">
+    tools:context="com.example.mit.placeholder.EditProfile">
 
     <TableRow
         android:layout_width="match_parent"
