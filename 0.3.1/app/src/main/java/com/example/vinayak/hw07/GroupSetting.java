@@ -53,13 +53,16 @@ public class GroupSetting extends AppCompatActivity {
         currGroup = (GroupProfile) getIntent().getExtras().getSerializable("chatwith");
         StringBuilder sb = new StringBuilder();
         List<String> memlist = currGroup.getMembers();
-        boolean first = true;
-        for(String mem:memlist){
-            if(!first) sb.append(", ");
-            sb.append(mem);
-            first = false;
+        if(memlist != null){
+            boolean first = true;
+            for(String mem:memlist){
+                if(!first) sb.append(", ");
+                sb.append(mem);
+                first = false;
+            }
+            tvMembers.setText(sb.toString());
         }
-        tvMembers.setText(sb.toString());
+
 
         btn_ChangeInfo.setOnClickListener(new View.OnClickListener() {
             @Override

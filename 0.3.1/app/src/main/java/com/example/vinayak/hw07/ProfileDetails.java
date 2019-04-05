@@ -105,6 +105,7 @@ public class ProfileDetails extends AppCompatActivity {
                         if(memlist == null)
                             memlist = new ArrayList<String>();
                         memlist.add(CreateProfile.myname);
+                        currGroup.setMembers(memlist);
                         mref2.setValue(currGroup).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
