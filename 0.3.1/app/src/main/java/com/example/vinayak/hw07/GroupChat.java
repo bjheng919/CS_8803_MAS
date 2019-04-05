@@ -107,6 +107,7 @@ public class GroupChat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), GroupSetting.class);
+                i.putExtra("chatwith",chatwith);
                 finish();
                 startActivity(i);
             }

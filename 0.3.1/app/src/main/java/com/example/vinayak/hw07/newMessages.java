@@ -34,7 +34,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class newMessages extends AppCompatActivity implements View.OnClickListener {
@@ -284,6 +288,9 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                         groupProfile.setCreatorUuid(CreateProfile.myuuid);
                         groupProfile.setGroupName(edt.getText().toString());
                         groupProfile.setUuid(groupuuid);
+                        List<String> members = new ArrayList<>();
+                        members.add(CreateProfile.myname);
+                        groupProfile.setMembers(members);
                         pushid.setValue(groupProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -325,36 +332,6 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-
-
-
-                //do something with edt.getText().toString();
-//                final DatabaseReference pushid = FirebaseDatabase.getInstance().getReference().child("groups").push();
-//                String groupuuid = pushid.getKey();
-//                GroupProfile groupProfile = new GroupProfile();
-//                groupProfile.setCommitNum("0");
-//                groupProfile.setTotalNum();
-//                groupProfile.setCreatorUuid(CreateProfile.myuuid);
-//                groupProfile.setGroupName(edt.getText().toString());
-//                groupProfile.setUuid(groupuuid);
-//                pushid.setValue(groupProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//
-//                        final DatabaseReference glref = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid).child("groupUuidList");
-//                        glref.setValue(edt.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                Toast.makeText(getApplicationContext(),"Group Created",Toast.LENGTH_LONG).show();
-//
-//                                Intent i = new Intent(getApplicationContext(),newMessages.class);
-//                                finish();
-//                                startActivity(i);
-//                            }
-//                        });
-//
-//                    }
-//                });
             }
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

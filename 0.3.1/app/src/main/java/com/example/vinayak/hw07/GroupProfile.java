@@ -1,6 +1,9 @@
 package com.example.vinayak.hw07;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Vinayaka on 11/22/2016.
@@ -8,7 +11,16 @@ import java.io.Serializable;
 public class GroupProfile implements Serializable, Comparable<GroupProfile> {
 
     String groupName, commitNum, totalNum, uuid, image, creatorUuid, gender;
+    List<String> members;
     int similarity;
+
+    public List<String> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<String> members) {
+        this.members = members;
+    }
 
     public String getImage() {
         return image;

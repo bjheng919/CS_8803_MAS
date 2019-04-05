@@ -32,11 +32,15 @@
             android:layout_marginLeft="10dp"
             android:textSize="15dp" />
 
-        <ListView
+        <TextView
             android:id="@+id/listmembers"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="members"
+            android:textColor="@color/cast_expanded_controller_background_color"
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/group_pf"
@@ -46,12 +50,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="15dp" />
+
         <Button
             android:id="@+id/change_group_info"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Change group info"
-
+            android:text="Change group name"
             />
 
         <Button
