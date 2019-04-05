@@ -298,6 +298,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         List currGroupUuidList = (List<String>)dataSnapshot.getValue();
+                                        if(currGroupUuidList == null) currGroupUuidList = new ArrayList<String>();
                                         currGroupUuidList.add(groupuuid);
                                         mref1.setValue(currGroupUuidList).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
