@@ -24,8 +24,17 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Collections;
 
 
 public class newMessages extends AppCompatActivity implements View.OnClickListener {
@@ -66,7 +75,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showChangeLangDialog();
+                createGroupDialog();
             }
         });
         //////////////fab end
@@ -161,6 +170,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch(v.getId()){
+
             case R.id.txt_deal:
                 hideAllFragment(transaction);
                 selected();
@@ -203,6 +213,9 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
             case R.id.btn_open_left_drawer:
                 mDlMain.openDrawer(Gravity.LEFT);
                 break;
+
+
+
         }
 
         transaction.commit();
@@ -243,8 +256,9 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         return super.onOptionsItemSelected(item);
     }
 
+
     //////////////////show dialog to create group
-    public void showChangeLangDialog() {
+    public void createGroupDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
@@ -254,9 +268,93 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         edt.setHint("Enter your group name here");
         dialogBuilder.setTitle("Create My Group");
         dialogBuilder.setMessage("You will create a group whose profile is based on your survey.");
+
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                final DatabaseReference mref0 = FirebaseDatabase.getInstance().getReference().child("surveys").child(CreateProfile.myuuid);
+                mref0.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        final UserSurvey currSurvey = dataSnapshot.getValue(UserSurvey.class);
+                        final DatabaseReference pushid = FirebaseDatabase.getInstance().getReference().child("groups").push();
+                        final String groupuuid = pushid.getKey();
+                        GroupProfile groupProfile = new GroupProfile();
+                        groupProfile.setCommitNum("0");
+                        groupProfile.setTotalNum(currSurvey.getRmmtNum());
+                        groupProfile.setCreatorUuid(CreateProfile.myuuid);
+                        groupProfile.setGroupName(edt.getText().toString());
+                        groupProfile.setUuid(groupuuid);
+                        pushid.setValue(groupProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid).child("groupUuidList");
+                                mref1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String currGroupUuidList = dataSnapshot.getValue().toString();
+                                        mref1.setValue(currGroupUuidList+","+groupuuid).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("groupSurveys").child(groupuuid);
+                                                mref1.setValue(currSurvey).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Toast.makeText(getApplicationContext(),"Group Created",Toast.LENGTH_LONG).show();
+
+                                                        Intent i = new Intent(getApplicationContext(),newMessages.class);
+                                                        finish();
+                                                        startActivity(i);
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+
+
                 //do something with edt.getText().toString();
+//                final DatabaseReference pushid = FirebaseDatabase.getInstance().getReference().child("groups").push();
+//                String groupuuid = pushid.getKey();
+//                GroupProfile groupProfile = new GroupProfile();
+//                groupProfile.setCommitNum("0");
+//                groupProfile.setTotalNum();
+//                groupProfile.setCreatorUuid(CreateProfile.myuuid);
+//                groupProfile.setGroupName(edt.getText().toString());
+//                groupProfile.setUuid(groupuuid);
+//                pushid.setValue(groupProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//
+//                        final DatabaseReference glref = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid).child("groupUuidList");
+//                        glref.setValue(edt.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(getApplicationContext(),"Group Created",Toast.LENGTH_LONG).show();
+//
+//                                Intent i = new Intent(getApplicationContext(),newMessages.class);
+//                                finish();
+//                                startActivity(i);
+//                            }
+//                        });
+//
+//                    }
+//                });
             }
         });
         dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -101,7 +101,7 @@ public class GroupChat extends AppCompatActivity {
         adapter.setNotifyOnChange(true);
 
 
-        tvfullname.setText("Chat With "+chatwith.getGroupName());
+        tvfullname.setText(chatwith.getGroupName());
 
         groupSetting.setOnClickListener(new View.OnClickListener(){
             @Override

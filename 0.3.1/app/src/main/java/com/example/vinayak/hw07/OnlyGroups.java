@@ -85,7 +85,7 @@ public class OnlyGroups extends Fragment {
 
                             GroupProfile groupprofile = postSnapshot.getValue(GroupProfile.class);
 
-                            if(grouplist.indexOf(groupprofile.getGroupName())>=0) {
+                            if(grouplist.indexOf(groupprofile.getUuid())>=0) {
                                 profilelistfinal.add(groupprofile);
                             }
                         }
