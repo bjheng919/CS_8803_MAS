@@ -1,23 +1,36 @@
 package com.example.vinayak.hw07;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileDetails extends AppCompatActivity {
 
     GroupProfile groupProfile;
     UserSurvey groupSurvey;
+    GroupProfile currGroup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +49,7 @@ public class ProfileDetails extends AppCompatActivity {
         TextView tvParty =(TextView) findViewById(R.id.profDetailTVParty);
         TextView tvSmoke =(TextView) findViewById(R.id.profDetailTVSmoke);
         TextView tvPet =(TextView) findViewById(R.id.profDetailTVPet);
+        currGroup = (GroupProfile) getIntent().getExtras().getSerializable("groupProfile");
 
         groupProfile = new GroupProfile();
         groupProfile = (GroupProfile) getIntent().getExtras().getSerializable("groupProfile");
@@ -56,24 +70,6 @@ public class ProfileDetails extends AppCompatActivity {
         tvSmoke.setText(groupSurvey.getSmoke());
         tvPet.setText(groupSurvey.getPet());
 
-        /* Original code for setting the picture in user profile page, but now there is no picture for group profile
-        if(groupProfile.getImage() != null) {
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageReference = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
-            StorageReference storageref = storageReference.child(groupProfile.getImage());
-
-            storageref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-
-                    Picasso.with(getApplicationContext()).load(uri).into(ivimage);
-                }
-            });
-        } else {
-            ivimage.setImageResource(R.mipmap.noimage);
-        }
-        */
-
         findViewById(R.id.profDetailBtnBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,18 +80,49 @@ public class ProfileDetails extends AppCompatActivity {
         });
 
         Button btnJoinGroup = (Button) findViewById(R.id.profDetailBtnJoinGroup);
-        /*
-        btnmsg.setOnClickListener(new View.OnClickListener() {
+
+        btnJoinGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                joinGroup();
+            }
+        });
+    }
 
-                Intent i = new Intent(getApplicationContext(),MyChat.class);
-                i.putExtra("chatwith",usertemp);
-                finish();
-                startActivity(i);
+    public void joinGroup(){
+
+        final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid);
+        mref1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List currGroupUuidList = (List<String>)dataSnapshot.getValue();
+                currGroupUuidList.add(currGroup.getUuid());
+                mref1.setValue(currGroupUuidList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        final DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference().child("groups").child(currGroup.getUuid());
+                        List<String> memlist = currGroup.getMembers();
+                        if(memlist == null)
+                            memlist = new ArrayList<String>();
+                        memlist.add(CreateProfile.myname);
+                        mref2.setValue(currGroup).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(),"Join success",Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(getApplicationContext(),newMessages.class);
+                                finish();
+                                startActivity(i);
+                            }
+                        });
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-        */
+
     }
 }

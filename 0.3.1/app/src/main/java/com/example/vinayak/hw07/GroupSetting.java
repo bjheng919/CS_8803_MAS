@@ -108,7 +108,7 @@ public class GroupSetting extends AppCompatActivity {
                                 mref2.setValue(currGroup).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getApplicationContext(),"Quit succes",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(),"Quit success",Toast.LENGTH_LONG).show();
                                         Intent i = new Intent(getApplicationContext(),newMessages.class);
                                         finish();
                                         startActivity(i);
