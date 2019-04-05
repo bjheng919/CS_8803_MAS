@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -33,7 +34,7 @@ public class OnlyGroups extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     ListView listView;
-    String grouplist;
+    List grouplist;
     ArrayList<GroupProfile> profilelistfinal = new ArrayList<GroupProfile>();
     CustomGroupsAdapter adapter;
 
@@ -70,7 +71,7 @@ public class OnlyGroups extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                grouplist = dataSnapshot.child("groupUuidList").getValue().toString();
+                grouplist = (List<String>)dataSnapshot.getValue();
 
 
                 final DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference().child("groups");
@@ -85,7 +86,7 @@ public class OnlyGroups extends Fragment {
 
                             GroupProfile groupprofile = postSnapshot.getValue(GroupProfile.class);
 
-                            if(grouplist.indexOf(groupprofile.getUuid())>=0) {
+                            if(grouplist.contains(groupprofile.getUuid())) {
                                 profilelistfinal.add(groupprofile);
                             }
                         }

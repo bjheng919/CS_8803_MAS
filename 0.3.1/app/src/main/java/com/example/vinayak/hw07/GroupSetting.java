@@ -26,6 +26,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class GroupSetting extends AppCompatActivity {
 
@@ -51,16 +53,25 @@ public class GroupSetting extends AppCompatActivity {
         currGroup = (GroupProfile) getIntent().getExtras().getSerializable("chatwith");
         StringBuilder sb = new StringBuilder();
         List<String> memlist = currGroup.getMembers();
-        for(int i=0; i<memlist.size(); i++){
-            if(i!=0) sb.append(", ");
-            sb.append(memlist.get(i));
+        boolean first = true;
+        for(String mem:memlist){
+            if(!first) sb.append(", ");
+            sb.append(mem);
+            first = false;
         }
         tvMembers.setText(sb.toString());
 
         btn_ChangeInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNameDialog();
+                changeNameDialog();
+            }
+        });
+
+        btn_Quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                quitGroup();
             }
         });
 
@@ -75,9 +86,56 @@ public class GroupSetting extends AppCompatActivity {
     }
 
 
+    public void quitGroup(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
-    //////////////////show dialog to create group
-    public void createNameDialog() {
+        dialogBuilder.setTitle("You sure you want to quit this group?");
+
+        dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //quit the group here(modify grouplist and groups)
+                final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid);
+                mref1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        final List currGroupUuidList = (List<String>)dataSnapshot.getValue();
+                        currGroupUuidList.remove(currGroup.getUuid());
+                        mref1.setValue(currGroupUuidList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                final DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference().child("groups").child(currGroup.getUuid());
+                                currGroup.getMembers().remove(CreateProfile.myname);
+                                mref2.setValue(currGroup).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(getApplicationContext(),"Quit succes",Toast.LENGTH_LONG).show();
+                                        Intent i = new Intent(getApplicationContext(),newMessages.class);
+                                        finish();
+                                        startActivity(i);
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+        dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+    }
+
+
+    public void changeNameDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.custom_dialog, null);

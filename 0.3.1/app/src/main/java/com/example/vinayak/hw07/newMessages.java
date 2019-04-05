@@ -35,9 +35,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -294,12 +291,13 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                         pushid.setValue(groupProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid).child("groupUuidList");
+                                final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid);
                                 mref1.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        String currGroupUuidList = dataSnapshot.getValue().toString();
-                                        mref1.setValue(currGroupUuidList+","+groupuuid).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        List currGroupUuidList = (List<String>)dataSnapshot.getValue();
+                                        currGroupUuidList.add(groupuuid);
+                                        mref1.setValue(currGroupUuidList).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("groupSurveys").child(groupuuid);

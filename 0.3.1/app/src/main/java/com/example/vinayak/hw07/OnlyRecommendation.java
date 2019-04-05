@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -38,7 +39,7 @@ public class OnlyRecommendation extends Fragment {
     ArrayList<UserSurvey> groupSurveyList = new ArrayList<>();
     ArrayList<GroupProfile> filteredGroupProfileList = new ArrayList<>();
     ArrayList<UserSurvey> filteredGroupSurveyList = new ArrayList<>();
-    String currGroupUuidList;
+    List currGroupUuidList;
     UserProfile currProfile;
     UserSurvey currSurvey;
     CustomRecommendationAdapter adapter;
@@ -138,7 +139,7 @@ public class OnlyRecommendation extends Fragment {
                         mref0.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                currGroupUuidList = dataSnapshot.child("groupUuidList").getValue().toString();
+                                currGroupUuidList = (List<String>)dataSnapshot.getValue();
 
                                 // Get all the groups surveys except those containing current user
                                 final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("groupSurveys");
