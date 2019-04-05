@@ -88,7 +88,8 @@ public class ProfileDetails extends AppCompatActivity {
         mref1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                final List currGroupUuidList = (List<String>)dataSnapshot.getValue();
+                List currGroupUuidList = (List<String>)dataSnapshot.getValue();
+                if(currGroupUuidList == null) currGroupUuidList = new ArrayList<String>();
                 currGroupUuidList.add(currGroup.getUuid());
                 mref1.setValue(currGroupUuidList).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
