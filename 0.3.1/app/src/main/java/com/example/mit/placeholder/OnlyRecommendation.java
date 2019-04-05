@@ -128,22 +128,27 @@ public class OnlyRecommendation extends Fragment {
                 currProfile = dataSnapshot.getValue(UserProfile.class);
 
                 // Find the current user's survey
-                final DatabaseReference mref3 = FirebaseDatabase.getInstance().getReference().child("surveys").child(CreateProfile.myuuid);
-                mref3.addValueEventListener(new ValueEventListener() {
+                final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("surveys").child(CreateProfile.myuuid);
+                mref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         currSurvey = dataSnapshot.getValue(UserSurvey.class);
 
-                        // Find the current user's groupUuidList
-                        final DatabaseReference mref0 = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid);
-                        mref0.addValueEventListener(new ValueEventListener() {
+                        // Find the current user's groupUuidList; return empty list if user does not belong to any group
+                        final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid);
+                        mref.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                currGroupUuidList = (List<String>)dataSnapshot.getValue();
+                                currGroupUuidList = (List<String>) dataSnapshot.getValue();
+
+                                // if current user is at least in one group
+                                if (currGroupUuidList == null) {
+                                    currGroupUuidList = new ArrayList<String>();
+                                }
 
                                 // Get all the groups surveys except those containing current user
-                                final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("groupSurveys");
-                                mref1.addValueEventListener(new ValueEventListener() {
+                                final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("groupSurveys");
+                                mref.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         for (DataSnapshot groupSnapshot : dataSnapshot.getChildren()) {
@@ -155,12 +160,14 @@ public class OnlyRecommendation extends Fragment {
                                         }
 
                                         // Set similarity for all temp group profile and add them to groupProfileList
-                                        final DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference().child("groups");
-                                        mref2.addValueEventListener(new ValueEventListener() {
+                                        final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("groups");
+                                        mref.addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 groupProfileList.removeAll(groupProfileList);
                                                 groupSurveyList.removeAll(groupProfileList);
+                                                filteredGroupProfileList.removeAll(filteredGroupProfileList);
+                                                filteredGroupSurveyList.removeAll(filteredGroupSurveyList);
                                                 for (DataSnapshot groupSnapshot : dataSnapshot.getChildren()) {
                                                     if (tempGroupUuidList.contains(groupSnapshot.getKey())) {
                                                         // System.out.println("Checking groupuuid: " + groupSnapshot.getKey() + " -------------------------");

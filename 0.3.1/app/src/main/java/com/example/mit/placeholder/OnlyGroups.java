@@ -71,6 +71,9 @@ public class OnlyGroups extends Fragment {
 
                 grouplist = (List<String>)dataSnapshot.getValue();
 
+                if (grouplist == null) {
+                    grouplist = new ArrayList<String>();
+                }
 
                 final DatabaseReference mref2 = FirebaseDatabase.getInstance().getReference().child("groups");
 
