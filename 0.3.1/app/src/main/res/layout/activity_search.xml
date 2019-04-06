@@ -153,12 +153,12 @@
         android:background="@color/textColorPrimary">
 
         <TextView
-            android:id="@+id/filterTV"
+            android:id="@+id/sortByTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
-            android:text="Filter"
+            android:text="Sort By"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <CheckBox
@@ -169,11 +169,20 @@
             android:text="Roommate Commited"
             android:onClick="onCBClicked" />
 
+        <TextView
+            android:id="@+id/filterTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="120dp"
+            android:text="Sort By"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <CheckBox
             android:id="@+id/nationCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="160dp"
             android:text="Nationality"
             android:onClick="onCBClicked" />
 
@@ -181,7 +190,7 @@
             android:id="@+id/genderCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="200dp"
             android:text="Gender"
             android:onClick="onCBClicked" />
 
@@ -189,7 +198,7 @@
             android:id="@+id/lifestyleCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="240dp"
             android:text="LifeStyle"
             android:onClick="onCBClicked" />
 
@@ -197,7 +206,7 @@
             android:id="@+id/rmTypeCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="280dp"
             android:text="Room Type"
             android:onClick="onCBClicked" />
 
