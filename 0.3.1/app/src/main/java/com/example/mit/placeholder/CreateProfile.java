@@ -29,13 +29,11 @@ import java.util.UUID;
 
 public class CreateProfile extends AppCompatActivity {
 
-    // ImageView ivimage;
     ImageView ibgallery;
     Button btncreate;
     EditText etfname;
     EditText etlname;
     EditText etemail;
-    RadioGroup rggender;
 
     String imgurl=null;
     static String myuuid = null;
@@ -60,7 +58,6 @@ public class CreateProfile extends AppCompatActivity {
         etfname = (EditText) findViewById(R.id.cpetfname);
         etlname = (EditText) findViewById(R.id.cpetlname);
         etemail = (EditText) findViewById(R.id.cpetemail);
-        rggender = (RadioGroup) findViewById(R.id.cprgender);
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
@@ -144,12 +141,6 @@ public class CreateProfile extends AppCompatActivity {
                     profile.setLname(etlname.getText().toString().trim());
                     profile.setEmail(etemail.getText().toString().trim());
                     myname=etfname.getText().toString().trim();
-
-                    if(rggender.getCheckedRadioButtonId()==R.id.cprbmale) {
-                        profile.setGender("Male");
-                    } else {
-                        profile.setGender("Female");
-                    }
 
                     final DatabaseReference pushid = refDatabase.getReference().child("users").push();
                     profile.setUuid(pushid.getKey());

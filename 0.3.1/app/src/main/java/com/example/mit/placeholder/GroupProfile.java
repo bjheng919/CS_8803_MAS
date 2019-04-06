@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class GroupProfile implements Serializable, Comparable<GroupProfile> {
 
-    String groupName, commitNum, totalNum, uuid, image, creatorUuid, gender;
+    String groupName, commitNum, totalNum, uuid, image, creatorUuid;
     List<String> members;
     int similarity;
 
@@ -63,10 +63,6 @@ public class GroupProfile implements Serializable, Comparable<GroupProfile> {
     public String getCreatorUuid() { return creatorUuid; }
 
     public void setCreatorUuid(String creatorUuid) { this.creatorUuid = creatorUuid; }
-
-    public String getGender() { return gender; }
-
-    public void setGender(String gender) { this.gender = gender; }
 
     public int getSimilarity() { return similarity; }
 

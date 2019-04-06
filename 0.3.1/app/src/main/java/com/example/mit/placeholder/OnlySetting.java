@@ -79,10 +79,9 @@ public class OnlySetting extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 TextView tvname = (TextView) getView().findViewById(R.id.profdisname);
                 TextView tvemail =(TextView) getView().findViewById(R.id.profdisemail);
-                TextView tvgender =(TextView) getView().findViewById(R.id.profdisgender);
                 usertemp = dataSnapshot.getValue(UserProfile.class);
                 tvname.setText(usertemp.getFname() + " " + usertemp.getLname());
-                tvgender.setText(usertemp.getGender());
+
                 tvemail.setText(usertemp.getEmail());
 
                 if(usertemp.getImage()!=null)

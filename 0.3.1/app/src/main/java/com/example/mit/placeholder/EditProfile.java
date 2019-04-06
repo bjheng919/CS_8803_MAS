@@ -36,9 +36,6 @@ public class EditProfile extends AppCompatActivity {
     EditText etfname;
     EditText etlname;
     EditText etemail;
-    RadioGroup rggender;
-    RadioButton rbmale;
-    RadioButton rbfemale;
 
     UserProfile tempprof;
 
@@ -63,9 +60,6 @@ public class EditProfile extends AppCompatActivity {
         etfname = (EditText) findViewById(R.id.epetfname);
         etlname = (EditText) findViewById(R.id.epetlname);
         etemail = (EditText) findViewById(R.id.epetemail);
-        rggender = (RadioGroup) findViewById(R.id.eprgender);
-        rbfemale = (RadioButton) findViewById(R.id.eprbfemale);
-        rbmale = (RadioButton) findViewById(R.id.eprbmale);
 
         storageref = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
 
@@ -103,16 +97,6 @@ public class EditProfile extends AppCompatActivity {
                         etfname.setText(tempprof.getFname());
                         etlname.setText(tempprof.getLname());
 
-                        if(tempprof.getGender().equals("Male"))
-                        {
-                            rbmale.setChecked(true);
-                            rbfemale.setChecked(false);
-                        }
-                        else {
-
-                            rbmale.setChecked(false);
-                            rbfemale.setChecked(true);
-                        }
 
                         uuid = tempprof.getUuid();
 
@@ -190,10 +174,7 @@ public class EditProfile extends AppCompatActivity {
                     profile.setLname(etlname.getText().toString().trim());
                     profile.setEmail(etemail.getText().toString().trim());
 
-                    if(rggender.getCheckedRadioButtonId()==R.id.eprbmale)
-                        profile.setGender("Male");
-                    else
-                        profile.setGender("Female");
+
 
                     profile.setImage(imageurl);
                     profile.setUuid(uuid);

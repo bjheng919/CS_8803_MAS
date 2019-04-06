@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class UserProfile implements Serializable, Comparable<UserProfile> {
 
-    String fname, lname, email, gender, image, uuid;
+    String fname, lname, email, image, uuid;
     int similarity;
 
     public String getUuid() {
@@ -40,14 +40,6 @@ public class UserProfile implements Serializable, Comparable<UserProfile> {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getImage() {
