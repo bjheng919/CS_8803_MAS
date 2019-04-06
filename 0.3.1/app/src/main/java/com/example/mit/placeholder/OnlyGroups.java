@@ -133,7 +133,7 @@ public class OnlyGroups extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent ii = new Intent(getActivity(),GroupChat.class);
                 ii.putExtra("chatwith",profilelistfinal.get(i));
-                getActivity().finish();
+//                getActivity().finish();
                 startActivity(ii);
             }
         });

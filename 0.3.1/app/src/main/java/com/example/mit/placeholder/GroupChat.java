@@ -265,14 +265,14 @@ public class GroupChat extends AppCompatActivity {
         }
     }
 
-    public void onBackPressed()
-    {
-        Intent i = new Intent(getApplicationContext(),newMessages.class);
-        finish();
-        startActivity(i);
-
-        return;
-    }
+//    public void onBackPressed()
+//    {
+//        Intent i = new Intent(getApplicationContext(),newMessages.class);
+//        finish();
+//        startActivity(i);
+//
+//        return;
+//    }
 
 
 

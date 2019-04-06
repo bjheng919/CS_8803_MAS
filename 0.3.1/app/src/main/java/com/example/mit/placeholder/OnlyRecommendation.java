@@ -85,7 +85,7 @@ public class OnlyRecommendation extends Fragment {
                 Intent ii = new Intent(getActivity(),ProfileDetails.class);
                 ii.putExtra("groupProfile", filteredGroupProfileList.get(i));
                 ii.putExtra("groupSurvey", filteredGroupSurveyList.get(i));
-                getActivity().finish();
+//                getActivity().finish();
                 startActivity(ii);
             }
         });
