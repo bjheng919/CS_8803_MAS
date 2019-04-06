@@ -221,17 +221,31 @@ public class OnlyRecommendation extends Fragment {
     private void copyToFilteredLists() {
         for (int i = 0; i < groupProfileList.size(); i++) {
             GroupProfile gp = groupProfileList.get(i);
-            UserSurvey us = groupSurveyList.get(i);
-            if ((!filterValues[0] || (filterValues[0] && Integer.parseInt(gp.getCommitNum()) >= 1)) &&
-                    (!filterValues[1] || (filterValues[1] && us.getNation().equals(currSurvey.getNation()))) &&
-                    (!filterValues[2] || (filterValues[2] && gp.getGender().equals(currProfile.getGender()))) &&
-                    (!filterValues[3] || (filterValues[3] && us.getSmoke().equals(currSurvey.getSmoke()) &&
-                            us.getCook().equals(currSurvey.getCook()) && us.getParty().equals(currSurvey.getParty()) &&
-                            us.getPet().equals(currSurvey.getPet()))) &&
-                    (!filterValues[4] || (filterValues[4] && us.getRmType().equals(currSurvey.getRmType())))) {
+            UserSurvey gs = groupSurveyList.get(i);
+            if ((!filterValues[1] ||
+                            (currSurvey.getSameNation().equals("Yes") && gs.getSameNation().equals("Yes") && gs.getNation().equals(currSurvey.getNation())) ||
+                            (currSurvey.getSameNation().equals("No") && gs.getSameNation().equals("No") && !gs.getNation().equals(currSurvey.getNation())) ||
+                            (currSurvey.getSameNation().equals("IDC") && gs.getSameNation().equals("IDC"))) &&
+                    (!filterValues[2] ||
+                            gp.getGender().equals(currProfile.getGender())) &&
+                    (!filterValues[3] ||
+                            (gs.getSmoke().equals(currSurvey.getSmoke()) && gs.getCook().equals(currSurvey.getCook()) &&
+                             gs.getParty().equals(currSurvey.getParty()) && gs.getPet().equals(currSurvey.getPet()))) &&
+                    (!filterValues[4] ||
+                            gs.getRmType().equals(currSurvey.getRmType()))) {
+                if (filterValues[0]) {
+                    int commitNum = Integer.parseInt(gp.getCommitNum());
+                    gp.setSimilarity(gp.getSimilarity() + commitNum * 100);
+                    gs.setSimilarity(gs.getSimilarity() + commitNum * 100);
+                }
                 filteredGroupProfileList.add(gp);
-                filteredGroupSurveyList.add(us);
+                filteredGroupSurveyList.add(gs);
             }
+        }
+
+        if (filterValues[0]) {
+            Collections.sort(filteredGroupProfileList, Collections.reverseOrder());
+            Collections.sort(filteredGroupSurveyList, Collections.reverseOrder());
         }
     }
 
@@ -239,6 +253,7 @@ public class OnlyRecommendation extends Fragment {
         int count = 0;
         if (curr.getSameNation().equals("Yes") && other.getSameNation().equals("Yes") && curr.getNation().equals(other.getNation())) count++;
         if (curr.getSameNation().equals("No") && other.getSameNation().equals("No") && !curr.getNation().equals(other.getNation())) count++;
+        if (curr.getSameNation().equals("IDC") && other.getSameNation().equals("IDC")) count++;
         if (curr.getCook().equals(other.getCook())) count++;
         if (curr.getLsEndTime().equals(other.getLsEndTime())) count++;
         if (curr.getLsStartTime().equals(other.getLsStartTime())) count++;
