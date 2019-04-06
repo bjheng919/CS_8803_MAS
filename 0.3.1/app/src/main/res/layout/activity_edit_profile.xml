@@ -7,24 +7,28 @@
     android:padding="20dp"
     tools:context="com.example.mit.placeholder.EditProfile">
 
-    <TableRow
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        >
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Back"
-            android:layout_marginRight="194dp"
-            android:id="@+id/epbtnback" />
+            android:id="@+id/epbtnback"
+            android:layout_alignParentLeft="true"
+             />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Update"
-            android:id="@+id/epbtnupdate" />
-    </TableRow>
+            android:id="@+id/epbtnupdate"
+            android:layout_alignParentRight="true"
+
+            />
+    </RelativeLayout>
 
     <ImageView
         android:layout_marginTop="60dp"
