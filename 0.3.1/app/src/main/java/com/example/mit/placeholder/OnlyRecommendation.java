@@ -223,16 +223,19 @@ public class OnlyRecommendation extends Fragment {
             GroupProfile gp = groupProfileList.get(i);
             UserSurvey gs = groupSurveyList.get(i);
             if ((!filterValues[1] ||
-                            (currSurvey.getSameNation().equals("Yes") && gs.getSameNation().equals("Yes") && gs.getNation().equals(currSurvey.getNation())) ||
+                            (currSurvey.getSameNation() != null && gs.getSameNation() != null &&
+                            ((currSurvey.getSameNation().equals("Yes") && gs.getSameNation().equals("Yes") && gs.getNation().equals(currSurvey.getNation())) ||
                             (currSurvey.getSameNation().equals("No") && gs.getSameNation().equals("No") && !gs.getNation().equals(currSurvey.getNation())) ||
-                            (currSurvey.getSameNation().equals("IDC") && gs.getSameNation().equals("IDC"))) &&
+                            (currSurvey.getSameNation().equals("IDC") && gs.getSameNation().equals("IDC"))))) &&
                     (!filterValues[2] ||
-                            gp.getGender().equals(currProfile.getGender())) &&
+                            (currSurvey.getGender() != null && currSurvey.getGender() != null && gs.getGender().equals(currSurvey.getGender()))) &&
                     (!filterValues[3] ||
-                            (gs.getSmoke().equals(currSurvey.getSmoke()) && gs.getCook().equals(currSurvey.getCook()) &&
-                             gs.getParty().equals(currSurvey.getParty()) && gs.getPet().equals(currSurvey.getPet()))) &&
+                            (currSurvey.getSmoke() != null && gs.getSmoke() != null && gs.getSmoke().equals(currSurvey.getSmoke()) &&
+                            currSurvey.getCook() != null && gs.getSmoke() != null && gs.getCook().equals(currSurvey.getCook()) &&
+                            currSurvey.getParty() != null && gs.getParty() != null && gs.getParty().equals(currSurvey.getParty()) &&
+                            currSurvey.getPet() != null && gs.getPet() != null && gs.getPet().equals(currSurvey.getPet()))) &&
                     (!filterValues[4] ||
-                            gs.getRmType().equals(currSurvey.getRmType()))) {
+                            (currSurvey.getRmType() != null && gs.getRmType() != null && gs.getRmType().equals(currSurvey.getRmType())))) {
                 if (filterValues[0]) {
                     int commitNum = Integer.parseInt(gp.getCommitNum());
                     gp.setSimilarity(gp.getSimilarity() + commitNum * 100);
@@ -251,19 +254,34 @@ public class OnlyRecommendation extends Fragment {
 
     private int calculateSimilarity(UserSurvey curr, UserSurvey other) {
         int count = 0;
-        if (curr.getSameNation().equals("Yes") && other.getSameNation().equals("Yes") && curr.getNation().equals(other.getNation())) count++;
-        if (curr.getSameNation().equals("No") && other.getSameNation().equals("No") && !curr.getNation().equals(other.getNation())) count++;
-        if (curr.getSameNation().equals("IDC") && other.getSameNation().equals("IDC")) count++;
-        if (curr.getCook().equals(other.getCook())) count++;
-        if (curr.getLsEndTime().equals(other.getLsEndTime())) count++;
-        if (curr.getLsStartTime().equals(other.getLsStartTime())) count++;
-        if (curr.getParty().equals(other.getParty())) count++;
-        if (curr.getPet().equals(other.getPet())) count++;
-        if (curr.getRentHigh().equals(other.getRentHigh())) count++;
-        if (curr.getRentLow().equals(other.getRentLow())) count++;
-        if (curr.getRmmtNum().equals(other.getRmmtNum())) count++;
-        if (curr.getRmType().equals(other.getRmType())) count++;
-        if (curr.getSmoke().equals(other.getSmoke())) count++;
+        if (curr.getSameNation()!= null && other.getSameNation() != null) {
+            if (curr.getSameNation().equals("Yes") && other.getSameNation().equals("Yes") &&
+                    curr.getNation().equals(other.getNation())) count++;
+            if (curr.getSameNation().equals("No") && other.getSameNation().equals("No") &&
+                    !curr.getNation().equals(other.getNation()))
+                count++;
+            if (curr.getSameNation().equals("IDC") && other.getSameNation().equals("IDC")) count++;
+        }
+        if (curr.getCook() != null && other.getCook() != null)
+            if (curr.getCook().equals(other.getCook())) count++;
+        if (curr.getLsEndTime() != null && other.getLsEndTime() != null)
+            if (curr.getLsEndTime().equals(other.getLsEndTime())) count++;
+        if (curr.getLsStartTime() != null && other.getLsStartTime() != null)
+            if (curr.getLsStartTime().equals(other.getLsStartTime())) count++;
+        if (curr.getParty() != null && other.getParty() != null)
+            if (curr.getParty().equals(other.getParty())) count++;
+        if (curr.getPet() != null && other.getPet() != null)
+            if (curr.getPet().equals(other.getPet())) count++;
+        if (curr.getRentHigh() != null && other.getRentHigh() != null)
+            if (curr.getRentHigh().equals(other.getRentHigh())) count++;
+        if (curr.getRentLow() != null && other.getRentLow() != null)
+            if (curr.getRentLow().equals(other.getRentLow())) count++;
+        if (curr.getRmmtNum() != null && other.getRmmtNum() != null)
+            if (curr.getRmmtNum().equals(other.getRmmtNum())) count++;
+        if (curr.getRmType() != null && other.getRmType() != null)
+            if (curr.getRmType().equals(other.getRmType())) count++;
+        if (curr.getSmoke() != null && other.getSmoke() != null)
+            if (curr.getSmoke().equals(other.getSmoke())) count++;
         return count;
     }
 

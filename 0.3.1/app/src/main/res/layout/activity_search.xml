@@ -175,7 +175,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="120dp"
-            android:text="Sort By"
+            android:text="Filter"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <CheckBox

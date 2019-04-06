@@ -2,12 +2,10 @@ package com.example.mit.placeholder;
 
 import java.io.Serializable;
 
-/**
- * Created by Vinayaka on 11/22/2016.
- */
 public class UserSurvey implements Serializable, Comparable<UserSurvey> {
 
     String nation;
+    String gender;
     String rmType;
     String rmmtNum;
     String lsStartTime;
@@ -19,6 +17,7 @@ public class UserSurvey implements Serializable, Comparable<UserSurvey> {
     String cook;
     String party;
     String sameNation;
+    String sameGender;
     int similarity;
 
     public String getRentLow() { return rentLow; }
@@ -28,6 +27,14 @@ public class UserSurvey implements Serializable, Comparable<UserSurvey> {
     public String getRentHigh() { return rentHigh; }
 
     public void setRentHigh(String rentHigh) { this.rentHigh = rentHigh; }
+
+    public String getGender() {return gender;}
+
+    public void setGender(String gender) {this.gender = gender;}
+
+    public String getSameGender() {return sameGender;}
+
+    public void setSameGender(String sameGender) {this.sameGender = sameGender;}
 
     public String getSameNation() { return sameNation; }
 

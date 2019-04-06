@@ -48,7 +48,7 @@ public class CustomRecommendationAdapter extends ArrayAdapter<GroupProfile> {
         final CircleImageView ivimage = (CircleImageView) convertView.findViewById(R.id.customconimage);
 
         tvfnmae.setText(group.getGroupName());
-        tvlnmae.setText(group.getCommitNum()+"/"+group.getTotalNum());
+        tvlnmae.setText(group.getMembers().size()+" / "+group.getTotalNum());
 
         if(group.getImage()==null) {
             ivimage.setImageResource(R.mipmap.noimage);
