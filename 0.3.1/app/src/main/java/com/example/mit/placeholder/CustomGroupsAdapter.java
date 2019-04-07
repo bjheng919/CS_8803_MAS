@@ -50,7 +50,7 @@ public class CustomGroupsAdapter extends ArrayAdapter<GroupProfile> {
 
         final TextView tvfnmae = (TextView) convertView.findViewById(R.id.msgcustomconfname);
         final TextView tvlnmae = (TextView) convertView.findViewById(R.id.msgcustomconlname);
-
+        final TextView tvcommit = (TextView) convertView.findViewById(R.id.msgItemCommitTV);
         final CircleImageView ivimage = (CircleImageView) convertView.findViewById(R.id.msgcustomconimage);
         final CircleImageView ivimageunread = (CircleImageView) convertView.findViewById(R.id.msgcustomconunread);
 
@@ -106,6 +106,14 @@ public class CustomGroupsAdapter extends ArrayAdapter<GroupProfile> {
 
         tvfnmae.setText(group.getGroupName());
         tvlnmae.setText(group.getCommitNum()+"/"+group.getTotalNum());
+        String commitNum = group.getCommitNum();
+        if (commitNum.equals("0")) {
+            tvcommit.setText("Nobody has commited.");
+        } else if (commitNum.equals("1")) {
+            tvcommit.setText("1 member has commited.");
+        } else {
+            tvcommit.setText(commitNum + " members has commited.");
+        }
 
         if(group.getImage()==null)
         {
