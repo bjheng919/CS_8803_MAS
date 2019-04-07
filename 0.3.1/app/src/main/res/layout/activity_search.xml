@@ -127,12 +127,16 @@
             android:background="@color/textColorPrimary">
 
             <android.support.design.widget.FloatingActionButton
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
-                android:src="@drawable/plussign"
-                app:useCompatPadding="true" />
+                android:layout_marginBottom="-8dp"
+                android:src="@drawable/plussign_white"
+                app:backgroundTint="@color/floating_plus_bg"
+                app:useCompatPadding="true"
+                app:elevation="12dp"/>
 
             <ListView
                 android:id="@+id/listView"
