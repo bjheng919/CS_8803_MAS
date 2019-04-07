@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class FillSurvey extends AppCompatActivity implements View.OnClickListener, DatePicker.OnDateChangedListener{
+    UserSurvey survey = new UserSurvey();
 
     Spinner etNation;
     ArrayAdapter<String> adapter1;
@@ -100,13 +101,17 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onCreate1();
+    }
+
+    protected void onCreate1() {
         setContentView(R.layout.activity_basic_info_one);
 
         final String[] Nation = {"Chinese", "American", "Japanese", "Indian", "Korean"};
         final String str;
 
         etNation = (Spinner) findViewById(R.id.etNation);
-        adapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Nation);
+        adapter1 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,Nation);
         //设置下拉列表风格
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         etNation.setAdapter(adapter1);
@@ -141,7 +146,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
 
-                    UserSurvey survey = new UserSurvey();
+//                    UserSurvey survey = new UserSurvey();
 
                     survey.setNation(str);
                     survey.setSameNation(getSelectedRadioButtonText(rgSameNation));
@@ -211,10 +216,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
 
-                UserSurvey survey = new UserSurvey();
+//                UserSurvey survey = new UserSurvey();
 
                 survey.setGender(str);
-                survey.setSameNation(getSelectedRadioButtonText(rgSameGender));
+                survey.setPrefGender(getSelectedRadioButtonText(rgSameGender));
 
                 String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
@@ -229,14 +234,18 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-//        btnBack2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        btnBack2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                survey.setGender(str);
+//                survey.setPrefGender(getSelectedRadioButtonText(rgSameGender));
+//                onCreate1();
+
 //                Intent i = new Intent(getApplicationContext(),FillSurvey1.class);
 //                finish();
 //                startActivity(i);
-//            }
-//        });
+            }
+        });
     }
 
     protected void onCreate3(){
@@ -255,7 +264,6 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
-
 
         DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");
 
@@ -284,7 +292,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
                     etRentHigh.setError("Please enter the correct maximum rent");
                 } else {
 
-                    UserSurvey survey = new UserSurvey();
+//                    UserSurvey survey = new UserSurvey();
 
                     survey.setRmType(getSelectedRadioButtonText(rgRmType));
 
@@ -517,7 +525,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
 
-                UserSurvey survey = new UserSurvey();
+//                UserSurvey survey = new UserSurvey();
 
                 survey.setRoommateOne(getSelectedRadioButtonText(rgRoommateOne));
 //                survey.setRoommateThree(getSelectedRadioButtonText(rgRoommateThree));
@@ -576,7 +584,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
 
-                UserSurvey survey = new UserSurvey();
+//                UserSurvey survey = new UserSurvey();
 
                 survey.setSmoke(getSelectedRadioButtonText(rgSmoke));
                 survey.setOtherSmoke(getSelectedRadioButtonText(rgOtherSmoke));
@@ -634,7 +642,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
 
-                UserSurvey survey = new UserSurvey();
+//                UserSurvey survey = new UserSurvey();
 
                 survey.setUseRoom(getSelectedRadioButtonText(rgUseRoom));
                 survey.setCook(getSelectedRadioButtonText(rgCook));
@@ -693,7 +701,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
 
-                UserSurvey survey = new UserSurvey();
+//                UserSurvey survey = new UserSurvey();
 
                 survey.setTimeFrom(startTime.getText().toString());
                 survey.setTimeTo(endTime.getText().toString());
