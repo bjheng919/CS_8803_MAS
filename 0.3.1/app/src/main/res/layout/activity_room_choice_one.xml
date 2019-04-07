@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        >
+
+        <Button
+            android:id="@+id/surveyback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="194dp"
+
+
+            android:text="Back" />
+
+        <Button
+            android:id="@+id/surveynext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next" />
+    </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_gravity="center"
+        android:text="Match Your Roommates"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:id="@+id/surveydescription" />
+
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="false"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        tools:context="com.example.mit.placeholder.FillSurvey">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Your budget (per month)"
+                android:id="@+id/surveybudget" />
+
+            <!--<SeekBar-->
+            <!--android:id="@+id/budgetselect"-->
+            <!--android:layout_width="300dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:enabled="true"-->
+            <!--android:hidden="false"-->
+            <!--android:length="70"-->
+            <!--android:textMax="2100 $"-->
+            <!--android:textMin="300 $"-->
+            <!--android:toolTip="%v $"-->
+            <!--android:valueMax="100"-->
+            <!--android:valueMin="10"-->
+            <!--android:valueNow="70" />-->
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:stretchColumns="0,1">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <EditText
+                        android:id="@+id/surveyRentLow"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Lower bound $"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textColorHint="#AAAAAA"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/surveyRentHigh"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Upper bound $"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textColorHint="#AAAAAA"
+                        android:textSize="18dp" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Preferred room type"
+                android:id="@+id/surveyroomtype" />
+
+            <RadioGroup
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:orientation="vertical"
+                android:id="@+id/sroomtype"
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="House"
+                    android:checked="true"
+                    android:id="@+id/survey1b1b" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Apartment"
+                    android:id="@+id/survey2b1b" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Dorm"
+                    android:id="@+id/survey2b2b" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="20dp"
+                    android:text="I don't mind"
+                    android:id="@+id/survey3b2b" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Your preferred leasing time"
+                android:id="@+id/leasetime" />
+            <LinearLayout
+                android:id="@+id/start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start date:"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/surveyLsStartTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ededed"
+                    android:padding="8dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/end_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="End date:"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/surveyLsEndTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ededed"
+                    android:padding="8dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+
+</LinearLayout>

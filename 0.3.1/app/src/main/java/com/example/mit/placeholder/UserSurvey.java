@@ -1,5 +1,7 @@
 package com.example.mit.placeholder;
 
+import android.widget.RadioGroup;
+
 import java.io.Serializable;
 
 public class UserSurvey implements Serializable, Comparable<UserSurvey> {
@@ -12,12 +14,22 @@ public class UserSurvey implements Serializable, Comparable<UserSurvey> {
     String lsEndTime;
     String rentLow;
     String rentHigh;
-    String smoke;
-    String pet;
-    String cook;
     String party;
     String sameNation;
     String sameGender;
+    String sRoommateOne;
+    String sRoommateThree;
+    String sRoommateFive;
+    String sSmoke;
+    String sOtherSmoke;
+    String sPet;
+    String sOtherPet;
+    String sUseRoom;
+    String sCook;
+    String sOtherCook;
+    String timeFrom;
+    String timeTo;
+    String discription;
     int similarity;
 
     public String getRentLow() { return rentLow; }
@@ -28,13 +40,13 @@ public class UserSurvey implements Serializable, Comparable<UserSurvey> {
 
     public void setRentHigh(String rentHigh) { this.rentHigh = rentHigh; }
 
-    public String getGender() {return gender;}
+    public String getGender(){return gender;}
 
-    public void setGender(String gender) {this.gender = gender;}
+    public void setGender(String gender){this.gender = gender;}
 
     public String getSameGender() {return sameGender;}
 
-    public void setSameGender(String sameGender) {this.sameGender = sameGender;}
+    public void setSameGender(String sameGender){this.sameGender = sameGender;}
 
     public String getSameNation() { return sameNation; }
 
@@ -64,17 +76,65 @@ public class UserSurvey implements Serializable, Comparable<UserSurvey> {
 
     public void setRmmtNum(String rmmtNum) { this.rmmtNum = rmmtNum; }
 
-    public String getSmoke() { return smoke; }
+//    public String getSmoke() { return smoke; }
+//
+//    public void setSmoke(String smoke) { this.smoke = smoke; }
+//
+//    public String getPet() { return pet; }
+//
+//    public void setPet(String pet) { this.pet = pet; }
 
-    public void setSmoke(String smoke) { this.smoke = smoke; }
+    public String getRoommateOne() { return sRoommateOne; }
 
-    public String getPet() { return pet; }
+    public void setRoommateOne(String sRoommateOne) { this.sRoommateOne = sRoommateOne; }
 
-    public void setPet(String pet) { this.pet = pet; }
+//    public String getRoommateThree() { return sRoommateThree; }
+//
+//    public void setRoommateThree(String sRoommateThree) { this.sRoommateThree = sRoommateThree; }
+//
+//    public String getRoommateFive() { return sRoommateFive; }
+//
+//    public void setRoommateFive(String cook) { this.sRoommateFive = sRoommateFive; }
 
-    public String getCook() { return cook; }
+    public String getSmoke() { return sSmoke; }
 
-    public void setCook(String cook) { this.cook = cook; }
+    public void setSmoke(String sRoommateOne) { this.sSmoke = sSmoke; }
+
+    public String getOtherSmoke() { return sOtherSmoke; }
+
+    public void setOtherSmoke(String sOtherSmoke) { this.sOtherSmoke = sOtherSmoke; }
+
+    public String getPet() { return sPet; }
+
+    public void setPet(String sPet) { this.sPet = sPet; }
+
+    public String getOtherPet() { return sOtherPet; }
+
+    public void setOtherPet(String sOtherPet) { this.sOtherPet = sOtherPet; }
+
+    public String getUseRoom() { return sUseRoom; }
+
+    public void setUseRoom(String sUseRoom) { this.sUseRoom = sUseRoom; }
+
+    public String getCook() { return sCook; }
+
+    public void setCook(String cook) { this.sCook = sCook; }
+
+    public String getOtherCook() { return sOtherCook; }
+
+    public void setOtherCook(String cook) { this.sOtherCook = sOtherCook; }
+
+    public String getTimeFrom() { return timeFrom; }
+
+    public void setTimeFrom(String timeFrom) { this.timeFrom = timeFrom; }
+
+    public String getTimeTo() { return timeTo; }
+
+    public void setTimeTo(String timeTo) { this.timeTo = timeTo; }
+
+    public String getDiscription() { return discription; }
+
+    public void setDiscription(String discription) { this.discription = discription; }
 
     public int getSimilarity() { return similarity; }
 
