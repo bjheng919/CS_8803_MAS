@@ -242,11 +242,16 @@ public class OnlyRecommendation extends Fragment {
             UserSurvey gs = groupSurveyList.get(i);
             if ((!filterValues[1] ||
                             (currSurvey.getSameNation() != null && gs.getSameNation() != null &&
-                            ((currSurvey.getSameNation().equals("Yes") && gs.getSameNation().equals("Yes") && gs.getNation().equals(currSurvey.getNation())) ||
-                            (currSurvey.getSameNation().equals("No") && gs.getSameNation().equals("No") && !gs.getNation().equals(currSurvey.getNation())) ||
+                            ((currSurvey.getSameNation().equals("Yes") && gs.getSameNation().equals("Yes") &&
+                            currSurvey.getNation() != null && gs.getNation()!= null && gs.getNation().equals(currSurvey.getNation())) ||
+                            (currSurvey.getSameNation().equals("No") && gs.getSameNation().equals("No") &&
+                            currSurvey.getNation() != null && gs.getNation()!= null && !gs.getNation().equals(currSurvey.getNation())) ||
                             (currSurvey.getSameNation().equals("IDC") && gs.getSameNation().equals("IDC"))))) &&
                     (!filterValues[2] ||
-                            (currSurvey.getGender() != null && currSurvey.getGender() != null && gs.getGender().equals(currSurvey.getGender()))) &&
+                            (currSurvey.getPrefGender() != null && gs.getPrefGender() != null &&
+                            ((currSurvey.getGender() != null && gs.getGender() != null &&
+                            currSurvey.getPrefGender().equals(gs.getGender()) && currSurvey.getGender().equals(gs.getPrefGender())) ||
+                            (currSurvey.getPrefGender().equals("IDC") && gs.getPrefGender().equals("IDC"))))) &&
                     (!filterValues[3] ||
                             (currSurvey.getRmType() != null && gs.getRmType() != null && gs.getRmType().equals(currSurvey.getRmType()))) &&
                     (!filterValues[4] ||
@@ -281,8 +286,8 @@ public class OnlyRecommendation extends Fragment {
                 count++;
             if (curr.getSameNation().equals("IDC") && other.getSameNation().equals("IDC")) count++;
         }
-        if (curr.getCook() != null && other.getCook() != null)
-            if (curr.getCook().equals(other.getCook())) count++;
+//        if (curr.getCook() != null && other.getCook() != null)
+//            if (curr.getCook().equals(other.getCook())) count++;
         if (curr.getLsEndTime() != null && other.getLsEndTime() != null)
             if (curr.getLsEndTime().equals(other.getLsEndTime())) count++;
         if (curr.getLsStartTime() != null && other.getLsStartTime() != null)

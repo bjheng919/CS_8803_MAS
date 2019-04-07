@@ -44,13 +44,13 @@
                 android:layout_height="wrap_content"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
             </android.support.design.widget.AppBarLayout>
 
@@ -148,7 +148,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         android:padding="25dp"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:background="@drawable/filter_bg">
 
         <TextView
@@ -158,7 +158,8 @@
             android:layout_marginStart="7dp"
             android:layout_marginTop="20dp"
             android:text="Sort By"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:textColor="#FFFFFF" />
 
         <Switch
             android:id="@+id/commitedSortSW"
@@ -168,7 +169,8 @@
             android:layout_marginEnd="2dp"
             android:layout_marginTop="60dp"
             android:text="Roommate Commited"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/filterTV"
@@ -177,7 +179,8 @@
             android:layout_marginStart="7dp"
             android:layout_marginTop="140dp"
             android:text="Filter By"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:textColor="#FFFFFF" />
 
         <CheckBox
             android:id="@+id/nationCB"
@@ -186,6 +189,8 @@
             android:layout_marginTop="180dp"
             android:text="Nationality"
             android:textSize="17sp"
+            android:textColor="#E0E0E0"
+            android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
 
         <CheckBox
@@ -195,6 +200,8 @@
             android:layout_marginTop="220dp"
             android:text="Gender"
             android:textSize="17sp"
+            android:textColor="#E0E0E0"
+            android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
 
         <CheckBox
@@ -204,6 +211,8 @@
             android:layout_marginTop="260dp"
             android:text="Room Type"
             android:textSize="17sp"
+            android:textColor="#E0E0E0"
+            android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
 
         <CheckBox
@@ -213,6 +222,8 @@
             android:layout_marginTop="300dp"
             android:text="LifeStyle"
             android:textSize="17sp"
+            android:textColor="#E0E0E0"
+            android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
 
         <CheckBox
@@ -223,6 +234,8 @@
             android:layout_marginStart="25dp"
             android:text="Pet"
             android:textSize="15sp"
+            android:textColor="#E0E0E0"
+            android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
 
         <CheckBox
@@ -233,6 +246,8 @@
             android:layout_marginTop="375dp"
             android:text="Smoke"
             android:textSize="15sp"
+            android:textColor="#E0E0E0"
+            android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
 
         <CheckBox
@@ -243,6 +258,8 @@
             android:layout_marginTop="410dp"
             android:text="Social Life"
             android:textSize="15sp"
+            android:textColor="#E0E0E0"
+            android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
 
     </RelativeLayout>
