@@ -101,9 +101,6 @@ public class CustomGroupsAdapter extends ArrayAdapter<GroupProfile> {
             }
         });
 
-
-
-
         tvfnmae.setText(group.getGroupName());
         tvlnmae.setText(group.getCommitNum()+"/"+group.getTotalNum());
         String commitNum = group.getCommitNum();

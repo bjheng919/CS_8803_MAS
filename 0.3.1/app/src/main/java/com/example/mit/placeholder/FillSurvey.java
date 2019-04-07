@@ -92,6 +92,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
     private LinearLayout sDate, sTime;
     private LinearLayout eDate, eTime;
 
+    GroupProfile currGroup;
 
     FirebaseAuth refAuth;
     FirebaseDatabase refDatabase;
@@ -708,14 +709,28 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
                 survey.setDiscription(etDiscription.getText().toString());
                 String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-                final DatabaseReference pushid = refDatabase.getReference().child("surveys").child(uuid);
+                if(getIntent().getExtras() != null)
+                    currGroup = (GroupProfile) getIntent().getExtras().getSerializable("chatwith");
+
+                final DatabaseReference pushid;
+                if(currGroup == null)
+                    pushid = refDatabase.getReference().child("surveys").child(uuid);
+                else
+                    pushid = refDatabase.getReference().child("groupSurveys").child(currGroup.getUuid());
+
                 pushid.setValue(survey).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(), "Survey created successfully", Toast.LENGTH_LONG).show();
                     }
                 });
-                Intent i = new Intent(getApplicationContext(), newMessages.class);
+                Intent i;
+                if(currGroup == null)
+                    i = new Intent(getApplicationContext(), newMessages.class);
+                else{
+                    i = new Intent(getApplicationContext(), GroupSetting.class);
+                    i.putExtra("chatwith",currGroup);
+                }
                 finish();
                 startActivity(i);
             }

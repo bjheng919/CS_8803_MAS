@@ -37,7 +37,7 @@ public class GroupSetting extends AppCompatActivity {
         setContentView(R.layout.activity_group_setting);
 
         btn_ChangeInfo = (Button) this.findViewById(R.id.change_group_info);
-        btn_ChangeSurvey = (Button) this.findViewById(R.id.change_group_info);
+        btn_ChangeSurvey = (Button) this.findViewById(R.id.change_group_survey);
         btn_Commit = (Button) this.findViewById(R.id.group_commit);
         btn_Delete = (Button) this.findViewById(R.id.group_delete);
         btn_Quit = (Button) this.findViewById(R.id.group_quit);
@@ -62,6 +62,17 @@ public class GroupSetting extends AppCompatActivity {
                 changeNameDialog();
             }
         });
+
+        btn_ChangeSurvey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),FillSurvey.class);
+                i.putExtra("chatwith",currGroup);
+                finish();
+                startActivity(i);
+            }
+        });
+
 
         btn_Quit.setOnClickListener(new View.OnClickListener() {
             @Override
