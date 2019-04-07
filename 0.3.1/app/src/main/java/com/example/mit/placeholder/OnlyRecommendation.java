@@ -77,7 +77,7 @@ public class OnlyRecommendation extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RecommendationAdapter(filteredGroupProfileList, getContext());
+        adapter = new RecommendationAdapter(filteredGroupProfileList, filteredGroupSurveyList, getContext());
         mRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
