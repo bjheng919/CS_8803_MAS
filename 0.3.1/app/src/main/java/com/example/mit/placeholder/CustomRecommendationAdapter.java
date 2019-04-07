@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,14 +42,14 @@ public class CustomRecommendationAdapter extends ArrayAdapter<GroupProfile> {
         }
 
         GroupProfile group = mData.get(position);
+        setImage(group, convertView);
+        setTexts(group, convertView);
 
-        TextView tvfnmae = (TextView) convertView.findViewById(R.id.customconfname);
-        TextView tvlnmae = (TextView) convertView.findViewById(R.id.customconlname);
+        return convertView;
+    }
 
-        final CircleImageView ivimage = (CircleImageView) convertView.findViewById(R.id.customconimage);
-
-        tvfnmae.setText(group.getGroupName());
-        tvlnmae.setText(group.getMembers().size()+" / "+group.getTotalNum());
+    private void setImage(GroupProfile group, View view) {
+        final CircleImageView ivimage = (CircleImageView) view.findViewById(R.id.customconimage);
 
         if(group.getImage()==null) {
             ivimage.setImageResource(R.mipmap.noimage);
@@ -60,12 +61,29 @@ public class CustomRecommendationAdapter extends ArrayAdapter<GroupProfile> {
             storageref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                Picasso.with(mContext).load(uri).into(ivimage);
+                    Picasso.with(mContext).load(uri).into(ivimage);
                 }
             });
         }
+    }
 
-        return convertView;
+    private void setTexts(GroupProfile group, View view) {
+        TextView[] tvs = new TextView[3];
+
+        tvs[0] = (TextView) view.findViewById(R.id.customconfname);
+        tvs[1] = (TextView) view.findViewById(R.id.customconlname);
+        tvs[2] = (TextView) view.findViewById(R.id.recommendationItemCommitTV);
+
+        tvs[0].setText(group.getGroupName());
+        tvs[1].setText(group.getMembers().size()+" / "+group.getTotalNum());
+        String commitNum = group.getCommitNum();
+        if (commitNum.equals("0")) {
+            tvs[2].setText("Nobody has commited.");
+        } else if (commitNum.equals("1")) {
+            tvs[2].setText("1 member has commited.");
+        } else {
+            tvs[2].setText(commitNum + " members has commited.");
+        }
     }
 }
 

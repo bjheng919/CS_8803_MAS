@@ -5,11 +5,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,20 +34,21 @@ import java.util.List;
  */
 public class OnlyRecommendation extends Fragment {
 
-    private OnlyMessages.OnFragmentInteractionListener mListener;
+//    ListView listView;
+    private ArrayList<String> tempGroupUuidList = new ArrayList<>();
+    private ArrayList<UserSurvey> tempGroupSurveyList = new ArrayList<>();
+    private ArrayList<GroupProfile> groupProfileList = new ArrayList<>();
+    private ArrayList<UserSurvey> groupSurveyList = new ArrayList<>();
+    private ArrayList<GroupProfile> filteredGroupProfileList = new ArrayList<>();
+    private ArrayList<UserSurvey> filteredGroupSurveyList = new ArrayList<>();
+    private List currGroupUuidList;
+    private UserProfile currProfile;
+    private UserSurvey currSurvey;
+//    private CustomRecommendationAdapter adapter;
+    private boolean[] filterValues;
 
-    ListView listView;
-    ArrayList<String> tempGroupUuidList = new ArrayList<>();
-    ArrayList<UserSurvey> tempGroupSurveyList = new ArrayList<>();
-    ArrayList<GroupProfile> groupProfileList = new ArrayList<>();
-    ArrayList<UserSurvey> groupSurveyList = new ArrayList<>();
-    ArrayList<GroupProfile> filteredGroupProfileList = new ArrayList<>();
-    ArrayList<UserSurvey> filteredGroupSurveyList = new ArrayList<>();
-    List currGroupUuidList;
-    UserProfile currProfile;
-    UserSurvey currSurvey;
-    CustomRecommendationAdapter adapter;
-    boolean[] filterValues;
+    private RecyclerView mRecyclerView;
+    private RecommendationAdapter adapter;
 
     public OnlyRecommendation() {
         // Required empty constructor
@@ -56,7 +61,6 @@ public class OnlyRecommendation extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // getGroupProfileSurveyList();
     }
 
     @Override
@@ -65,44 +69,54 @@ public class OnlyRecommendation extends Fragment {
 
         setListenersForLists();
 
-        adapter = new CustomRecommendationAdapter(getContext(), R.layout.customcontacts, filteredGroupProfileList);
+        View view = inflater.inflate(R.layout.recommendation_list, container, false);
 
-        return inflater.inflate(R.layout.fragment_only_contacts, container, false);
-    }
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recommendationListRV);
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
 
-        listView = (ListView) getView().findViewById(R.id.recommendationListLV);
+        adapter = new RecommendationAdapter(filteredGroupProfileList, getContext());
+        mRecyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
-        listView.setAdapter(adapter);
-        adapter.setNotifyOnChange(true);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapter.setOnItemClickListener(new RecommendationAdapter.OnItemClickListener(){
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(View view, int position){
                 Intent ii = new Intent(getActivity(),ProfileDetails.class);
-                ii.putExtra("groupProfile", filteredGroupProfileList.get(i));
-                ii.putExtra("groupSurvey", filteredGroupSurveyList.get(i));
+                ii.putExtra("groupProfile", filteredGroupProfileList.get(position));
+                ii.putExtra("groupSurvey", filteredGroupSurveyList.get(position));
 //                getActivity().finish();
                 startActivity(ii);
             }
         });
+
+        return view;
+
+//        return inflater.inflate(R.layout.fragment_only_recommendation, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//        listView = (ListView) getView().findViewById(R.id.recommendationListLV);
+//
+//        listView.setAdapter(adapter);
+//        adapter.setNotifyOnChange(true);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent ii = new Intent(getActivity(),ProfileDetails.class);
+//                ii.putExtra("groupProfile", filteredGroupProfileList.get(i));
+//                ii.putExtra("groupSurvey", filteredGroupSurveyList.get(i));
+//                getActivity().finish();
+//                startActivity(ii);
+//            }
+//        });
+//    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -172,12 +186,14 @@ public class OnlyRecommendation extends Fragment {
                                                     if (tempGroupUuidList.contains(groupSnapshot.getKey())) {
                                                         // System.out.println("Checking groupuuid: " + groupSnapshot.getKey() + " -------------------------");
                                                         GroupProfile tempGroupProfile = groupSnapshot.getValue(GroupProfile.class);
-                                                        UserSurvey tempGroupSurvey = tempGroupSurveyList.get(tempGroupUuidList.indexOf(groupSnapshot.getKey()));
-                                                        int similarity = calculateSimilarity(currSurvey, tempGroupSurvey);
-                                                        tempGroupProfile.setSimilarity(similarity);
-                                                        tempGroupSurvey.setSimilarity(similarity);
-                                                        groupProfileList.add(tempGroupProfile);
-                                                        groupSurveyList.add(tempGroupSurvey);
+                                                        if (tempGroupProfile.getMembers().size() < Integer.parseInt(tempGroupProfile.getTotalNum())) {
+                                                            UserSurvey tempGroupSurvey = tempGroupSurveyList.get(tempGroupUuidList.indexOf(groupSnapshot.getKey()));
+                                                            int similarity = calculateSimilarity(currSurvey, tempGroupSurvey);
+                                                            tempGroupProfile.setSimilarity(similarity);
+                                                            tempGroupSurvey.setSimilarity(similarity);
+                                                            groupProfileList.add(tempGroupProfile);
+                                                            groupSurveyList.add(tempGroupSurvey);
+                                                        }
                                                     }
                                                 }
 
@@ -185,8 +201,10 @@ public class OnlyRecommendation extends Fragment {
                                                 Collections.sort(groupSurveyList, Collections.reverseOrder());
                                                 copyToFilteredLists();
                                                 // System.out.println(groupProfileList);
-                                                listView.setAdapter(adapter);
-                                                adapter.setNotifyOnChange(true);
+                                                mRecyclerView.setAdapter(adapter);
+                                                adapter.notifyDataSetChanged();
+//                                                listView.setAdapter(adapter);
+//                                                adapter.setNotifyOnChange(true);
                                             }
 
                                             @Override
@@ -230,12 +248,13 @@ public class OnlyRecommendation extends Fragment {
                     (!filterValues[2] ||
                             (currSurvey.getGender() != null && currSurvey.getGender() != null && gs.getGender().equals(currSurvey.getGender()))) &&
                     (!filterValues[3] ||
-                            (currSurvey.getSmoke() != null && gs.getSmoke() != null && gs.getSmoke().equals(currSurvey.getSmoke()) &&
-                            currSurvey.getCook() != null && gs.getSmoke() != null && gs.getCook().equals(currSurvey.getCook()) &&
-                            currSurvey.getParty() != null && gs.getParty() != null && gs.getParty().equals(currSurvey.getParty()) &&
-                            currSurvey.getPet() != null && gs.getPet() != null && gs.getPet().equals(currSurvey.getPet()))) &&
+                            (currSurvey.getRmType() != null && gs.getRmType() != null && gs.getRmType().equals(currSurvey.getRmType()))) &&
                     (!filterValues[4] ||
-                            (currSurvey.getRmType() != null && gs.getRmType() != null && gs.getRmType().equals(currSurvey.getRmType())))) {
+                            (currSurvey.getPet() != null && gs.getPet() != null && gs.getPet().equals(currSurvey.getPet()))) &&
+                    (!filterValues[5] ||
+                            (currSurvey.getSmoke() != null && gs.getSmoke() != null && gs.getSmoke().equals(currSurvey.getSmoke()))) &&
+                    (!filterValues[6] ||
+                            (currSurvey.getParty() != null && gs.getParty() != null && gs.getParty().equals(currSurvey.getParty())))) {
                 if (filterValues[0]) {
                     int commitNum = Integer.parseInt(gp.getCommitNum());
                     gp.setSimilarity(gp.getSimilarity() + commitNum * 100);
@@ -284,5 +303,4 @@ public class OnlyRecommendation extends Fragment {
             if (curr.getSmoke().equals(other.getSmoke())) count++;
         return count;
     }
-
 }

@@ -63,15 +63,6 @@ public class ProfileDetails extends AppCompatActivity {
         tvSmoke.setText(groupSurvey.getSmoke());
         tvPet.setText(groupSurvey.getPet());
 
-        findViewById(R.id.profDetailBtnBack).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),newMessages.class);
-                finish();
-                startActivity(i);
-            }
-        });
-
         Button btnJoinGroup = (Button) findViewById(R.id.profDetailBtnJoinGroup);
 
         btnJoinGroup.setOnClickListener(new View.OnClickListener() {

@@ -19,10 +19,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Switch;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +47,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     private Button mBtnOpenLeftDrawer;
     private Toolbar toolbar;
     private FrameLayout ly_content;
+    private Switch toggle;
 
     private OnlyRecommendation f1;
     private OnlyGroups f2;
@@ -62,7 +65,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        filterValues = new boolean[5];
+        filterValues = new boolean[7];
         for (boolean filterValue : filterValues) { filterValue = false; }
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -83,6 +86,17 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         });
         //////////////fab end
 
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    filterValues[0] = true;
+                } else {
+                    filterValues[0] = false;
+                }
+                tabDeal.performClick();
+            }
+        });
     }
 
     //UI组件初始化与事件绑定
@@ -101,6 +115,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
 
         fab = (FloatingActionButton) findViewById(R.id.fab);////////////////fab
 
+        toggle = (Switch) findViewById(R.id.commitedSortSW);
     }
 
     //重置所有文本的选中状态
@@ -130,13 +145,6 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
 
         // Check which checkbox was clicked
         switch(view.getId()) {
-            case R.id.commitedCB:
-                if (checked) {
-                    filterValues[0] = true;
-                } else {
-                    filterValues[0] = false;
-                }
-                break;
             case R.id.nationCB:
                 if (checked) {
                     filterValues[1] = true;
@@ -151,18 +159,87 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                     filterValues[2] = false;
                 }
                 break;
-            case R.id.lifestyleCB:
+            case R.id.rmTypeCB:
                 if (checked) {
                     filterValues[3] = true;
                 } else {
                     filterValues[3] = false;
                 }
                 break;
-            case R.id.rmTypeCB:
+            case R.id.lifestyleCB:
                 if (checked) {
                     filterValues[4] = true;
+                    filterValues[5] = true;
+                    filterValues[6] = true;
+
+                    CheckBox petCB = (CheckBox) this.findViewById(R.id.petCB);
+                    petCB.setChecked(true);
+                    CheckBox smokeCB = (CheckBox) this.findViewById(R.id.smokeCB);
+                    smokeCB.setChecked(true);
+                    CheckBox socialCB = (CheckBox) this.findViewById(R.id.socialCB);
+                    socialCB.setChecked(true);
                 } else {
                     filterValues[4] = false;
+                    filterValues[5] = false;
+                    filterValues[6] = false;
+
+                    CheckBox petCB = (CheckBox) this.findViewById(R.id.petCB);
+                    petCB.setChecked(false);
+                    CheckBox smokeCB = (CheckBox) this.findViewById(R.id.smokeCB);
+                    smokeCB.setChecked(false);
+                    CheckBox socialCB = (CheckBox) this.findViewById(R.id.socialCB);
+                    socialCB.setChecked(false);
+                }
+                break;
+            case R.id.petCB:
+                if (checked) {
+                    filterValues[4] = true;
+
+                    CheckBox smokeCB = (CheckBox) this.findViewById(R.id.smokeCB);
+                    CheckBox socialCB = (CheckBox) this.findViewById(R.id.socialCB);
+                    CheckBox lifestyleCB = (CheckBox) this.findViewById(R.id.lifestyleCB);
+                    if (smokeCB.isChecked() && socialCB.isChecked()) {
+                        lifestyleCB.setChecked(true);
+                    }
+                } else {
+                    filterValues[4] = false;
+
+                    CheckBox lifestyleCB = (CheckBox) this.findViewById(R.id.lifestyleCB);
+                    lifestyleCB.setChecked(false);
+                }
+                break;
+            case R.id.smokeCB:
+                if (checked) {
+                    filterValues[5] = true;
+
+                    CheckBox petCB = (CheckBox) this.findViewById(R.id.petCB);
+                    CheckBox socialCB = (CheckBox) this.findViewById(R.id.socialCB);
+                    CheckBox lifestyleCB = (CheckBox) this.findViewById(R.id.lifestyleCB);
+                    if (petCB.isChecked() && socialCB.isChecked()) {
+                        lifestyleCB.setChecked(true);
+                    }
+                } else {
+                    filterValues[5] = false;
+
+                    CheckBox lifestyleCB = (CheckBox) this.findViewById(R.id.lifestyleCB);
+                    lifestyleCB.setChecked(false);
+                }
+                break;
+            case R.id.socialCB:
+                if (checked) {
+                    filterValues[6] = true;
+
+                    CheckBox petCB = (CheckBox) this.findViewById(R.id.petCB);
+                    CheckBox smokeCB = (CheckBox) this.findViewById(R.id.smokeCB);
+                    CheckBox lifestyleCB = (CheckBox) this.findViewById(R.id.lifestyleCB);
+                    if (petCB.isChecked() && smokeCB.isChecked()) {
+                        lifestyleCB.setChecked(true);
+                    }
+                } else {
+                    filterValues[6] = false;
+
+                    CheckBox lifestyleCB = (CheckBox) this.findViewById(R.id.lifestyleCB);
+                    lifestyleCB.setChecked(false);
                 }
                 break;
         }
@@ -216,8 +293,6 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
             case R.id.btn_open_left_drawer:
                 mDlMain.openDrawer(Gravity.LEFT);
                 break;
-
-
 
         }
 
