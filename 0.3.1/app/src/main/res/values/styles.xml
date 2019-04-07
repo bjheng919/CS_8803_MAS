@@ -29,4 +29,10 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="drawerDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@drawable/divider_horizontal</item>
+    </style>
+
 </resources>

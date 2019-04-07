@@ -107,7 +107,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         ly_content = (FrameLayout) findViewById(R.id.fragment_container);
         mBtnOpenLeftDrawer = (Button) findViewById(R.id.btn_open_left_drawer);
         mDlMain = (DrawerLayout) findViewById(R.id.dl_main);
-        mDlMain.setScrimColor(Color.TRANSPARENT);
+//        mDlMain.setScrimColor(Color.TRANSPARENT);
         mBtnOpenLeftDrawer.setOnClickListener(this);
         tabDeal.setOnClickListener(this);
         tabUser.setOnClickListener(this);

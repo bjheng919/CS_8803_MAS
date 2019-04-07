@@ -37,7 +37,7 @@
                 <!--android:gravity="center"-->
                 <!--android:text="Placeholder"-->
                 <!--android:textColor="@color/textColorPrimary"-->
-                <!--android:textSize="17sp" />-->
+                <!--android:textSize="19sp" />-->
 
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
@@ -112,7 +112,7 @@
         <View
             android:id="@+id/div_tab_bar"
             android:layout_width="match_parent"
-            android:layout_height="2px"
+            android:layout_height="0px"
             android:background="@color/black_overlay"
             android:layout_above="@id/tab_menu"/>
 
@@ -122,8 +122,6 @@
             android:layout_height="573dp"
             android:layout_above="@id/tab_menu"
             android:layout_below="@+id/btn_open_left_drawer"
-            android:layout_marginTop="-2dp"
-            android:layout_marginBottom="7dp"
             android:background="@color/textColorPrimary">
 
             <android.support.design.widget.FloatingActionButton
@@ -148,11 +146,13 @@
 
     <RelativeLayout
         android:id="@+id/rl_left"
-        android:layout_width="250dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:padding="25dp"
-        android:layout_gravity="start"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:translationX="-60dp"
+        android:paddingTop="50dp"
+        android:paddingStart="75dp"
+        android:paddingEnd="50dp"
+        android:layout_gravity="start|bottom"
         android:background="@drawable/filter_bg">
 
         <TextView
@@ -160,9 +160,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
-            android:layout_marginTop="20dp"
-            android:text="Sort By"
-            android:textSize="17sp"
+            android:text="Sort by"
+            android:textSize="19sp"
             android:textColor="#FFFFFF" />
 
         <Switch
@@ -171,28 +170,33 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
             android:layout_marginEnd="2dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="45dp"
             android:text="Roommate Commited"
-            android:textSize="17sp"
+            android:textSize="19sp"
             android:textColor="#FFFFFF" />
+
+        <View style="@style/drawerDivider"
+            android:layout_marginTop="130dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="3dp"/>
 
         <TextView
             android:id="@+id/filterTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
-            android:layout_marginTop="140dp"
-            android:text="Filter By"
-            android:textSize="17sp"
+            android:layout_marginTop="165dp"
+            android:text="Filter by"
+            android:textSize="19sp"
             android:textColor="#FFFFFF" />
 
         <CheckBox
             android:id="@+id/nationCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="210dp"
             android:text="Nationality"
-            android:textSize="17sp"
+            android:textSize="19sp"
             android:textColor="#E0E0E0"
             android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
@@ -201,9 +205,9 @@
             android:id="@+id/genderCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="255dp"
             android:text="Gender"
-            android:textSize="17sp"
+            android:textSize="19sp"
             android:textColor="#E0E0E0"
             android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
@@ -212,9 +216,9 @@
             android:id="@+id/rmTypeCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="260dp"
+            android:layout_marginTop="300dp"
             android:text="Room Type"
-            android:textSize="17sp"
+            android:textSize="19sp"
             android:textColor="#E0E0E0"
             android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
@@ -223,9 +227,9 @@
             android:id="@+id/lifestyleCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="345dp"
             android:text="LifeStyle"
-            android:textSize="17sp"
+            android:textSize="19sp"
             android:textColor="#E0E0E0"
             android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
@@ -234,10 +238,10 @@
             android:id="@+id/petCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="340dp"
             android:layout_marginStart="25dp"
+            android:layout_marginTop="390dp"
             android:text="Pet"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:textColor="#E0E0E0"
             android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
@@ -247,9 +251,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="375dp"
+            android:layout_marginTop="430dp"
             android:text="Smoke"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:textColor="#E0E0E0"
             android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
@@ -259,9 +263,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="410dp"
+            android:layout_marginTop="470dp"
+            android:layout_marginBottom="100dp"
             android:text="Social Life"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:textColor="#E0E0E0"
             android:buttonTint="@color/whiteCheckBoxes"
             android:onClick="onCBClicked" />
