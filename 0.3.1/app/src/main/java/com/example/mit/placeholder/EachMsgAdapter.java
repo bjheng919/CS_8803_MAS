@@ -100,6 +100,7 @@ public class EachMsgAdapter extends ArrayAdapter<EachMessage> {
             params2.weight = 1.0f;
             params2.gravity = Gravity.RIGHT;
             tvtext.setBackgroundResource(R.drawable.my_message);
+            tvtext.setTextColor(Color.WHITE);
 
             if(msg.getText()!=null)
                 tvtext.setLayoutParams(params);
