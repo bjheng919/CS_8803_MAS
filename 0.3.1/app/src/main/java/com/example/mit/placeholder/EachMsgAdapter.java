@@ -59,7 +59,7 @@ public class EachMsgAdapter extends ArrayAdapter<EachMessage> {
         if(msg.getText()!=null)
         {
             tvtext.setText(msg.getText());
-            tvfrom.setText(msg.getSender()+": ");
+            tvfrom.setText(msg.getSender()+"   ");
             ivmsgimage.setVisibility(View.GONE);
         }
         else {
@@ -99,6 +99,7 @@ public class EachMsgAdapter extends ArrayAdapter<EachMessage> {
 
             params2.weight = 1.0f;
             params2.gravity = Gravity.RIGHT;
+            tvtext.setBackgroundResource(R.drawable.my_message);
 
             if(msg.getText()!=null)
                 tvtext.setLayoutParams(params);
@@ -115,6 +116,7 @@ public class EachMsgAdapter extends ArrayAdapter<EachMessage> {
 
             params2.weight = 1.0f;
             params2.gravity = Gravity.LEFT;
+            tvtext.setBackgroundResource(R.drawable.their_message);
 
             if(msg.getText()!=null)
                 tvtext.setLayoutParams(params);

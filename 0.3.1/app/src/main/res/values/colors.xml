@@ -8,7 +8,7 @@
     <color name="colorAccent">#c8e8ff</color>
     <color name="whiteCheckBoxes">#F9F9F9</color>
     <color name="black_overlay">#66000000</color>
-    <color name="floating_plus_bg">#534BAE</color>
+    <color name="floating_plus_bg">#423A9B</color>
     <color name="filter_bg">#9D821E</color>
     <color name="filter_divider">#B0A86E</color>
 </resources>

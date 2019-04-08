@@ -5,27 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context="com.example.mit.placeholder.MyChat">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="60dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/floating_plus_bg"
+            android:padding="10dp"
             >
 
             <TextView
                 android:id="@+id/mychattvfullname"
-                android:layout_width="169dp"
-                android:layout_height="48dp"
-                android:layout_weight="0.50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" />
@@ -33,23 +33,24 @@
 
             <Button
                 android:id="@+id/gp_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.10"
-                android:text="Group Setting" />
+                android:layout_width="34dp"
+                android:layout_height="32dp"
+                android:background="@drawable/baseline_settings_black_18dp"
+                android:layout_alignParentEnd="true"
+                />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <ListView
             android:id="@+id/mychatlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:transcriptMode="alwaysScroll"/>
     </LinearLayout>
 
     <TableRow
-        android:layout_width="373dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/textColorPrimary"
