@@ -17,7 +17,6 @@ public class UserSurvey implements Serializable, Comparable<UserSurvey> {
     String party;
     String sameNation;
     String prefGender;
-    String sRoommateOne;
     String smoke;
     String otherSmoke;
     String pet;
@@ -73,10 +72,6 @@ public class UserSurvey implements Serializable, Comparable<UserSurvey> {
     public String getRmmtNum() { return rmmtNum; }
 
     public void setRmmtNum(String rmmtNum) { this.rmmtNum = rmmtNum; }
-
-    public String getRoommateOne() { return sRoommateOne; }
-
-    public void setRoommateOne(String sRoommateOne) { this.sRoommateOne = sRoommateOne; }
 
     public String getSmoke() { return smoke; }
 

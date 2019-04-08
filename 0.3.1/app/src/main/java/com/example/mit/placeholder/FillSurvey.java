@@ -528,7 +528,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
 //                UserSurvey survey = new UserSurvey();
 
-                survey.setRoommateOne(getSelectedRadioButtonText(rgRoommateOne));
+                survey.setRmmtNum(getSelectedRadioButtonText(rgRoommateOne));
 //                survey.setRoommateThree(getSelectedRadioButtonText(rgRoommateThree));
 //                survey.setRoommateFive(getSelectedRadioButtonText(rgRoommateFive));
                 String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();

@@ -362,6 +362,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                         groupProfile.setCreatorUuid(CreateProfile.myuuid);
                         groupProfile.setGroupName(edt.getText().toString());
                         groupProfile.setUuid(groupuuid);
+                        groupProfile.setImage(CreateProfile.imgurl);
                         List<String> members = new ArrayList<>();
                         members.add(CreateProfile.myname);
                         groupProfile.setMembers(members);

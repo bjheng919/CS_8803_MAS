@@ -102,7 +102,7 @@ public class CustomGroupsAdapter extends ArrayAdapter<GroupProfile> {
         });
 
         tvfnmae.setText(group.getGroupName());
-        tvlnmae.setText(group.getCommitNum()+"/"+group.getTotalNum());
+        tvlnmae.setText(group.getMembers().size()+" / "+group.getTotalNum());
         String commitNum = group.getCommitNum();
         if (commitNum.equals("0")) {
             tvcommit.setText("Nobody has commited.");

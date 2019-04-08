@@ -35,7 +35,7 @@ public class CreateProfile extends AppCompatActivity {
     EditText etlname;
     EditText etemail;
 
-    String imgurl=null;
+    static String imgurl=null;
     static String myuuid = null;
     static String myname = null;
     boolean hasProfile = false;
@@ -75,6 +75,7 @@ public class CreateProfile extends AppCompatActivity {
                         hasProfile = true;
                         myuuid = tempprof.getUuid();
                         myname = tempprof.getFname();
+                        imgurl = tempprof.getImage();
                         break;
                     }
                 }
