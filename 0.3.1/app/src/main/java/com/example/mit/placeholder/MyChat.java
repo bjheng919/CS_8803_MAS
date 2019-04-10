@@ -280,13 +280,10 @@ public class MyChat extends AppCompatActivity {
         }
     }
 
-    public void onBackPressed()
-    {
-        Intent i = new Intent(getApplicationContext(),Messages.class);
+    public void onBackPressed() {
+        // Intent i = new Intent(getApplicationContext(),Messages.class);
         finish();
-        startActivity(i);
-
-        return;
+        // startActivity(i);
     }
 
 }

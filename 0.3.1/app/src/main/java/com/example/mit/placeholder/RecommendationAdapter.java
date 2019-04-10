@@ -107,15 +107,15 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
     private void setTags(UserSurvey gs, RecommendationViewHolder vh) {
         // Initialize the list of tag strings
         ArrayList<String> tagStrList = new ArrayList<>();
-        if (gs.getSameNation() != null && gs.getSameNation().equals("Yes") && gs.getNation() != null) {
+        if (gs.getPrefNation() != null && gs.getPrefNation().equals("Yes") && gs.getNation() != null) {
             tagStrList.add(gs.getNation());
-        } else if (gs.getSameNation() != null && gs.getSameNation().equals("No") && gs.getNation() != null) {
+        } else if (gs.getPrefNation() != null && gs.getPrefNation().equals("No") && gs.getNation() != null) {
             tagStrList.add("Multiple Origins");
         }
-        if (gs.getPrefGender() != null && !gs.getPrefGender().equals("IDC")) {
+        if (gs.getPrefGender() != null && !gs.getPrefGender().equals("Don't mind")) {
             tagStrList.add(gs.getPrefGender());
         }
-        if (gs.getRmType() != null) {
+        if (gs.getRmType() != null && !gs.getRmType().equals("Don't mind")) {
             tagStrList.add(gs.getRmType());
         }
         if (gs.getPet() != null) {
@@ -132,8 +132,8 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
                 tagStrList.add("No Smoking");
             }
         }
-        if (gs.getParty() != null) {
-            if (gs.getParty().equals("Yes")) {
+        if (gs.getUseRoom() != null) {
+            if (gs.getUseRoom().equals("Yes")) {
                 tagStrList.add("For Social");
             } else {
                 tagStrList.add("For Study");

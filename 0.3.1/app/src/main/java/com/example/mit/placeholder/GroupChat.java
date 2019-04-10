@@ -239,27 +239,16 @@ public class GroupChat extends AppCompatActivity {
                                 pushid.setValue(eachmsg).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-
                                         Toast.makeText(getApplicationContext(),"Message sent successfully",Toast.LENGTH_LONG).show();
-
                                     }
                                 });
-
-
-
                             }
                         });
-
-
-
-
                     }
 
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.d("test",e.getMessage());
             Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -273,10 +262,5 @@ public class GroupChat extends AppCompatActivity {
 //
 //        return;
 //    }
-
-
-
-
-
 
 }

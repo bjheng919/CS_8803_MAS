@@ -63,9 +63,9 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 //    RadioGroup rgRoommateThree;
 //    RadioGroup rgRoommateFive;
     RadioGroup rgSmoke;
-    RadioGroup rgOtherSmoke;
+    RadioGroup rgMindSmoke;
     RadioGroup rgPet;
-    RadioGroup rgOtherPet;
+    RadioGroup rgMindPet;
     RadioGroup rgUseRoom;
     RadioGroup rgCook;
     RadioGroup rgOtherCook;
@@ -97,12 +97,15 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
     FirebaseAuth refAuth;
     FirebaseDatabase refDatabase;
 
-    String uuid = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         onCreate1();
+    }
+
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(),"Update Cancelled", Toast.LENGTH_LONG).show();
+        finish();
     }
 
     protected void onCreate1() {
@@ -118,7 +121,6 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         etNation.setAdapter(adapter1);
         etNation.setVisibility(View.VISIBLE);//设置默认显示
 
-
         rgSameNation = (RadioGroup) findViewById(R.id.surveySameNation);
         btnBack1 = (Button) findViewById(R.id.surveyback);
         btnNext1 = (Button) findViewById(R.id.surveynext);
@@ -126,40 +128,21 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");
-
-        mrefcheckprofile.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    UserProfile tempProfile = postSnapshot.getValue(UserProfile.class);
-                    if(tempProfile.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-                        uuid = tempProfile.getUuid();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-
         btnNext1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                    UserSurvey survey = new UserSurvey();
-                    final String str = (String) etNation.getSelectedItem();
-                    survey.setNation(str);
-                    survey.setSameNation(getSelectedRadioButtonText(rgSameNation));
-
-                    String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                    final DatabaseReference pushid = refDatabase.getReference().child("surveys").child(uuid);
+                    final String nation = (String) etNation.getSelectedItem();
+                    survey.setNation(nation);
+                    String prefNation = getSelectedRadioButtonText(rgSameNation);
+                    if (prefNation.equals("From the same country")) {
+                        survey.setPrefNation("Yes");
+                    } else if (prefNation.equals("From the different countries")) {
+                        survey.setPrefNation("No");
+                    } else {
+                        survey.setPrefNation("Don't mind");
+                    }
 
                     onCreate2();
-//                    Intent i = new Intent(getApplicationContext(),newMessages.class);
-//                    finish();
-//                    startActivity(i);
                 }
 
         });
@@ -168,26 +151,23 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Update Cancelled",Toast.LENGTH_LONG).show();
-//                Intent i = new Intent(getApplicationContext(),CreateProfile.class);
                 finish();
-//                startActivity(i);
             }
         });
     }
 
-
-    protected void onCreate2(){
+    protected void onCreate2() {
         setContentView(R.layout.activity_basic_info_two);
-        final String[] Gender = {"Male", "Female", "Others"};
-        final String str;
+        final String[] genderArray = {"Male", "Female", "Others"};
+        final String gender;
 
         etGender = (Spinner) findViewById(R.id.etGender);
-        adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,Gender);
+        adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,genderArray);
         //设置下拉列表风格
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         etGender.setAdapter(adapter2);
         etGender.setVisibility(View.VISIBLE);//设置默认显示
-        str = (String) etGender.getSelectedItem();
+        gender = (String) etGender.getSelectedItem();
 
         rgSameGender = (RadioGroup) findViewById(R.id.surveySameGender);
         btnBack2 = (Button) findViewById(R.id.surveyback);
@@ -196,43 +176,18 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
-
-        DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");
-
-        mrefcheckprofile.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    UserProfile tempProfile = postSnapshot.getValue(UserProfile.class);
-                    if(tempProfile.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-                        uuid = tempProfile.getUuid();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-
         btnNext2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                survey.setGender(gender);
+                String prefGender = getSelectedRadioButtonText(rgSameGender);
+                if (prefGender.equals("I don't mind")) {
+                    survey.setPrefGender("Don't mind");
+                } else {
+                    survey.setPrefGender(prefGender);
+                }
 
-//                UserSurvey survey = new UserSurvey();
-
-                survey.setGender(str);
-                survey.setPrefGender(getSelectedRadioButtonText(rgSameGender));
-
-                String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                final DatabaseReference pushid = refDatabase.getReference().child("surveys").child(uuid);
-
-//                Intent i = new Intent(getApplicationContext(),FillSurvey3.class);
-//                finish();
-//                startActivity(i);
                 onCreate3();
-
-
             }
         });
 
@@ -240,12 +195,11 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 onCreate1();
-
             }
         });
     }
 
-    protected void onCreate3(){
+    protected void onCreate3() {
         setContentView(R.layout.activity_room_choice_one);
         context = this;
         date = new StringBuffer();
@@ -262,24 +216,6 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");
-
-        mrefcheckprofile.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    UserProfile tempProfile = postSnapshot.getValue(UserProfile.class);
-                    if(tempProfile.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-                        uuid = tempProfile.getUuid();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-
-
         btnNext3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -288,25 +224,19 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
                 } else if (etRentHigh.getText().toString().trim().length() < 1) {
                     etRentHigh.setError("Please enter the correct maximum rent");
                 } else {
-
-//                    UserSurvey survey = new UserSurvey();
-
-                    survey.setRmType(getSelectedRadioButtonText(rgRmType));
+                    String rmType = getSelectedRadioButtonText(rgRmType);
+                    if (rmType.equals("I don't mind")) {
+                        survey.setRmType("Don't mind");
+                    } else {
+                        survey.setRmType(rmType);
+                    }
 
                     survey.setLsStartTime(startDate.getText().toString());
                     survey.setLsEndTime(endDate.getText().toString());
                     survey.setRentLow(etRentLow.getText().toString().trim());
                     survey.setRentHigh(etRentHigh.getText().toString().trim());
 
-                    String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                    final DatabaseReference pushid = refDatabase.getReference().child("surveys").child(uuid);
-
-//                    Intent i = new Intent(getApplicationContext(), newMessages.class);
-//                    finish();
-//                    startActivity(i);
-                      onCreate4();
-
+                    onCreate4();
                 }
             }
 
@@ -483,13 +413,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         this.day = dayOfMonth;
     }
 
-
-    protected void onCreate4(){
+    protected void onCreate4() {
         setContentView(R.layout.activity_room_choice_two);
 
         rgRoommateOne = (RadioGroup) findViewById(R.id.surveyroommateone);
-//        rgRoommateThree = (RadioGroup) findViewById(R.id.surveyroommatethree);
-//        rgRoommateFive = (RadioGroup) findViewById(R.id.surveyroommatefive);
         preProperty = (EditText) findViewById(R.id.property);
 
         btnBack4 = (Button) findViewById(R.id.surveyback);
@@ -498,41 +425,14 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");
-
-        mrefcheckprofile.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    UserProfile tempProfile = postSnapshot.getValue(UserProfile.class);
-                    if (tempProfile.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-                        uuid = tempProfile.getUuid();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
         btnNext4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                UserSurvey survey = new UserSurvey();
-
                 survey.setRmmtNum(getSelectedRadioButtonText(rgRoommateOne));
-//                survey.setRoommateThree(getSelectedRadioButtonText(rgRoommateThree));
-//                survey.setRoommateFive(getSelectedRadioButtonText(rgRoommateFive));
-                String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                final DatabaseReference pushid = refDatabase.getReference().child("surveys").child(uuid);
-
                 onCreate5();
             }
         });
-//
+
         btnBack4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -545,9 +445,9 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_life_style_one);
 
         rgSmoke = (RadioGroup) findViewById(R.id.surveysmoke);
-        rgOtherSmoke = (RadioGroup) findViewById(R.id.surveyothersmoke);
+        rgMindSmoke = (RadioGroup) findViewById(R.id.surveyothersmoke);
         rgPet = (RadioGroup) findViewById(R.id.surveypet);
-        rgOtherPet = (RadioGroup) findViewById(R.id.othersurveypet);
+        rgMindPet = (RadioGroup) findViewById(R.id.othersurveypet);
 
         btnBack5 = (Button) findViewById(R.id.surveyback);
         btnNext5 = (Button) findViewById(R.id.surveynext);
@@ -555,37 +455,14 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");
-
-        mrefcheckprofile.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    UserProfile tempProfile = postSnapshot.getValue(UserProfile.class);
-                    if (tempProfile.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-                        uuid = tempProfile.getUuid();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
         btnNext5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                UserSurvey survey = new UserSurvey();
-
                 survey.setSmoke(getSelectedRadioButtonText(rgSmoke));
-                survey.setOtherSmoke(getSelectedRadioButtonText(rgOtherSmoke));
+                survey.setMindSmoke(getSelectedRadioButtonText(rgMindSmoke));
                 survey.setPet(getSelectedRadioButtonText(rgPet));
-                survey.setOtherPet(getSelectedRadioButtonText(rgOtherPet));
-                String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                survey.setMindPet(getSelectedRadioButtonText(rgMindPet));
 
-                final DatabaseReference pushid = refDatabase.getReference().child("surveys").child(uuid);
                 onCreate6();
             }
         });
@@ -611,24 +488,6 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");
-
-        mrefcheckprofile.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    UserProfile tempProfile = postSnapshot.getValue(UserProfile.class);
-                    if (tempProfile.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-                        uuid = tempProfile.getUuid();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
         btnNext6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -638,9 +497,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
                 survey.setUseRoom(getSelectedRadioButtonText(rgUseRoom));
                 survey.setCook(getSelectedRadioButtonText(rgCook));
                 survey.setOtherCook(getSelectedRadioButtonText(rgOtherCook));
-                String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-                final DatabaseReference pushid = refDatabase.getReference().child("surveys").child(uuid);
                 onCreate7();
             }
         });
@@ -668,24 +525,6 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");
-
-        mrefcheckprofile.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    UserProfile tempProfile = postSnapshot.getValue(UserProfile.class);
-                    if (tempProfile.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-                        uuid = tempProfile.getUuid();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -702,7 +541,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
                 final DatabaseReference pushid;
                 if(currGroup == null)
-                    pushid = refDatabase.getReference().child("surveys").child(uuid);
+                    pushid = refDatabase.getReference().child("surveys").child(CreateProfile.myuuid);
                 else
                     pushid = refDatabase.getReference().child("groupSurveys").child(currGroup.getUuid());
 

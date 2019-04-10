@@ -248,26 +248,14 @@ public class OnlyRecommendation extends Fragment {
         for (int i = 0; i < groupProfileList.size(); i++) {
             GroupProfile gp = groupProfileList.get(i);
             UserSurvey gs = groupSurveyList.get(i);
-            if ((!filterValues[1] ||
-                            (currSurvey.getSameNation() != null && gs.getSameNation() != null &&
-                            ((currSurvey.getSameNation().equals("Yes") && gs.getSameNation().equals("Yes") &&
-                            currSurvey.getNation() != null && gs.getNation()!= null && gs.getNation().equals(currSurvey.getNation())) ||
-                            (currSurvey.getSameNation().equals("No") && gs.getSameNation().equals("No") &&
-                            currSurvey.getNation() != null && gs.getNation()!= null && !gs.getNation().equals(currSurvey.getNation())) ||
-                            (currSurvey.getSameNation().equals("IDC") && gs.getSameNation().equals("IDC"))))) &&
-                    (!filterValues[2] ||
-                            (currSurvey.getPrefGender() != null && gs.getPrefGender() != null &&
-                            ((currSurvey.getGender() != null && gs.getGender() != null &&
-                            currSurvey.getPrefGender().equals(gs.getGender()) && currSurvey.getGender().equals(gs.getPrefGender())) ||
-                            (currSurvey.getPrefGender().equals("IDC") && gs.getPrefGender().equals("IDC"))))) &&
+            if ((!filterValues[1] || filterNation(gs)) &&
+                    (!filterValues[2] || filterGender(gs)) &&
                     (!filterValues[3] ||
                             (currSurvey.getRmType() != null && gs.getRmType() != null && gs.getRmType().equals(currSurvey.getRmType()))) &&
-                    (!filterValues[4] ||
-                            (currSurvey.getPet() != null && gs.getPet() != null && gs.getPet().equals(currSurvey.getPet()))) &&
-                    (!filterValues[5] ||
-                            (currSurvey.getSmoke() != null && gs.getSmoke() != null && gs.getSmoke().equals(currSurvey.getSmoke()))) &&
+                    (!filterValues[4] || filterPet(gs)) &&
+                    (!filterValues[5] || filterSmoke(gs)) &&
                     (!filterValues[6] ||
-                            (currSurvey.getParty() != null && gs.getParty() != null && gs.getParty().equals(currSurvey.getParty())))) {
+                            (currSurvey.getUseRoom() != null && gs.getUseRoom() != null && gs.getUseRoom().equals(currSurvey.getUseRoom())))) {
                 if (filterValues[0]) {
                     int commitNum = Integer.parseInt(gp.getCommitNum());
                     gp.setSimilarity(gp.getSimilarity() + commitNum * 100);
@@ -284,24 +272,84 @@ public class OnlyRecommendation extends Fragment {
         }
     }
 
+    private boolean filterNation(UserSurvey gs) {
+        if (currSurvey.getPrefNation() != null && gs.getPrefNation() != null && currSurvey.getNation() != null && gs.getNation()!= null) {
+            if (currSurvey.getPrefNation().equals("Don't mind") && gs.getPrefNation().equals("Don't mind")) {
+                return true;
+            } else if (currSurvey.getPrefNation().equals("Yes") && gs.getPrefNation().equals("Yes")) {
+                return gs.getNation().equals(currSurvey.getNation());
+            } else if (currSurvey.getPrefNation().equals("No") && gs.getPrefNation().equals("No")) {
+                return !gs.getNation().equals(currSurvey.getNation());
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private boolean filterGender(UserSurvey gs) {
+        if (currSurvey.getPrefGender() != null && gs.getPrefGender() != null && currSurvey.getGender() != null && gs.getGender() != null) {
+            if (currSurvey.getPrefGender().equals("Don't mind") && gs.getPrefGender().equals("Don't mind")) {
+                return true;
+            } else if (currSurvey.getPrefGender().equals(gs.getGender()) && currSurvey.getGender().equals(gs.getPrefGender())) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private boolean filterPet(UserSurvey gs) {
+        if (currSurvey.getMindPet() != null && gs.getMindPet() != null && currSurvey.getPet() != null && gs.getPet() != null) {
+            if (currSurvey.getMindPet().equals("No") && gs.getMindPet().equals("No")) {
+                return true;
+            } else if (currSurvey.getMindPet().equals("No")) {
+                return currSurvey.getPet().equals("No");
+            } else if (gs.getMindPet().equals("No")) {
+                return gs.getPet().equals("No");
+            } else {
+                return currSurvey.getPet().equals("No") && gs.getPet().equals("No");
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private boolean filterSmoke(UserSurvey gs) {
+        if (currSurvey.getMindSmoke() != null && gs.getMindSmoke() != null && currSurvey.getSmoke() != null && gs.getSmoke() != null) {
+            if (currSurvey.getMindSmoke().equals("No") && gs.getMindSmoke().equals("No")) {
+                return true;
+            } else if (currSurvey.getMindSmoke().equals("No")) {
+                return currSurvey.getSmoke().equals("No");
+            } else if (gs.getMindSmoke().equals("No")) {
+                return gs.getSmoke().equals("No");
+            } else {
+                return currSurvey.getSmoke().equals("No") && gs.getSmoke().equals("No");
+            }
+        } else {
+            return false;
+        }
+    }
+
     private int calculateSimilarity(UserSurvey curr, UserSurvey other) {
         int count = 0;
-        if (curr.getSameNation()!= null && other.getSameNation() != null) {
-            if (curr.getSameNation().equals("Yes") && other.getSameNation().equals("Yes") &&
+        if (curr.getPrefNation()!= null && other.getPrefNation() != null) {
+            if (curr.getPrefNation().equals("Yes") && other.getPrefNation().equals("Yes") &&
                     curr.getNation().equals(other.getNation())) count++;
-            if (curr.getSameNation().equals("No") && other.getSameNation().equals("No") &&
+            if (curr.getPrefNation().equals("No") && other.getPrefNation().equals("No") &&
                     !curr.getNation().equals(other.getNation()))
                 count++;
-            if (curr.getSameNation().equals("IDC") && other.getSameNation().equals("IDC")) count++;
+            if (curr.getPrefNation().equals("Don't mind") && other.getPrefNation().equals("Don't mind")) count++;
         }
-//        if (curr.getCook() != null && other.getCook() != null)
-//            if (curr.getCook().equals(other.getCook())) count++;
         if (curr.getLsEndTime() != null && other.getLsEndTime() != null)
             if (curr.getLsEndTime().equals(other.getLsEndTime())) count++;
         if (curr.getLsStartTime() != null && other.getLsStartTime() != null)
             if (curr.getLsStartTime().equals(other.getLsStartTime())) count++;
-        if (curr.getParty() != null && other.getParty() != null)
-            if (curr.getParty().equals(other.getParty())) count++;
+        if (curr.getUseRoom() != null && other.getUseRoom() != null)
+            if (curr.getUseRoom().equals(other.getUseRoom())) count++;
         if (curr.getPet() != null && other.getPet() != null)
             if (curr.getPet().equals(other.getPet())) count++;
         if (curr.getRentHigh() != null && other.getRentHigh() != null)

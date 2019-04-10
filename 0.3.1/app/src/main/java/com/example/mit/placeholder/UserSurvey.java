@@ -14,13 +14,13 @@ public class UserSurvey implements Serializable, Comparable<UserSurvey> {
     String lsEndTime;
     String rentLow;
     String rentHigh;
-    String party;
-    String sameNation;
+//    String party;
+    String prefNation;
     String prefGender;
     String smoke;
-    String otherSmoke;
+    String mindSmoke;
     String pet;
-    String otherPet;
+    String mindPet;
     String sUseRoom;
     String cook;
     String otherCook;
@@ -45,13 +45,13 @@ public class UserSurvey implements Serializable, Comparable<UserSurvey> {
 
     public void setPrefGender(String prefGender){this.prefGender = prefGender;}
 
-    public String getSameNation() { return sameNation; }
+    public String getPrefNation() { return prefNation; }
 
-    public void setSameNation(String sameNation) { this.sameNation = sameNation; }
+    public void setPrefNation(String prefNation) { this.prefNation = prefNation; }
 
-    public String getParty() { return party; }
-
-    public void setParty(String party) { this.party = party; }
+//    public String getParty() { return party; }
+//
+//    public void setParty(String party) { this.party = party; }
 
     public String getNation() { return nation; }
 
@@ -77,17 +77,17 @@ public class UserSurvey implements Serializable, Comparable<UserSurvey> {
 
     public void setSmoke(String smoke) { this.smoke = smoke; }
 
-    public String getOtherSmoke() { return otherSmoke; }
+    public String getMindSmoke() { return mindSmoke; }
 
-    public void setOtherSmoke(String otherSmoke) { this.otherSmoke = otherSmoke; }
+    public void setMindSmoke(String mindSmoke) { this.mindSmoke = mindSmoke; }
 
     public String getPet() { return pet; }
 
     public void setPet(String pet) { this.pet = pet; }
 
-    public String getOtherPet() { return otherPet; }
+    public String getMindPet() { return mindPet; }
 
-    public void setOtherPet(String otherPet) { this.otherPet = otherPet; }
+    public void setMindPet(String mindPet) { this.mindPet = mindPet; }
 
     public String getUseRoom() { return sUseRoom; }
 
