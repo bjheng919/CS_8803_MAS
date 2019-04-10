@@ -128,7 +128,7 @@ public class GroupChat extends AppCompatActivity {
 
                     try {
 
-                        SimpleDateFormat inputformatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+                        SimpleDateFormat inputformatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH);
                         tempmsg.setTime(inputformatter.format(new Date()));
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -224,7 +224,7 @@ public class GroupChat extends AppCompatActivity {
                                 eachmsg.setTo(chatwith.getUuid());
                                 try {
 
-                                    SimpleDateFormat inputformatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+                                    SimpleDateFormat inputformatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH);
                                     eachmsg.setTime(inputformatter.format(new Date()));
                                 } catch (Exception e) {
                                     e.printStackTrace();

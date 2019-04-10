@@ -186,8 +186,15 @@ public class OnlyRecommendation extends Fragment {
                                                     if (tempGroupUuidList.contains(groupSnapshot.getKey())) {
                                                         // System.out.println("Checking groupuuid: " + groupSnapshot.getKey() + " -------------------------");
                                                         GroupProfile tempGroupProfile = groupSnapshot.getValue(GroupProfile.class);
+                                                        String totalnum = tempGroupProfile.getTotalNum();
+                                                        int total;
+                                                        if(totalnum.equals("6+"))
+                                                            total = 100;
+                                                        else
+                                                            total = Integer.parseInt(tempGroupProfile.getTotalNum());
+
                                                         if (tempGroupProfile.getMembers() != null && tempGroupProfile.getTotalNum() != null &&
-                                                                tempGroupProfile.getMembers().size() < Integer.parseInt(tempGroupProfile.getTotalNum())) {
+                                                                tempGroupProfile.getMembers().size() < total) {
                                                             UserSurvey tempGroupSurvey = tempGroupSurveyList.get(tempGroupUuidList.indexOf(groupSnapshot.getKey()));
                                                             int similarity = calculateSimilarity(currSurvey, tempGroupSurvey);
                                                             tempGroupProfile.setSimilarity(similarity);
