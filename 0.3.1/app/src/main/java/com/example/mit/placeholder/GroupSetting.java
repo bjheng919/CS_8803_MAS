@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GroupSetting extends AppCompatActivity {
@@ -91,6 +92,13 @@ public class GroupSetting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 changeCommitStatus();
+            }
+        });
+
+        btn_Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteGroup();
             }
         });
 
@@ -185,6 +193,46 @@ public class GroupSetting extends AppCompatActivity {
         b.show();
     }
 
+    public void deleteGroup(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+//        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+//        dialogBuilder.setView(dialogView);
+
+        dialogBuilder.setTitle("You really want to delete this group?");
+
+        dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                final DatabaseReference mref0 = FirebaseDatabase.getInstance().getReference();
+                mref0.child("groupSurveys").child(currGroup.getUuid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mref0.child("GroupMessages").child(currGroup.getUuid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                mref0.child("groups").child(currGroup.getUuid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(getApplicationContext(),"Group deleted.",Toast.LENGTH_LONG).show();
+                                        Intent i = new Intent(getApplicationContext(),newMessages.class);
+                                        finish();
+                                        startActivity(i);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        dialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+    }
 
     public void changeCommitStatus(){
         if(CreateProfile.committed){
