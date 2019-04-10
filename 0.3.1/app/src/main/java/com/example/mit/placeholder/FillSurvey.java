@@ -117,7 +117,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         etNation.setAdapter(adapter1);
         etNation.setVisibility(View.VISIBLE);//设置默认显示
-        str = (String) etNation.getSelectedItem();
+
 
         rgSameNation = (RadioGroup) findViewById(R.id.surveySameNation);
         btnBack1 = (Button) findViewById(R.id.surveyback);
@@ -148,7 +148,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             public void onClick(View view) {
 
 //                    UserSurvey survey = new UserSurvey();
-
+                    final String str = (String) etNation.getSelectedItem();
                     survey.setNation(str);
                     survey.setSameNation(getSelectedRadioButtonText(rgSameNation));
 
@@ -164,14 +164,14 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         });
 
-//        btnBack1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(),newMessages.class);
-//                finish();
-//                startActivity(i);
-//            }
-//        });
+        btnBack1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),CreateProfile.class);
+                finish();
+                startActivity(i);
+            }
+        });
     }
 
 
@@ -238,13 +238,8 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         btnBack2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                survey.setGender(str);
-//                survey.setPrefGender(getSelectedRadioButtonText(rgSameGender));
-//                onCreate1();
+                onCreate1();
 
-//                Intent i = new Intent(getApplicationContext(),FillSurvey1.class);
-//                finish();
-//                startActivity(i);
             }
         });
     }
@@ -316,14 +311,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         });
 
-//        btnBack3.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//            Intent i = new Intent(getApplicationContext(),newMessages.class);
-//            finish();
-//            startActivity(i);
-//        }
-//        });
+        btnBack3.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            onCreate2();
+        }
+        });
     }
 
     private String getSelectedRadioButtonText(RadioGroup rg) {
@@ -539,14 +532,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 //
-//        btnBack4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(),newMessages.class);
-//                finish();
-//                startActivity(i);
-//            }
-//        });
+        btnBack4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               onCreate3();
+            }
+        });
     }
 
     protected void onCreate5() {
@@ -598,14 +589,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-//        btnBack5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), newMessages.class);
-//                finish();
-//                startActivity(i);
-//            }
-//        });
+        btnBack5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCreate4();
+            }
+        });
     }
 
     protected void onCreate6() {
@@ -655,14 +644,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-//        btnBack6.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), newMessages.class);
-//                finish();
-//                startActivity(i);
-//            }
-//        });
+        btnBack6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCreate5();
+            }
+        });
     }
 
     protected void onCreate7() {
@@ -736,14 +723,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-//        btnBack7.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), newMessages.class);
-//                finish();
-//                startActivity(i);
-//            }
-//        });
+        btnBack7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCreate6();
+            }
+        });
     }
 
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
