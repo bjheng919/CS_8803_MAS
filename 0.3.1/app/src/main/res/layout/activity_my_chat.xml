@@ -73,11 +73,12 @@
             android:layout_weight="0.05"
             android:background="@mipmap/send" />
 
-        <ImageButton
-            android:id="@+id/mychatbtngallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.05"
-            android:background="@mipmap/gallery" />
+        <!--<ImageButton-->
+            <!--android:id="@+id/mychatbtngallery"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0.05"-->
+            <!--android:background="@mipmap/gallery"-->
+            <!--android:visibility="visible" />-->
     </TableRow>
 </RelativeLayout>
