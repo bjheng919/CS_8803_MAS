@@ -61,31 +61,6 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="322dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Limit Same Nation"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/profDetailTVSameNation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="15dp" />
-        </TableRow>
-
-        <TableRow
             android:layout_marginTop="10dp"
             android:textSize="20dp"
             android:layout_width="match_parent"

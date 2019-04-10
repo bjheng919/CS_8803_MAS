@@ -32,7 +32,6 @@ public class ProfileDetails extends AppCompatActivity {
 
         TextView tvGroupName = (TextView) findViewById(R.id.profDetailTVGroupName);
         TextView tvNation =(TextView) findViewById(R.id.profDetailTVNation);
-        TextView tvSameNation =(TextView) findViewById(R.id.profDetailTVSameNation);
         TextView tvRmType =(TextView) findViewById(R.id.profDetailTVRmType);
         TextView tvLsStartTime =(TextView) findViewById(R.id.profDetailTVLsStartTime);
         TextView tvLsEndTime =(TextView) findViewById(R.id.profDetailTVLsEndTime);
@@ -52,7 +51,6 @@ public class ProfileDetails extends AppCompatActivity {
 
         tvGroupName.setText(groupProfile.getGroupName());
         tvNation.setText(groupSurvey.getNation());
-        tvSameNation.setText(groupSurvey.getSameNation());
         tvRmType.setText(groupSurvey.getRmType());
         tvLsStartTime.setText(groupSurvey.getLsStartTime());
         tvLsEndTime.setText(groupSurvey.getLsEndTime());
