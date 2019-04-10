@@ -57,7 +57,7 @@ public class ProfileDetails extends AppCompatActivity {
         tvRentLow.setText(groupSurvey.getRentLow());
         tvRentHigh.setText(groupSurvey.getRentHigh());
         tvCook.setText(groupSurvey.getCook());
-        tvParty.setText(groupSurvey.getParty());
+        tvParty.setText(groupSurvey.getUseRoom());
         tvSmoke.setText(groupSurvey.getSmoke());
         tvPet.setText(groupSurvey.getPet());
 
