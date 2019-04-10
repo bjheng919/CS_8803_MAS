@@ -322,14 +322,14 @@
     </TableLayout>
 
     <Button
-        android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:layout_width="150dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="65dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Join Group"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="266dp"
-        android:background="#534BAE"
-        android:textColor="#FFFFFF"
+        android:textSize="17sp"
+        android:background="@drawable/common_button_bg"
+        android:textColor="@color/common_button_text_white"
         android:id="@+id/profDetailBtnJoinGroup" />
 </LinearLayout>

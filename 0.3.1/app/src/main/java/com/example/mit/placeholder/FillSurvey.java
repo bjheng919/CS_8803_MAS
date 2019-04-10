@@ -167,9 +167,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         btnBack1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),CreateProfile.class);
+                Toast.makeText(getApplicationContext(),"Update Cancelled",Toast.LENGTH_LONG).show();
+//                Intent i = new Intent(getApplicationContext(),CreateProfile.class);
                 finish();
-                startActivity(i);
+//                startActivity(i);
             }
         });
     }
@@ -181,7 +182,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         final String str;
 
         etGender = (Spinner) findViewById(R.id.etGender);
-        adapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Gender);
+        adapter2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,Gender);
         //设置下拉列表风格
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         etGender.setAdapter(adapter2);

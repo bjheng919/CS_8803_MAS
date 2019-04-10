@@ -1,5 +1,6 @@
 package com.example.mit.placeholder;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +22,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,22 +31,23 @@ import com.squareup.picasso.Picasso;
  * {@link OnlyGroups.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class OnlySetting extends Fragment {
+public class OnlyMe extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    UserProfile usertemp;
+    UserProfile up;
+    UserSurvey us;
 
+    private Button meProfileBtn;
+    private Button meSurveyBtn;
 
-    public OnlySetting() {
+    public OnlyMe() {
         // Required empty public constructor
     }
 
-    private int mPage;
-
-    public static OnlySetting newInstance(int page) {
+    public static OnlyMe newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt("ARG_PAGE", page);
-        OnlySetting fragment = new OnlySetting();
+        OnlyMe fragment = new OnlyMe();
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,62 +62,91 @@ public class OnlySetting extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.my_profile_details, container, false);
+        View view = inflater.inflate(R.layout.activity_me, container, false);
 
+        meProfileBtn = (Button) view.findViewById(R.id.meProfileBtn);
+        meSurveyBtn = (Button) view.findViewById(R.id.meSurveyBtn);
+
+        meProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), EditProfile.class);
+                startActivity(i);
+            }
+        });
+
+        meSurveyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), FillSurvey.class);
+                startActivity(i);
+            }
+        });
+
+        return view;
     }
-
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final ImageView ivimage = (ImageView) getView().findViewById(R.id.profdisimage);
+        final CircleImageView meCIV = (CircleImageView) getView().findViewById(R.id.meCIV);
 
-        usertemp = new UserProfile();
+        up = new UserProfile();
 
-        ///usertemp = (UserProfile) getView().getIntent().getExtras().getSerializable("profiledetails");
+        ///up = (UserProfile) getView().getIntent().getExtras().getSerializable("profiledetails");
 
+        // Get current UserProfile
         final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("users").child(CreateProfile.myuuid);
         mref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                TextView tvname = (TextView) getView().findViewById(R.id.profdisname);
-                TextView tvemail =(TextView) getView().findViewById(R.id.profdisemail);
-                usertemp = dataSnapshot.getValue(UserProfile.class);
-                tvname.setText(usertemp.getFname() + " " + usertemp.getLname());
+                up = dataSnapshot.getValue(UserProfile.class);
 
-                tvemail.setText(usertemp.getEmail());
+                TextView meFNameTV = (TextView) getView().findViewById(R.id.meFNameTV);
+                TextView meEmailTV =(TextView) getView().findViewById(R.id.meEmailTV);
 
-                if(usertemp.getImage()!=null)
-                {
+                meFNameTV.setText("Hi, " + up.getFname());
+                meEmailTV.setText(up.getEmail());
+
+                if(up.getImage() != null) {
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageReference = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
-                    StorageReference storageref = storageReference.child(usertemp.getImage());
+                    StorageReference storageref = storageReference.child(up.getImage());
 
                     storageref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
 
-                            Picasso.with(getView().getContext()).load(uri).into(ivimage);
+                            Picasso.with(getView().getContext()).load(uri).into(meCIV);
                         }
                     });
+                } else {
+                    meCIV.setImageResource(R.mipmap.noimage);
                 }
-                else {
 
-                    ivimage.setImageResource(R.mipmap.noimage);
+                // Get current UserSurvey
+                final DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("surveys").child(CreateProfile.myuuid);
+                mref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        us = dataSnapshot.getValue(UserSurvey.class);
 
-                }
+                        TextView meNationTV = (TextView) getView().findViewById(R.id.meNationTV);
+
+                        meNationTV.setText(us.getNation());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-
-
-
-
     }
 
     @Override

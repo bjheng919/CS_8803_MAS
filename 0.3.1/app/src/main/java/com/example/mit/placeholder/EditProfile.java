@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,15 +28,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class EditProfile extends AppCompatActivity {
 
-    // ImageView ivimage;
-    ImageView ibgallery;
-    Button btnback;
-    Button btnupdate;
-    EditText etfname;
-    EditText etlname;
-    EditText etemail;
+    TextView editProfileFNameTV;
+    CircleImageView editProfileCIV;
+    Button editProfileUpdateBtn;
+    EditText editProfileFNameET;
+    EditText editProfileLNameET;
+    EditText editProfileEmailET;
 
     UserProfile tempprof;
 
@@ -47,62 +49,41 @@ public class EditProfile extends AppCompatActivity {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageref;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
         // ivimage = (ImageView) findViewById(R.id.epivimage);
-        ibgallery = (ImageView) findViewById(R.id.epibgallery);
-        btnback = (Button) findViewById(R.id.epbtnback);
-        btnupdate = (Button) findViewById(R.id.epbtnupdate);
-        etfname = (EditText) findViewById(R.id.epetfname);
-        etlname = (EditText) findViewById(R.id.epetlname);
-        etemail = (EditText) findViewById(R.id.epetemail);
+        editProfileFNameTV = (TextView) findViewById(R.id.editProfileFNameTV);
+        editProfileCIV = (CircleImageView) findViewById(R.id.editProfileCIV);
+        editProfileUpdateBtn = (Button) findViewById(R.id.editProfileUpdateBtn);
+        editProfileFNameET = (EditText) findViewById(R.id.editProfileFNameET);
+        editProfileLNameET = (EditText) findViewById(R.id.editProfileLNameET);
+        editProfileEmailET = (EditText) findViewById(R.id.editProfileEmailET);
 
         storageref = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
 
-        btnback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(getApplicationContext(),"Update Cancelled",Toast.LENGTH_LONG).show();
-                Intent i = new Intent(getApplicationContext(),newMessages.class);
-                finish();
-                startActivity(i);
-
-                return;
-            }
-        });
-
         DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users");
-
         mrefcheckprofile.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                int flag=0;
-
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-
                     tempprof = postSnapshot.getValue(UserProfile.class);
 
-                    if(tempprof.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
-                    {
-                        flag=1;
+                    if(tempprof.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
 
-                        etemail.setText(tempprof.getEmail());
-                        etemail.setEnabled(false);
-                        etfname.setText(tempprof.getFname());
-                        etlname.setText(tempprof.getLname());
+                        editProfileFNameTV.setText("Hi, " + tempprof.getFname());
+                        editProfileFNameET.setText(tempprof.getFname());
+                        editProfileLNameET.setText(tempprof.getLname());
+                        editProfileEmailET.setText(tempprof.getEmail());
+                        editProfileEmailET.setEnabled(false);
 
 
                         uuid = tempprof.getUuid();
 
-                        if(tempprof.getImage()!=null)
-                        {
-
+                        if(tempprof.getImage()!=null) {
                             FirebaseStorage storage = FirebaseStorage.getInstance();
                             StorageReference storageReference = storage.getReferenceFromUrl("gs://fir-test-ff77a.appspot.com/");
                             StorageReference storageref = storageReference.child(tempprof.getImage());
@@ -112,37 +93,29 @@ public class EditProfile extends AppCompatActivity {
                             storageref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-
-                                    Picasso.with(getApplicationContext()).load(uri).into(ibgallery);
+                                    Picasso.with(getApplicationContext()).load(uri).into(editProfileCIV);
                                 }
                             });
 
-                        }
-                        else {
-                            ibgallery.setImageResource(R.mipmap.noimage);
+                        } else {
+                            editProfileCIV.setImageResource(R.mipmap.noimage);
                             imageurl=null;
                             earlierimage=0;
                         }
 
-
                         break;
                     }
-
                 }
-
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
-        ibgallery.setOnClickListener(new View.OnClickListener() {
+        editProfileCIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
@@ -150,145 +123,95 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-
-        btnupdate.setOnClickListener(new View.OnClickListener() {
+        editProfileUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                if(etfname.getText().toString().trim().length()<1)
-                {
-                    etfname.setError("Please enter the correct First name");
-                }
-                else if(etlname.getText().toString().trim().length()<1)
-                {
-                    etlname.setError("Please enter the correct Last name");
-                }
-                else {
-
-
-
+                if(editProfileFNameET.getText().toString().trim().length()<1) {
+                    editProfileFNameET.setError("Please enter the correct First name");
+                } else if(editProfileLNameET.getText().toString().trim().length()<1) {
+                    editProfileLNameET.setError("Please enter the correct Last name");
+                } else {
                     final UserProfile profile = new UserProfile();
 
-                    profile.setFname(etfname.getText().toString().trim());
-                    profile.setLname(etlname.getText().toString().trim());
-                    profile.setEmail(etemail.getText().toString().trim());
-
-
-
+                    profile.setFname(editProfileFNameET.getText().toString().trim());
+                    profile.setLname(editProfileLNameET.getText().toString().trim());
+                    profile.setEmail(editProfileEmailET.getText().toString().trim());
                     profile.setImage(imageurl);
                     profile.setUuid(uuid);
 
-                    if(imageurl!=null){
+                    if(imageurl!=null) {
 
-                        if(earlierimage==1)
-                        {
-                            if(tempprof.getImage().equals(imageurl))
-                            {
+                        if(earlierimage==1) {
+                            if(tempprof.getImage().equals(imageurl)) {
                                 FirebaseDatabase.getInstance().getReference().child("users").child(profile.getUuid()).setValue(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(getApplicationContext(),"Profile Updated successfully",Toast.LENGTH_LONG).show();
-
-                                        Intent i = new Intent(getApplicationContext(),newMessages.class);
+//                                        Intent i = new Intent(getApplicationContext(),newMessages.class);
                                         finish();
-                                        startActivity(i);
-
+//                                        startActivity(i);
                                     }
                                 });
-
-                            }
-                            else
-                            {
-
-
+                            } else {
                                 final StorageReference ImagesRef = storageref.child(tempprof.getImage());
                                 ImagesRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-
                                         final StorageReference ImagesRef2 = storageref.child("profileImages/"+ UUID.randomUUID()+".jpg");
 
                                         ImagesRef2.putFile(Uri.parse(imageurl)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                             @Override
                                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                                                 profile.setImage(ImagesRef2.getPath());
-
 
                                                 FirebaseDatabase.getInstance().getReference().child("users").child(profile.getUuid()).setValue(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
                                                         Toast.makeText(getApplicationContext(),"Profile Updated successfully",Toast.LENGTH_LONG).show();
-
-                                                        Intent i = new Intent(getApplicationContext(),newMessages.class);
+//                                                        Intent i = new Intent(getApplicationContext(),newMessages.class);
                                                         finish();
-                                                        startActivity(i);
-
+//                                                        startActivity(i);
                                                     }
                                                 });
-
                                             }
                                         });
-
                                     }
                                 });
                             }
-                        }
-                        else {
-
-
+                        } else {
                             final StorageReference ImagesRef2 = storageref.child("profileImages/"+ UUID.randomUUID()+".jpg");
-
                             ImagesRef2.putFile(Uri.parse(imageurl)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                                     profile.setImage(ImagesRef2.getPath());
-
 
                                     FirebaseDatabase.getInstance().getReference().child("users").child(profile.getUuid()).setValue(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(getApplicationContext(),"Profile Updated successfully",Toast.LENGTH_LONG).show();
-
-                                            Intent i = new Intent(getApplicationContext(),newMessages.class);
+//                                            Intent i = new Intent(getApplicationContext(),newMessages.class);
                                             finish();
-                                            startActivity(i);
-
+//                                            startActivity(i);
                                         }
                                     });
-
                                 }
                             });
-
                         }
-
-
-
-                    }else {
-
+                    } else {
                         FirebaseDatabase.getInstance().getReference().child("users").child(profile.getUuid()).setValue(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(getApplicationContext(),"Profile Updated successfully",Toast.LENGTH_LONG).show();
-
-                                Intent i = new Intent(getApplicationContext(),newMessages.class);
+//                                Intent i = new Intent(getApplicationContext(),newMessages.class);
                                 finish();
-                                startActivity(i);
-
+//                                startActivity(i);
                             }
                         });
                     }
-
                 }
-
             }
         });
-
-
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -301,28 +224,21 @@ public class EditProfile extends AppCompatActivity {
                     Uri selectedImageUri = data.getData();
                     if (null != selectedImageUri) {
                         // Set the image in ImageView
-                        ibgallery.setImageURI(selectedImageUri);
+                        editProfileCIV.setImageURI(selectedImageUri);
                         imageurl = selectedImageUri.toString();
-
                     }
-
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.d("test",e.getMessage());
             Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
-    public void onBackPressed()
-    {
-        Intent i = new Intent(getApplicationContext(),newMessages.class);
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(),"Update Cancelled",Toast.LENGTH_LONG).show();
+//        Intent i = new Intent(getApplicationContext(),newMessages.class);
         finish();
-        startActivity(i);
-
-        return;
+//        startActivity(i);
     }
-
 }

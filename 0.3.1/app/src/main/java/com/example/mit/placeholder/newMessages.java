@@ -1,7 +1,6 @@
 package com.example.mit.placeholder;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -51,7 +50,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
 
     private OnlyRecommendation f1;
     private OnlyGroups f2;
-    private OnlySetting f3;
+    private OnlyMe f3;
     private FragmentManager fragmentManager;
 
     private boolean[] filterValues;
@@ -139,6 +138,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    // Response to filter selections
     public void onCBClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
@@ -283,7 +283,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 mBtnOpenLeftDrawer.setVisibility(View.GONE);
                 fab.setVisibility(View.GONE);
                 if(f3==null){
-                    f3 = new OnlySetting();
+                    f3 = new OnlyMe();
                     transaction.add(R.id.fragment_container,f3);
                 }else{
                     transaction.show(f3);
@@ -318,16 +318,16 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         if (id == R.id.signout) {
             FirebaseAuth.getInstance().signOut();
 
-            Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
             finish();
             startActivity(i);
         } else if (id == R.id.survey) {
-            Intent i = new Intent(getApplicationContext(),FillSurvey.class);
-            finish();
+            Intent i = new Intent(getApplicationContext(), FillSurvey.class);
+            //finish();
             startActivity(i);
         } else if(id == R.id.editprofile) {
-            Intent i = new Intent(getApplicationContext(),EditProfile.class);
-            finish();
+            Intent i = new Intent(getApplicationContext(), EditProfile.class);
+            //finish();
             startActivity(i);
         }
 

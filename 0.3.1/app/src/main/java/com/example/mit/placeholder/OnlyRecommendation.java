@@ -81,9 +81,9 @@ public class OnlyRecommendation extends Fragment {
         mRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        adapter.setOnItemClickListener(new RecommendationAdapter.OnItemClickListener(){
+        adapter.setOnItemClickListener(new RecommendationAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position){
+            public void onItemClick(View view, int position) {
                 Intent ii = new Intent(getActivity(),ProfileDetails.class);
                 ii.putExtra("groupProfile", filteredGroupProfileList.get(position));
                 ii.putExtra("groupSurvey", filteredGroupSurveyList.get(position));

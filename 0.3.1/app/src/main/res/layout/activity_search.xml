@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tab_title"
             android:layout_alignParentStart="true"
-            android:drawableLeft="@drawable/baseline_filter_list_black_18dp"
+            android:layout_marginStart="12dp"
+            android:drawableStart="@drawable/baseline_filter_list_black_18dp"
             android:background="@android:color/transparent"
             android:text="Filter" />
 
@@ -78,7 +79,7 @@
                 android:layout_weight="1"
                 android:background="@color/floating_plus_bg"
                 android:drawableTop="@drawable/tab_menu_search"
-                android:drawablePadding="3dp"
+                android:drawablePadding="1dp"
                 android:gravity="center"
                 android:text="Discover"
                 android:textColor="@drawable/tab_menu_search_text" />
@@ -86,11 +87,11 @@
             <TextView
                 android:id="@+id/txt_poi"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/floating_plus_bg"
                 android:drawableTop="@drawable/tab_menu_chat"
-                android:drawablePadding="3dp"
+                android:drawablePadding="1dp"
                 android:gravity="center"
                 android:text="Chat"
                 android:textColor="@drawable/tab_menu_chat_text" />
@@ -98,11 +99,11 @@
             <TextView
                 android:id="@+id/txt_user"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/floating_plus_bg"
                 android:drawableTop="@drawable/tab_menu_setting"
-                android:drawablePadding="3dp"
+                android:drawablePadding="2.5dp"
                 android:gravity="center"
                 android:text="Me"
                 android:textColor="@drawable/tab_menu_setting_text" />

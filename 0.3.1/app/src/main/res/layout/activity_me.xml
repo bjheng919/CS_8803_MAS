@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="0dp">
+    android:layout_marginTop="-40dp">
 
     <View
         android:layout_width="match_parent"
@@ -15,22 +15,22 @@
         android:layout_marginStart="40dp"
         android:layout_width="105dp"
         android:layout_height="105dp"
-        android:id="@+id/editProfileCIV"
+        android:id="@+id/meCIV"
         android:src="@mipmap/noimage" />
 
     <TextView
-        android:id="@+id/editProfileFNameTV"
+        android:id="@+id/meFNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="97dp"
         android:layout_marginStart="170dp"
         android:textSize="25sp"
         android:textColor="@color/common_text_white"/>
-
+    
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="390dp"
+        android:layout_height="360dp"
         android:layout_marginTop="200dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
@@ -43,8 +43,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginStart="30dp"
             android:textSize="16sp"
-            android:text="FIRST NAME" />
-<!--
+            android:text="EMAIl ADDRESS" />
+
         <TextView
             android:id="@+id/meEmailTV"
             android:layout_width="wrap_content"
@@ -54,16 +54,6 @@
             android:textSize="16sp"
             android:text="Email Address Holder"
             android:textColor="@color/me_content_black" />
--->
-        <EditText
-            android:id="@+id/editProfileFNameET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginEnd="26dp"
-            android:textSize="16sp"
-            android:textColor="@color/me_content_black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,49 +61,42 @@
             android:layout_marginTop="120dp"
             android:layout_marginStart="30dp"
             android:textSize="16sp"
-            android:text="LAST NAME" />
-
-        <EditText
-            android:id="@+id/editProfileLNameET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginEnd="26dp"
-            android:textSize="16sp"
-            android:textColor="@color/me_content_black" />
+            android:text="NATIONALITY" />
 
         <TextView
+            android:id="@+id/meNationTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="210dp"
+            android:layout_marginTop="160dp"
             android:layout_marginStart="30dp"
             android:textSize="16sp"
-            android:text="EMAIl ADDRESS" />
-
-        <EditText
-            android:id="@+id/editProfileEmailET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="240dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginEnd="26dp"
-            android:textSize="16sp"
+            android:text="Nationality Holder"
             android:textColor="@color/me_content_black" />
 
         <Button
-            android:id="@+id/editProfileUpdateBtn"
+            android:id="@+id/meProfileBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="310dp"
+            android:layout_marginTop="210dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:text="UPDATE PROFILE"
+            android:text="EDIT PROFILE"
+            android:textSize="17sp"
+            android:textColor="@color/common_button_text_white"
+            android:background="@drawable/common_button_bg"/>
+
+        <Button
+            android:id="@+id/meSurveyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="280dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="FILL SURVEY"
             android:textSize="17sp"
             android:textColor="@color/common_button_text_white"
             android:background="@drawable/common_button_bg"/>
 
     </android.support.v7.widget.CardView>
-
 
 </RelativeLayout>
