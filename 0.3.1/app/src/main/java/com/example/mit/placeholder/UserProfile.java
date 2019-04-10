@@ -9,6 +9,15 @@ public class UserProfile implements Serializable, Comparable<UserProfile> {
 
     String fname, lname, email, image, uuid;
     int similarity;
+    boolean committed = false;
+
+    public boolean isCommitted() {
+        return committed;
+    }
+
+    public void setCommitted(boolean committed) {
+        this.committed = committed;
+    }
 
     public String getUuid() {
         return uuid;

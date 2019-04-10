@@ -55,6 +55,12 @@ public class GroupSetting extends AppCompatActivity {
             tvMembers.setText(sb.toString());
         }
 
+        if(CreateProfile.committed){
+            btn_Commit.setText("CANCEL YOUR COMMIT");
+        }else{
+            btn_Commit.setText("COMMIT TO THE GROUP");
+        }
+
 
         btn_ChangeInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +87,12 @@ public class GroupSetting extends AppCompatActivity {
             }
         });
 
+        btn_Commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeCommitStatus();
+            }
+        });
 
     }
 
@@ -171,6 +183,70 @@ public class GroupSetting extends AppCompatActivity {
         });
         AlertDialog b = dialogBuilder.create();
         b.show();
+    }
+
+
+    public void changeCommitStatus(){
+        if(CreateProfile.committed){
+            CreateProfile.committed = false;
+            final DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users").child(CreateProfile.myuuid);
+            mrefcheckprofile.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    UserProfile myprofile = dataSnapshot.getValue(UserProfile.class);
+                    myprofile.setCommitted(false);
+                    mrefcheckprofile.setValue(myprofile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            currGroup.setCommitNum(Integer.toString(Integer.valueOf(currGroup.getCommitNum())-1));
+                            final DatabaseReference mref0 = FirebaseDatabase.getInstance().getReference().child("groups").child(currGroup.getUuid());
+                            mref0.setValue(currGroup).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(),"Commit canceled",Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }else{
+            CreateProfile.committed = true;
+            final DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users").child(CreateProfile.myuuid);
+            mrefcheckprofile.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    UserProfile myprofile = dataSnapshot.getValue(UserProfile.class);
+                    myprofile.setCommitted(true);
+                    mrefcheckprofile.setValue(myprofile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            currGroup.setCommitNum(Integer.toString(Integer.valueOf(currGroup.getCommitNum())+1));
+                            final DatabaseReference mref0 = FirebaseDatabase.getInstance().getReference().child("groups").child(currGroup.getUuid());
+                            mref0.setValue(currGroup).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(),"Commit Success",Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
     }
 
 }
