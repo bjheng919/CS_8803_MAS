@@ -119,6 +119,7 @@ public class GroupSetting extends AppCompatActivity {
 
 
     public void quitGroup(){
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         dialogBuilder.setTitle("You sure you want to quit this group?");
@@ -143,6 +144,28 @@ public class GroupSetting extends AppCompatActivity {
                                 mref2.setValue(currGroup).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+                                        if(CreateProfile.myuuid.equals(currGroup.getCreatorUuid())){
+                                            final DatabaseReference mref0 = FirebaseDatabase.getInstance().getReference();
+                                            mref0.child("groupSurveys").child(currGroup.getUuid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    mref0.child("GroupMessages").child(currGroup.getUuid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            mref0.child("groups").child(currGroup.getUuid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Toast.makeText(getApplicationContext(),"Group deleted.",Toast.LENGTH_LONG).show();
+                                                                    Intent i = new Intent(getApplicationContext(),newMessages.class);
+                                                                    finish();
+                                                                    startActivity(i);
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
                                         Toast.makeText(getApplicationContext(),"Quit success",Toast.LENGTH_LONG).show();
                                         Intent i = new Intent(getApplicationContext(),newMessages.class);
                                         finish();
