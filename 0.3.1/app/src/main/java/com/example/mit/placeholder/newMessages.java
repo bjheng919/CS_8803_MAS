@@ -358,7 +358,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                         final String groupuuid = pushid.getKey();
                         GroupProfile groupProfile = new GroupProfile();
                         groupProfile.setCommitNum("0");
-                        groupProfile.setTotalNum(currSurvey.getRmmtNum());
+                        groupProfile.setTotalNum("" + (char) (currSurvey.getRmmtNum().charAt(0) + 1) + currSurvey.getRmmtNum().substring(1));
                         groupProfile.setCreatorUuid(CreateProfile.myuuid);
                         groupProfile.setGroupName(edt.getText().toString());
                         groupProfile.setUuid(groupuuid);

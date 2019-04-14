@@ -45,6 +45,7 @@ public class OnlyRecommendation extends Fragment {
     private UserProfile currProfile;
     private UserSurvey currSurvey;
     private boolean[] filterValues;
+    private String searchString;
 
     private RecyclerView mRecyclerView;
     private RecommendationAdapter adapter;
@@ -56,6 +57,7 @@ public class OnlyRecommendation extends Fragment {
     public void setFilterValues(boolean[] filterValues) {
         this.filterValues = filterValues;
     }
+    public void setSearchString(String searchString) { this.searchString = searchString; }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -249,12 +251,11 @@ public class OnlyRecommendation extends Fragment {
             UserSurvey gs = groupSurveyList.get(i);
             if ((!filterValues[1] || filterNation(gs)) &&
                     (!filterValues[2] || filterGender(gs)) &&
-                    (!filterValues[3] ||
-                            (currSurvey.getRmType() != null && gs.getRmType() != null && gs.getRmType().equals(currSurvey.getRmType()))) &&
+                    (!filterValues[3] || filterRmType(gs)) &&
                     (!filterValues[4] || filterPet(gs)) &&
                     (!filterValues[5] || filterSmoke(gs)) &&
-                    (!filterValues[6] ||
-                            (currSurvey.getUseRoom() != null && gs.getUseRoom() != null && gs.getUseRoom().equals(currSurvey.getUseRoom())))) {
+                    (!filterValues[6] || filterUseRoom(gs)) &&
+                    (searchString.isEmpty() || filterSearchString(gp))) {
                 if (filterValues[0]) {
                     int commitNum = Integer.parseInt(gp.getCommitNum());
                     gp.setSimilarity(gp.getSimilarity() + commitNum * 100);
@@ -301,6 +302,10 @@ public class OnlyRecommendation extends Fragment {
         }
     }
 
+    private boolean filterRmType(UserSurvey gs) {
+        return currSurvey.getRmType() != null && gs.getRmType() != null && gs.getRmType().equals(currSurvey.getRmType());
+    }
+
     private boolean filterPet(UserSurvey gs) {
         if (currSurvey.getMindPet() != null && gs.getMindPet() != null && currSurvey.getPet() != null && gs.getPet() != null) {
             if (currSurvey.getMindPet().equals("No") && gs.getMindPet().equals("No")) {
@@ -331,6 +336,14 @@ public class OnlyRecommendation extends Fragment {
         } else {
             return false;
         }
+    }
+
+    private boolean filterUseRoom(UserSurvey gs) { // Social or not social
+        return currSurvey.getUseRoom() != null && gs.getUseRoom() != null && gs.getUseRoom().equals(currSurvey.getUseRoom());
+    }
+
+    private boolean filterSearchString(GroupProfile gp) {
+        return gp.getGroupName().contains(searchString);
     }
 
     private int calculateSimilarity(UserSurvey curr, UserSurvey other) {

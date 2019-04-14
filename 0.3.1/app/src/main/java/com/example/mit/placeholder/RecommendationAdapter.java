@@ -60,7 +60,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
     public void onBindViewHolder(@NonNull final RecommendationAdapter.RecommendationViewHolder vh, int position) {
         setImage(groupProfileList.get(position), vh);
         setTexts(groupProfileList.get(position), vh);
-        setTags(groupSurveyList.get(position), vh);
+        setTags(groupProfileList.get(position), groupSurveyList.get(position), vh);
         vh.itemView.setTag(position);
 
         vh.tagListRV.setOnTouchListener(new View.OnTouchListener() {
@@ -120,9 +120,10 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
         }
     }
 
-    private void setTags(UserSurvey gs, RecommendationViewHolder vh) {
+    private void setTags(GroupProfile gp, UserSurvey gs, RecommendationViewHolder vh) {
         // Initialize the list of tag strings
         ArrayList<String> tagStrList = new ArrayList<>();
+        tagStrList.add(gp.getTotalNum() + " People");
         if (gs.getPrefNation() != null && gs.getPrefNation().equals("Yes") && gs.getNation() != null) {
             tagStrList.add(gs.getNation());
         } else if (gs.getPrefNation() != null && gs.getPrefNation().equals("No") && gs.getNation() != null) {
