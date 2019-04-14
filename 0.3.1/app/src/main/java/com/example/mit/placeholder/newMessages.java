@@ -24,6 +24,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Switch;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +49,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     private Toolbar toolbar;
     private FrameLayout ly_content;
     private Switch toggle;
+    private EditText searchBox;
 
     private OnlyRecommendation f1;
     private OnlyGroups f2;
@@ -54,6 +57,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     private FragmentManager fragmentManager;
 
     private boolean[] filterValues;
+    private String searchValue = "";
     FloatingActionButton fab;///////////////////fab
 
     @Override
@@ -67,7 +71,30 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         filterValues = new boolean[7];
         for (boolean filterValue : filterValues) { filterValue = false; }
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        searchValue = "";
+        searchBox = (EditText)findViewById(R.id.search_box);
+        searchBox.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            /**
+             * 编辑框的内容正在发生改变时的回调方法 >>用户正在输入
+             * 我们可以在这里实时地 通过搜索匹配用户的输入
+             */
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                searchValue = charSequence.toString();
+                tabDeal.performClick();
+            }
+
+            /**
+             * 编辑框的内容改变以后,用户没有继续输入时 的回调方法
+             */
+            @Override
+            public void afterTextChanged(Editable editable) {
+                searchValue = editable.toString();
+                tabDeal.performClick();
+            }
+        });
 
         getSupportActionBar().setHomeButtonEnabled(false);      // Disable the button
         getSupportActionBar().setDisplayHomeAsUpEnabled(false); // Remove the left caret
@@ -258,6 +285,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 mBtnOpenLeftDrawer.setVisibility(View.VISIBLE);
                 f1 = new OnlyRecommendation();
                 f1.setFilterValues(filterValues);
+                f1.setSearchString(searchValue);
                 transaction.add(R.id.fragment_container,f1);
                 fab.setVisibility(View.VISIBLE);
                 break;

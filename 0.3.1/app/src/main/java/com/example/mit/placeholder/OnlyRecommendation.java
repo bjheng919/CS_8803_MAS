@@ -88,36 +88,12 @@ public class OnlyRecommendation extends Fragment {
                 Intent ii = new Intent(getActivity(),ProfileDetails.class);
                 ii.putExtra("groupProfile", filteredGroupProfileList.get(position));
                 ii.putExtra("groupSurvey", filteredGroupSurveyList.get(position));
-//                getActivity().finish();
                 startActivity(ii);
             }
         });
 
         return view;
-
-//        return inflater.inflate(R.layout.fragment_only_recommendation, container, false);
     }
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//        listView = (ListView) getView().findViewById(R.id.recommendationListLV);
-//
-//        listView.setAdapter(adapter);
-//        adapter.setNotifyOnChange(true);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent ii = new Intent(getActivity(),ProfileDetails.class);
-//                ii.putExtra("groupProfile", filteredGroupProfileList.get(i));
-//                ii.putExtra("groupSurvey", filteredGroupSurveyList.get(i));
-//                getActivity().finish();
-//                startActivity(ii);
-//            }
-//        });
-//    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -343,7 +319,7 @@ public class OnlyRecommendation extends Fragment {
     }
 
     private boolean filterSearchString(GroupProfile gp) {
-        return gp.getGroupName().contains(searchString);
+        return gp.getGroupName().toLowerCase().contains(searchString.toLowerCase()); // case insensitive
     }
 
     private int calculateSimilarity(UserSurvey curr, UserSurvey other) {
