@@ -300,39 +300,39 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu, menu);
+//        return true;
+//    }
 
-    @Override
-    public MenuInflater getMenuInflater() {
-        return super.getMenuInflater();
-    }
+//    @Override
+//    public MenuInflater getMenuInflater() {
+//        return super.getMenuInflater();
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.signout) {
-            FirebaseAuth.getInstance().signOut();
-
-            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-            finish();
-            startActivity(i);
-        } else if (id == R.id.survey) {
-            Intent i = new Intent(getApplicationContext(), FillSurvey.class);
-            //finish();
-            startActivity(i);
-        } else if(id == R.id.editprofile) {
-            Intent i = new Intent(getApplicationContext(), EditProfile.class);
-            //finish();
-            startActivity(i);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        int id = item.getItemId();
+//        if (id == R.id.signout) {
+//            FirebaseAuth.getInstance().signOut();
+//
+//            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+//            finish();
+//            startActivity(i);
+//        } else if (id == R.id.survey) {
+//            Intent i = new Intent(getApplicationContext(), FillSurvey.class);
+//            //finish();
+//            startActivity(i);
+//        } else if(id == R.id.editprofile) {
+//            Intent i = new Intent(getApplicationContext(), EditProfile.class);
+//            //finish();
+//            startActivity(i);
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     //////////////////show dialog to create group
