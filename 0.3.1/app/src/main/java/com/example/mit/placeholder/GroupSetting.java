@@ -73,6 +73,11 @@ public class GroupSetting extends AppCompatActivity {
         btn_ChangeSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!CreateProfile.myuuid.equals(currGroup.getCreatorUuid())){
+                    Toast.makeText(getApplicationContext(),"Only group creator can change the survey.",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Intent i = new Intent(getApplicationContext(),FillSurvey.class);
                 i.putExtra("chatwith",currGroup);
                 finish();
@@ -197,6 +202,12 @@ public class GroupSetting extends AppCompatActivity {
     }
 
     public void deleteGroup(){
+
+        if(!CreateProfile.myuuid.equals(currGroup.getCreatorUuid())){
+            Toast.makeText(getApplicationContext(),"Only group creator can delete the group.",Toast.LENGTH_LONG).show();
+            return;
+        }
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
 //        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
