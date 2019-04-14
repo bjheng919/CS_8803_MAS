@@ -56,7 +56,7 @@ public class GroupSetting extends AppCompatActivity {
             tvMembers.setText(sb.toString());
         }
 
-        if(CreateProfile.committed){
+        if((CreateProfile.committed).equals(currGroup.getUuid())){
             btn_Commit.setText("CANCEL YOUR COMMIT");
         }else{
             btn_Commit.setText("COMMIT TO THE GROUP");
@@ -121,6 +121,9 @@ public class GroupSetting extends AppCompatActivity {
         dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //quit the group here(modify grouplist and groups)
+                if(CreateProfile.committed.equals(currGroup.getUuid()))
+                    changeCommitStatus();
+
                 final DatabaseReference mref1 = FirebaseDatabase.getInstance().getReference().child("GroupList").child(CreateProfile.myuuid);
                 mref1.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -203,6 +206,9 @@ public class GroupSetting extends AppCompatActivity {
 
         dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                if(CreateProfile.committed.equals(currGroup.getUuid()))
+                    changeCommitStatus();
+
                 final DatabaseReference mref0 = FirebaseDatabase.getInstance().getReference();
                 mref0.child("groupSurveys").child(currGroup.getUuid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -235,14 +241,21 @@ public class GroupSetting extends AppCompatActivity {
     }
 
     public void changeCommitStatus(){
-        if(CreateProfile.committed){
-            CreateProfile.committed = false;
+
+        if(!CreateProfile.committed.equals("uncommitted")&& !CreateProfile.committed.equals(currGroup.getUuid())){
+            Toast.makeText(getApplicationContext(),"You can only commit to one group",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
+        if(!CreateProfile.committed.equals("uncommitted")){
+            CreateProfile.committed = "uncommitted";
             final DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users").child(CreateProfile.myuuid);
             mrefcheckprofile.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     UserProfile myprofile = dataSnapshot.getValue(UserProfile.class);
-                    myprofile.setCommitted(false);
+                    myprofile.setCommitted("uncommitted");
                     mrefcheckprofile.setValue(myprofile).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -265,13 +278,13 @@ public class GroupSetting extends AppCompatActivity {
                 }
             });
         }else{
-            CreateProfile.committed = true;
+            CreateProfile.committed = currGroup.getUuid();
             final DatabaseReference mrefcheckprofile = FirebaseDatabase.getInstance().getReference().child("users").child(CreateProfile.myuuid);
             mrefcheckprofile.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     UserProfile myprofile = dataSnapshot.getValue(UserProfile.class);
-                    myprofile.setCommitted(true);
+                    myprofile.setCommitted(currGroup.getUuid());
                     mrefcheckprofile.setValue(myprofile).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

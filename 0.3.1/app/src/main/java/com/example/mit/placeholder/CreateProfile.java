@@ -38,7 +38,7 @@ public class CreateProfile extends AppCompatActivity {
     static String imgurl=null;
     static String myuuid = null;
     static String myname = null;
-    static boolean committed = false;
+    static String committed = "uncommitted";
     boolean hasProfile = false;
     boolean hasSurvey = false;
 
@@ -77,7 +77,7 @@ public class CreateProfile extends AppCompatActivity {
                         myuuid = tempprof.getUuid();
                         myname = tempprof.getFname();
                         imgurl = tempprof.getImage();
-                        committed = tempprof.isCommitted();
+                        committed = tempprof.getCommitted();
                         break;
                     }
                 }
@@ -148,7 +148,7 @@ public class CreateProfile extends AppCompatActivity {
                     final DatabaseReference pushid = refDatabase.getReference().child("users").push();
                     profile.setUuid(pushid.getKey());
                     myuuid=pushid.getKey();
-                    committed = false;
+                    committed = "uncommitted";
                     profile.setImage(imgurl);
 
                     if(imgurl!=null) {

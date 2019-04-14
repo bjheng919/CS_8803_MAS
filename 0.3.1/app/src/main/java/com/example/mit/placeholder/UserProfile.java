@@ -9,13 +9,13 @@ public class UserProfile implements Serializable, Comparable<UserProfile> {
 
     String fname, lname, email, image, uuid;
     int similarity;
-    boolean committed = false;
+    public String committed;
 
-    public boolean isCommitted() {
+    public String getCommitted() {
         return committed;
     }
 
-    public void setCommitted(boolean committed) {
+    public void setCommitted(String committed) {
         this.committed = committed;
     }
 
