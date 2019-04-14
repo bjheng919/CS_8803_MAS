@@ -1,102 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="-40dp">
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="260dp"
+
         android:background="@drawable/me_top_bg" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="40dp"
-        android:layout_width="105dp"
-        android:layout_height="105dp"
-        android:id="@+id/meCIV"
-        android:src="@mipmap/noimage" />
-
-    <TextView
-        android:id="@+id/meFNameTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="97dp"
-        android:layout_marginStart="170dp"
-        android:textSize="25sp"
-        android:textColor="@color/common_text_white"/>
-    
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="360dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        card_view:cardCornerRadius="15dp"
-        card_view:cardElevation="6dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="30dp"
-            android:textSize="16sp"
-            android:text="EMAIl ADDRESS" />
-
-        <TextView
-            android:id="@+id/meEmailTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:layout_marginStart="30dp"
-            android:textSize="16sp"
-            android:text="Email Address Holder"
-            android:textColor="@color/me_content_black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:layout_marginStart="30dp"
-            android:textSize="16sp"
-            android:text="NATIONALITY" />
-
-        <TextView
-            android:id="@+id/meNationTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="160dp"
-            android:layout_marginStart="30dp"
-            android:textSize="16sp"
-            android:text="Nationality Holder"
-            android:textColor="@color/me_content_black" />
-
-        <Button
-            android:id="@+id/meProfileBtn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="210dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:text="EDIT PROFILE"
-            android:textSize="17sp"
-            android:textColor="@color/common_button_text_white"
-            android:background="@drawable/common_button_bg"/>
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/meSurveyBtn"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/meCIV"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:layout_marginStart="40dp"
+                android:src="@mipmap/noimage" />
+
+            <TextView
+                android:id="@+id/meFNameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/common_text_white"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="280dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:text="FILL SURVEY"
-            android:textSize="17sp"
-            android:textColor="@color/common_button_text_white"
-            android:background="@drawable/common_button_bg"/>
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            card_view:cardCornerRadius="15dp"
+            card_view:cardElevation="6dp">
 
-    </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:text="EMAIl ADDRESS"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/meEmailTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Email Address Holder"
+                    android:textColor="@color/me_content_black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="NATIONALITY"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/meNationTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Nationality Holder"
+                    android:textColor="@color/me_content_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/meProfileBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/common_button_bg"
+                    android:text="EDIT PROFILE"
+                    android:textColor="@color/common_button_text_white"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:id="@+id/meSurveyBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/common_button_bg"
+                    android:text="FILL SURVEY"
+                    android:textColor="@color/common_button_text_white"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:id="@+id/meLogoutBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/common_button_bg"
+                    android:text="LOGOUT"
+                    android:textColor="@color/common_button_text_white"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 
 </RelativeLayout>
