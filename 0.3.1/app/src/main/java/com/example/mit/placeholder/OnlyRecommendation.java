@@ -44,7 +44,6 @@ public class OnlyRecommendation extends Fragment {
     private List currGroupUuidList;
     private UserProfile currProfile;
     private UserSurvey currSurvey;
-//    private CustomRecommendationAdapter adapter;
     private boolean[] filterValues;
 
     private RecyclerView mRecyclerView;

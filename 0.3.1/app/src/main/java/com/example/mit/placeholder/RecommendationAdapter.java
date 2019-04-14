@@ -2,8 +2,10 @@ package com.example.mit.placeholder;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -55,11 +57,22 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
     }
 
     @Override
-    public void onBindViewHolder(RecommendationAdapter.RecommendationViewHolder vh, int position) {
+    public void onBindViewHolder(@NonNull final RecommendationAdapter.RecommendationViewHolder vh, int position) {
         setImage(groupProfileList.get(position), vh);
         setTexts(groupProfileList.get(position), vh);
         setTags(groupSurveyList.get(position), vh);
         vh.itemView.setTag(position);
+
+        vh.tagListRV.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //模拟父控件的点击
+                    vh.getItemView().performClick();
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -93,14 +106,17 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
 
     private void setTexts(GroupProfile gp, RecommendationViewHolder vh) {
         vh.tvs[0].setText(gp.getGroupName());
-        vh.tvs[1].setText(gp.getMembers().size()+" / "+gp.getTotalNum());
-        String commitNum = gp.getCommitNum();
-        if (commitNum.equals("0")) {
-            vh.tvs[2].setText("Nobody has committed.");
-        } else if (commitNum.equals("1")) {
-            vh.tvs[2].setText("1 member has committed.");
+        String totalNumStr = gp.getTotalNum();
+        if (totalNumStr.contains("+")) {
+            int wantedNum = Integer.parseInt(totalNumStr.substring(0, 1)) - gp.getMembers().size();
+            vh.tvs[1].setText("" + wantedNum + "+ more roommates wanted");
         } else {
-            vh.tvs[2].setText(commitNum + " members has committed.");
+            int wantedNum = Integer.parseInt(totalNumStr) - gp.getMembers().size();
+            if (wantedNum == 1) {
+                vh.tvs[1].setText("1 more roommate wanted");
+            } else {
+                vh.tvs[1].setText("" + wantedNum + " more roommates wanted");
+            }
         }
     }
 
@@ -176,11 +192,14 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
             super(itemView);
 
             this.civ = (CircleImageView) itemView.findViewById(R.id.customconimage);
-            this.tvs = new TextView[3];
-            this.tvs[0] = (TextView) itemView.findViewById(R.id.customconfname);
-            this.tvs[1] = (TextView) itemView.findViewById(R.id.customconlname);
-            this.tvs[2] = (TextView) itemView.findViewById(R.id.recommendationItemCommitTV);
+            this.tvs = new TextView[2];
+            this.tvs[0] = (TextView) itemView.findViewById(R.id.recommendationItemGroupNameTV);
+            this.tvs[1] = (TextView) itemView.findViewById(R.id.recommendationItemWantedTV);
             this.tagListRV = (RecyclerView) itemView.findViewById(R.id.recommendationItemTagRV);
+        }
+
+        public View getItemView() {
+            return itemView;
         }
     }
 }
