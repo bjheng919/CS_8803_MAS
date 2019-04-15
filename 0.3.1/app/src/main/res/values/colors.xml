@@ -3,6 +3,7 @@
     <color name="colorPrimary">#534BAE</color>
     <color name="colorPrimaryDark">#534BAE</color>
     <color name="textColorPrimary">#FFFFFF</color>
+    <color name="textColor">#636363</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#534BAE</color>
     <color name="colorAccent">#c8e8ff</color>
@@ -10,11 +11,14 @@
     <color name="black_overlay">#66000000</color>
     <color name="floating_plus_bg">#534BAE</color>
     <color name="filter_bg">#9D821E</color>
-    <color name="filter_divider">#4DFFFFFF</color>
+    <color name="filter_divider">#B0A86E</color>
     <color name="gray">#808080</color>
     <color name="me_content_black">#000000</color>
     <color name="common_text_white">#FFFFFF</color>
     <color name="common_button_text_white">#FFFFFF</color>
     <color name="common_edittext_line_white">#D0D0D0</color>
     <color name="discovery_bg_purple">#534BAE</color>
+    <color name="botton_one">#FFE37D</color>
+    <color name="botton_two">#D1B14E</color>
+    <color name="botton_three">#9D821E</color>
 </resources>

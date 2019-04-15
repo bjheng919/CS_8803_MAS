@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        >
+    <!--<TableRow-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="20dp"-->
+        <!--&gt;-->
 
-        <Button
-            android:id="@+id/surveyback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="194dp"
+        <!--<Button-->
+            <!--android:id="@+id/surveyback"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="194dp"-->
 
 
-            android:text="Back" />
+            <!--android:text="Back" />-->
 
-        <Button
-            android:id="@+id/surveynext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Next" />
-    </TableRow>
+        <!--<Button-->
+            <!--android:id="@+id/surveynext"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Next" />-->
+    <!--</TableRow>-->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,18 +38,58 @@
         android:text="Match Your Roommates"
         android:textStyle="bold"
         android:textSize="30dp"
+        android:textColor="@color/textColorPrimary"
+        android:layout_marginTop="45dp"
+        android:layout_centerHorizontal="true"
         android:id="@+id/surveydescription" />
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp">
 
+        <Button
+            android:id="@+id/tabone"
+            android:layout_width="105dip"
+            android:layout_height="200dip"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_botton_one"
+            android:text="01\nBasic Info"
+            android:textColor="@color/textColor" />
+
+        <Button
+            android:id="@+id/tabtwo"
+            android:layout_width="105dip"
+            android:layout_height="200dip"
+            android:layout_marginTop="-20dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_botton_two"
+            android:text="02\nRoom Choices"
+            android:textColor="@color/textColor" />
+
+        <Button
+            android:id="@+id/tabthree"
+            android:layout_width="105dip"
+            android:layout_height="180dip"
+            android:layout_marginTop="-20dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_botton_three"
+            android:text="03\nLifestyle"
+            android:textColor="@color/textColor" />
+
+    </RadioGroup>
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:fillViewport="false"
         android:orientation="vertical"
-        android:paddingLeft="20dp"
+        android:paddingLeft="130dp"
         android:paddingRight="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="120dp"
         tools:context="com.example.mit.placeholder.FillSurvey">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -61,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Your budget (per month)"
+                android:textColor="@color/textColorPrimary"
                 android:id="@+id/surveybudget" />
 
             <!--<SeekBar-->
@@ -97,6 +140,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:hint="Lower bound $"
+                        android:textColor="@color/textColorPrimary"
                         android:inputType="number"
                         android:singleLine="true"
                         android:textColorHint="#AAAAAA"
@@ -109,6 +153,7 @@
                         android:hint="Upper bound $"
                         android:inputType="number"
                         android:singleLine="true"
+                        android:textColor="@color/textColorPrimary"
                         android:textColorHint="#AAAAAA"
                         android:textSize="18dp" />
                 </TableRow>
@@ -120,6 +165,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Preferred room type"
+                android:textColor="@color/textColorPrimary"
                 android:id="@+id/surveyroomtype" />
 
             <RadioGroup
@@ -135,6 +181,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="House"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:checked="true"
                     android:id="@+id/survey1b1b" />
 
@@ -144,6 +192,8 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="10dp"
                     android:text="Apartment"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:id="@+id/survey2b1b" />
 
                 <RadioButton
@@ -152,6 +202,8 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="15dp"
                     android:text="Dorm"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:id="@+id/survey2b2b" />
 
                 <RadioButton
@@ -160,6 +212,8 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="20dp"
                     android:text="I don't mind"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:id="@+id/survey3b2b" />
             </RadioGroup>
 
@@ -168,8 +222,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Your preferred leasing time"
+                android:text="Preferred leasing time"
+                android:textColor="@color/textColorPrimary"
                 android:id="@+id/leasetime" />
+
             <LinearLayout
                 android:id="@+id/start_date"
                 android:layout_width="match_parent"
@@ -181,14 +237,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Start date:"
+                    android:textColor="@color/textColorPrimary"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/surveyLsStartTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
                     android:background="#ededed"
                     android:padding="8dp"
+                    android:layout_marginLeft="10dp"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -204,23 +262,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="End date:"
+                    android:textColor="@color/textColorPrimary"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/surveyLsEndTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
                     android:background="#ededed"
                     android:padding="8dp"
+                    android:layout_marginLeft="18.5dp"
                     android:textSize="18sp" />
 
             </LinearLayout>
         </LinearLayout>
 
-
-
     </ScrollView>
 
+    <Button
+        android:id="@+id/surveynext"
+        android:layout_width="match_parent"
+        android:layout_height="80dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_botton_next"
+        android:text="Next ->"
+        android:textColor="@color/textColor"
+        android:textSize="24dp"/>
 
-
-</LinearLayout>
+</RelativeLayout>

@@ -1,52 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <TableRow
+    <!--<TableRow-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="20dp"-->
+        <!--&gt;-->
+
+        <!--<Button-->
+            <!--android:id="@+id/surveyback"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="194dp"-->
+            <!--android:text="Back" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/surveynext"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Next" />-->
+    <!--</TableRow>-->
+
+    <RadioGroup
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp">
+
+        <Button
+            android:id="@+id/tabone"
+            android:layout_width="105dip"
+            android:layout_height="200dip"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_botton_one"
+            android:text="01\nBasic Info"
+            android:textColor="@color/textColor" />
+
+        <Button
+            android:id="@+id/tabtwo"
+            android:layout_width="105dip"
+            android:layout_height="200dip"
+            android:layout_marginTop="-20dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_botton_two"
+            android:text="02\nRoom Choices"
+            android:textColor="@color/textColor" />
+
+        <Button
+            android:id="@+id/tabthree"
+            android:layout_width="105dip"
+            android:layout_height="180dip"
+            android:layout_marginTop="-20dp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_botton_three"
+            android:text="03\nLifestyle"
+            android:textColor="@color/textColor" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
-        >
-
-        <Button
-            android:id="@+id/surveyback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="194dp"
-            android:text="Back" />
-
-        <Button
-            android:id="@+id/surveynext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Next" />
-    </TableRow>
+        android:text="Match Your Roommates"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:textColor="@color/textColorPrimary"
+        android:layout_marginTop="45dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/surveydescription" />
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:fillViewport="false"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingLeft="130dp"
+        android:paddingRight="20dp"
+        android:paddingTop="120dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_gravity="center"
-                android:text="Match Your Roommates"
-                android:textStyle="bold"
-                android:textSize="30dp"
-                android:id="@+id/surveydescription" />
+
 
             <TextView
                 android:layout_marginTop="20dp"
@@ -54,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Do you smoke?"
+                android:textColor="@color/textColorPrimary"
                 android:id="@+id/smoke" />
 
             <RadioGroup
@@ -69,6 +115,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:checked="true"
                     android:id="@+id/smokeyes" />
 
@@ -78,6 +126,8 @@
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="-32dp"
                     android:text="No"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:id="@+id/smokeno" />
             </RadioGroup>
 
@@ -87,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Do you mind if your roommates smoke?"
+                android:textColor="@color/textColorPrimary"
                 android:id="@+id/othersmoke" />
 
             <RadioGroup
@@ -102,6 +153,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:checked="true"
                     android:id="@+id/othersmokeyes" />
 
@@ -111,6 +164,8 @@
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="-32dp"
                     android:text="No"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:id="@+id/othersmokeno" />
             </RadioGroup>
 
@@ -120,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Do you have a pet?"
+                android:textColor="@color/textColorPrimary"
                 android:id="@+id/pet" />
 
             <RadioGroup
@@ -135,6 +191,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:checked="true"
                     android:id="@+id/petyes" />
 
@@ -144,6 +202,8 @@
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="-32dp"
                     android:text="No"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:id="@+id/petno" />
             </RadioGroup>
 
@@ -153,6 +213,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Do you mind if your roommates have a pet?"
+                android:textColor="@color/textColorPrimary"
                 android:id="@+id/otherpet" />
 
             <RadioGroup
@@ -168,6 +229,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:checked="true"
                     android:id="@+id/otherpetyes" />
 
@@ -177,8 +240,21 @@
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="-32dp"
                     android:text="No"
+                    android:textSize="18dp"
+                    android:textColor="@color/textColorPrimary"
                     android:id="@+id/otherpetno" />
             </RadioGroup>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <Button
+        android:id="@+id/surveynext"
+        android:layout_width="match_parent"
+        android:layout_height="90dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_botton_next"
+        android:text="Next ->"
+        android:textColor="@color/textColor"
+        android:textSize="24dp"/>
+
+</RelativeLayout>

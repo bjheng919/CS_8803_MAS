@@ -86,6 +86,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
     Button btnNext6;
     Button btnFinish;
 
+    Button tab1;
+    Button tab2;
+    Button tab3;
+
     private TextView startDate, startTime;
     private TextView endDate, endTime;
 
@@ -125,6 +129,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         btnBack1 = (Button) findViewById(R.id.surveyback);
         btnNext1 = (Button) findViewById(R.id.surveynext);
 
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
+
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
@@ -147,12 +155,69 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         });
 
-        btnBack1.setOnClickListener(new View.OnClickListener() {
+//        btnBack1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getApplicationContext(),"Update Cancelled",Toast.LENGTH_LONG).show();
+//                finish();
+//            }
+//        });
+
+        tab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Update Cancelled",Toast.LENGTH_LONG).show();
-                finish();
+                final String nation = (String) etNation.getSelectedItem();
+                survey.setNation(nation);
+                String prefNation = getSelectedRadioButtonText(rgSameNation);
+                if (prefNation.equals("From the same country")) {
+                    survey.setPrefNation("Yes");
+                } else if (prefNation.equals("From the different countries")) {
+                    survey.setPrefNation("No");
+                } else {
+                    survey.setPrefNation("Don't mind");
+                }
+
+                onCreate1();
             }
+
+        });
+
+        tab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String nation = (String) etNation.getSelectedItem();
+                survey.setNation(nation);
+                String prefNation = getSelectedRadioButtonText(rgSameNation);
+                if (prefNation.equals("From the same country")) {
+                    survey.setPrefNation("Yes");
+                } else if (prefNation.equals("From the different countries")) {
+                    survey.setPrefNation("No");
+                } else {
+                    survey.setPrefNation("Don't mind");
+                }
+
+                onCreate3();
+            }
+
+        });
+
+        tab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String nation = (String) etNation.getSelectedItem();
+                survey.setNation(nation);
+                String prefNation = getSelectedRadioButtonText(rgSameNation);
+                if (prefNation.equals("From the same country")) {
+                    survey.setPrefNation("Yes");
+                } else if (prefNation.equals("From the different countries")) {
+                    survey.setPrefNation("No");
+                } else {
+                    survey.setPrefNation("Don't mind");
+                }
+
+                onCreate5();
+            }
+
         });
     }
 
@@ -173,6 +238,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         btnBack2 = (Button) findViewById(R.id.surveyback);
         btnNext2 = (Button) findViewById(R.id.surveynext);
 
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
+
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
@@ -191,10 +260,55 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        btnBack2.setOnClickListener(new View.OnClickListener() {
+//        btnBack2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onCreate1();
+//            }
+//        });
+
+        tab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                survey.setGender(gender);
+                String prefGender = getSelectedRadioButtonText(rgSameGender);
+                if (prefGender.equals("I don't mind")) {
+                    survey.setPrefGender("Don't mind");
+                } else {
+                    survey.setPrefGender(prefGender);
+                }
+
                 onCreate1();
+            }
+        });
+
+        tab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                survey.setGender(gender);
+                String prefGender = getSelectedRadioButtonText(rgSameGender);
+                if (prefGender.equals("I don't mind")) {
+                    survey.setPrefGender("Don't mind");
+                } else {
+                    survey.setPrefGender(prefGender);
+                }
+
+                onCreate3();
+            }
+        });
+
+        tab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                survey.setGender(gender);
+                String prefGender = getSelectedRadioButtonText(rgSameGender);
+                if (prefGender.equals("I don't mind")) {
+                    survey.setPrefGender("Don't mind");
+                } else {
+                    survey.setPrefGender(prefGender);
+                }
+
+                onCreate5();
             }
         });
     }
@@ -212,6 +326,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         etRentHigh = (EditText) findViewById(R.id.surveyRentHigh);
         btnBack3 = (Button) findViewById(R.id.surveyback);
         btnNext3 = (Button) findViewById(R.id.surveynext);
+
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
@@ -242,12 +360,90 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         });
 
-        btnBack3.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            onCreate2();
-        }
+        tab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (etRentLow.getText().toString().trim().length() < 1) {
+                    etRentLow.setError("Please enter the correct minimum rent");
+                } else if (etRentHigh.getText().toString().trim().length() < 1) {
+                    etRentHigh.setError("Please enter the correct maximum rent");
+                } else {
+                    String rmType = getSelectedRadioButtonText(rgRmType);
+                    if (rmType.equals("I don't mind")) {
+                        survey.setRmType("Don't mind");
+                    } else {
+                        survey.setRmType(rmType);
+                    }
+
+                    survey.setLsStartTime(startDate.getText().toString());
+                    survey.setLsEndTime(endDate.getText().toString());
+                    survey.setRentLow(etRentLow.getText().toString().trim());
+                    survey.setRentHigh(etRentHigh.getText().toString().trim());
+
+                    onCreate1();
+                }
+            }
+
         });
+
+        tab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (etRentLow.getText().toString().trim().length() < 1) {
+                    etRentLow.setError("Please enter the correct minimum rent");
+                } else if (etRentHigh.getText().toString().trim().length() < 1) {
+                    etRentHigh.setError("Please enter the correct maximum rent");
+                } else {
+                    String rmType = getSelectedRadioButtonText(rgRmType);
+                    if (rmType.equals("I don't mind")) {
+                        survey.setRmType("Don't mind");
+                    } else {
+                        survey.setRmType(rmType);
+                    }
+
+                    survey.setLsStartTime(startDate.getText().toString());
+                    survey.setLsEndTime(endDate.getText().toString());
+                    survey.setRentLow(etRentLow.getText().toString().trim());
+                    survey.setRentHigh(etRentHigh.getText().toString().trim());
+
+                    onCreate3();
+                }
+            }
+
+        });
+
+        tab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (etRentLow.getText().toString().trim().length() < 1) {
+                    etRentLow.setError("Please enter the correct minimum rent");
+                } else if (etRentHigh.getText().toString().trim().length() < 1) {
+                    etRentHigh.setError("Please enter the correct maximum rent");
+                } else {
+                    String rmType = getSelectedRadioButtonText(rgRmType);
+                    if (rmType.equals("I don't mind")) {
+                        survey.setRmType("Don't mind");
+                    } else {
+                        survey.setRmType(rmType);
+                    }
+
+                    survey.setLsStartTime(startDate.getText().toString());
+                    survey.setLsEndTime(endDate.getText().toString());
+                    survey.setRentLow(etRentLow.getText().toString().trim());
+                    survey.setRentHigh(etRentHigh.getText().toString().trim());
+
+                    onCreate5();
+                }
+            }
+
+        });
+
+//        btnBack3.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            onCreate2();
+//        }
+//        });
     }
 
     private String getSelectedRadioButtonText(RadioGroup rg) {
@@ -422,6 +618,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         btnBack4 = (Button) findViewById(R.id.surveyback);
         btnNext4 = (Button) findViewById(R.id.surveynext);
 
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
+
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
@@ -433,12 +633,36 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        btnBack4.setOnClickListener(new View.OnClickListener() {
+        tab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               onCreate3();
+                survey.setRmmtNum(getSelectedRadioButtonText(rgRoommateOne));
+                onCreate1();
             }
         });
+
+        tab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                survey.setRmmtNum(getSelectedRadioButtonText(rgRoommateOne));
+                onCreate3();
+            }
+        });
+
+        tab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                survey.setRmmtNum(getSelectedRadioButtonText(rgRoommateOne));
+                onCreate5();
+            }
+        });
+
+//        btnBack4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//               onCreate3();
+//            }
+//        });
     }
 
     protected void onCreate5() {
@@ -451,6 +675,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         btnBack5 = (Button) findViewById(R.id.surveyback);
         btnNext5 = (Button) findViewById(R.id.surveynext);
+
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
@@ -467,12 +695,49 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        btnBack5.setOnClickListener(new View.OnClickListener() {
+        tab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onCreate4();
+                survey.setSmoke(getSelectedRadioButtonText(rgSmoke));
+                survey.setMindSmoke(getSelectedRadioButtonText(rgMindSmoke));
+                survey.setPet(getSelectedRadioButtonText(rgPet));
+                survey.setMindPet(getSelectedRadioButtonText(rgMindPet));
+
+                onCreate1();
             }
         });
+
+
+        tab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                survey.setSmoke(getSelectedRadioButtonText(rgSmoke));
+                survey.setMindSmoke(getSelectedRadioButtonText(rgMindSmoke));
+                survey.setPet(getSelectedRadioButtonText(rgPet));
+                survey.setMindPet(getSelectedRadioButtonText(rgMindPet));
+
+                onCreate3();
+            }
+        });
+
+        tab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                survey.setSmoke(getSelectedRadioButtonText(rgSmoke));
+                survey.setMindSmoke(getSelectedRadioButtonText(rgMindSmoke));
+                survey.setPet(getSelectedRadioButtonText(rgPet));
+                survey.setMindPet(getSelectedRadioButtonText(rgMindPet));
+
+                onCreate5();
+            }
+        });
+
+//        btnBack5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onCreate4();
+//            }
+//        });
     }
 
     protected void onCreate6() {
@@ -484,6 +749,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         btnBack6 = (Button) findViewById(R.id.surveyback);
         btnNext6 = (Button) findViewById(R.id.surveynext);
+
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
@@ -502,12 +771,54 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        btnBack6.setOnClickListener(new View.OnClickListener() {
+        tab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+//                UserSurvey survey = new UserSurvey();
+
+                survey.setUseRoom(getSelectedRadioButtonText(rgUseRoom));
+                survey.setCook(getSelectedRadioButtonText(rgCook));
+                survey.setOtherCook(getSelectedRadioButtonText(rgOtherCook));
+
+                onCreate1();
+            }
+        });
+
+        tab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                UserSurvey survey = new UserSurvey();
+
+                survey.setUseRoom(getSelectedRadioButtonText(rgUseRoom));
+                survey.setCook(getSelectedRadioButtonText(rgCook));
+                survey.setOtherCook(getSelectedRadioButtonText(rgOtherCook));
+
+                onCreate3();
+            }
+        });
+
+        tab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                UserSurvey survey = new UserSurvey();
+
+                survey.setUseRoom(getSelectedRadioButtonText(rgUseRoom));
+                survey.setCook(getSelectedRadioButtonText(rgCook));
+                survey.setOtherCook(getSelectedRadioButtonText(rgOtherCook));
+
                 onCreate5();
             }
         });
+
+//        btnBack6.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onCreate5();
+//            }
+//        });
     }
 
     protected void onCreate7() {
@@ -521,6 +832,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         btnBack7 = (Button) findViewById(R.id.surveyback);
         btnFinish = (Button) findViewById(R.id.surveynext);
+
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
@@ -563,12 +878,123 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        btnBack7.setOnClickListener(new View.OnClickListener() {
+        tab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onCreate6();
+
+//                UserSurvey survey = new UserSurvey();
+
+                survey.setTimeFrom(startTime.getText().toString());
+                survey.setTimeTo(endTime.getText().toString());
+                survey.setDiscription(etDiscription.getText().toString());
+                String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                if(getIntent().getExtras() != null)
+                    currGroup = (GroupProfile) getIntent().getExtras().getSerializable("chatwith");
+
+                final DatabaseReference pushid;
+                if(currGroup == null)
+                    pushid = refDatabase.getReference().child("surveys").child(CreateProfile.myuuid);
+                else
+                    pushid = refDatabase.getReference().child("groupSurveys").child(currGroup.getUuid());
+
+                pushid.setValue(survey).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Survey created successfully", Toast.LENGTH_LONG).show();
+                    }
+                });
+                Intent i;
+                if(currGroup == null)
+                    i = new Intent(getApplicationContext(), newMessages.class);
+                else{
+                    i = new Intent(getApplicationContext(), GroupSetting.class);
+                    i.putExtra("chatwith",currGroup);
+                }
+                onCreate1();
             }
         });
+
+        tab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                UserSurvey survey = new UserSurvey();
+
+                survey.setTimeFrom(startTime.getText().toString());
+                survey.setTimeTo(endTime.getText().toString());
+                survey.setDiscription(etDiscription.getText().toString());
+                String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                if(getIntent().getExtras() != null)
+                    currGroup = (GroupProfile) getIntent().getExtras().getSerializable("chatwith");
+
+                final DatabaseReference pushid;
+                if(currGroup == null)
+                    pushid = refDatabase.getReference().child("surveys").child(CreateProfile.myuuid);
+                else
+                    pushid = refDatabase.getReference().child("groupSurveys").child(currGroup.getUuid());
+
+                pushid.setValue(survey).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Survey created successfully", Toast.LENGTH_LONG).show();
+                    }
+                });
+                Intent i;
+                if(currGroup == null)
+                    i = new Intent(getApplicationContext(), newMessages.class);
+                else{
+                    i = new Intent(getApplicationContext(), GroupSetting.class);
+                    i.putExtra("chatwith",currGroup);
+                }
+                onCreate3();
+            }
+        });
+
+        tab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                UserSurvey survey = new UserSurvey();
+
+                survey.setTimeFrom(startTime.getText().toString());
+                survey.setTimeTo(endTime.getText().toString());
+                survey.setDiscription(etDiscription.getText().toString());
+                String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                if(getIntent().getExtras() != null)
+                    currGroup = (GroupProfile) getIntent().getExtras().getSerializable("chatwith");
+
+                final DatabaseReference pushid;
+                if(currGroup == null)
+                    pushid = refDatabase.getReference().child("surveys").child(CreateProfile.myuuid);
+                else
+                    pushid = refDatabase.getReference().child("groupSurveys").child(currGroup.getUuid());
+
+                pushid.setValue(survey).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Survey created successfully", Toast.LENGTH_LONG).show();
+                    }
+                });
+                Intent i;
+                if(currGroup == null)
+                    i = new Intent(getApplicationContext(), newMessages.class);
+                else{
+                    i = new Intent(getApplicationContext(), GroupSetting.class);
+                    i.putExtra("chatwith",currGroup);
+                }
+                onCreate5();
+            }
+        });
+
+//        btnBack7.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onCreate6();
+//            }
+//        });
     }
 
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
