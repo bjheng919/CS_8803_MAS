@@ -149,7 +149,7 @@
                     android:layout_height="40dp"
                     android:background="#ededed"
                     android:padding="8dp"
-                    android:layout_marginLeft="30.5dp"
+                    android:layout_marginLeft="34dp"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -168,9 +168,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Please input what you cannot tolerate here"
+                android:hint="Input your restriction here"
                 android:inputType="text"
                 android:singleLine="true"
+                android:textColor="@color/textColorPrimary"
                 android:textColorHint="#AAAAAA"
                 android:textSize="18dp" />
         </LinearLayout>
@@ -182,7 +183,7 @@
         android:layout_height="90dip"
         android:layout_alignParentBottom="true"
         android:background="@drawable/rounded_botton_next"
-        android:text="Next ->"
+        android:text="Finish"
         android:textColor="@color/textColor"
         android:textSize="24dp"/>
 

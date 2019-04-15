@@ -115,6 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:checked="true"
                     android:id="@+id/smokeyes" />
@@ -125,6 +126,7 @@
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="-32dp"
                     android:text="No"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:id="@+id/smokeno" />
             </RadioGroup>
@@ -151,6 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:checked="true"
                     android:id="@+id/othersmokeyes" />
@@ -161,6 +164,7 @@
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="-32dp"
                     android:text="No"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:id="@+id/othersmokeno" />
             </RadioGroup>
@@ -187,6 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:checked="true"
                     android:id="@+id/petyes" />
@@ -197,6 +202,7 @@
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="-32dp"
                     android:text="No"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:id="@+id/petno" />
             </RadioGroup>
@@ -223,6 +229,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:checked="true"
                     android:id="@+id/otherpetyes" />
@@ -233,6 +240,7 @@
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="-32dp"
                     android:text="No"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:id="@+id/otherpetno" />
             </RadioGroup>

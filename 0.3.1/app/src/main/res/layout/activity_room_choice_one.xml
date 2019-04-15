@@ -140,9 +140,10 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:hint="Lower bound $"
+                        android:textColor="@color/textColorPrimary"
                         android:inputType="number"
                         android:singleLine="true"
-                        android:textColorHint="@color/textColorPrimary"
+                        android:textColorHint="#AAAAAA"
                         android:textSize="18dp" />
 
                     <EditText
@@ -152,7 +153,8 @@
                         android:hint="Upper bound $"
                         android:inputType="number"
                         android:singleLine="true"
-                        android:textColorHint="@color/textColorPrimary"
+                        android:textColor="@color/textColorPrimary"
+                        android:textColorHint="#AAAAAA"
                         android:textSize="18dp" />
                 </TableRow>
             </TableLayout>
@@ -276,7 +278,7 @@
     <Button
         android:id="@+id/surveynext"
         android:layout_width="match_parent"
-        android:layout_height="90dip"
+        android:layout_height="80dip"
         android:layout_alignParentBottom="true"
         android:background="@drawable/rounded_botton_next"
         android:text="Next ->"
