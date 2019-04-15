@@ -37,6 +37,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,16 +51,15 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     private DrawerLayout mDlMain;
     private Button mBtnOpenLeftDrawer;
     private Toolbar toolbar;
-    private FrameLayout ly_content;
     private Switch toggle;
     private RelativeLayout searchBar;
     private EditText searchET;
     private LinearLayout discoveryTopSearchAndButton;
+    private TextView chatListTopBarTV;
 
     private OnlyRecommendation f1;
     private OnlyGroups f2;
     private OnlyMe f3;
-    private FragmentManager fragmentManager;
 
     private boolean[] filterValues;
     private String searchValue = "";
@@ -135,7 +136,6 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         tabDeal = (TextView)this.findViewById(R.id.txt_deal);
         tabPoi = (TextView)this.findViewById(R.id.txt_poi);
         tabUser = (TextView)this.findViewById(R.id.txt_user);
-        ly_content = (FrameLayout) findViewById(R.id.fragment_container);
         mBtnOpenLeftDrawer = (Button) findViewById(R.id.btn_open_left_drawer);
         mDlMain = (DrawerLayout) findViewById(R.id.dl_main);
 //        mDlMain.setScrimColor(Color.TRANSPARENT);
@@ -151,6 +151,8 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         searchET = (EditText)findViewById(R.id.searchET);
         searchBar = (RelativeLayout) findViewById(R.id.searchBarRL);
         discoveryTopSearchAndButton = (LinearLayout) findViewById(R.id.discoveryTopSearchAndButton);
+
+        chatListTopBarTV = (TextView) findViewById(R.id.chatListTopBarTV);
     }
 
     //重置所有文本的选中状态
@@ -294,10 +296,11 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 mBtnOpenLeftDrawer.setVisibility(View.VISIBLE);
                 searchBar.setVisibility(View.VISIBLE);
                 discoveryTopSearchAndButton.setVisibility(View.VISIBLE);
+                chatListTopBarTV.setVisibility(View.GONE);
                 f1 = new OnlyRecommendation();
                 f1.setFilterValues(filterValues);
                 f1.setSearchString(searchValue);
-                transaction.add(R.id.fragment_container,f1);
+                transaction.add(R.id.f1_container,f1);
                 fab.setVisibility(View.VISIBLE);
                 break;
 
@@ -308,10 +311,11 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 mBtnOpenLeftDrawer.setVisibility(View.GONE);
                 searchBar.setVisibility(View.GONE);
                 discoveryTopSearchAndButton.setVisibility(View.GONE);
+                chatListTopBarTV.setVisibility(View.VISIBLE);
                 fab.setVisibility(View.GONE);
                 if(f2==null){
                     f2 = new OnlyGroups();
-                    transaction.add(R.id.fragment_container,f2);
+                    transaction.add(R.id.f2_container,f2);
                 }else{
                     transaction.show(f2);
                 }
@@ -324,10 +328,11 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 mBtnOpenLeftDrawer.setVisibility(View.GONE);
                 searchBar.setVisibility(View.GONE);
                 discoveryTopSearchAndButton.setVisibility(View.GONE);
+                chatListTopBarTV.setVisibility(View.GONE);
                 fab.setVisibility(View.GONE);
                 if(f3==null){
                     f3 = new OnlyMe();
-                    transaction.add(R.id.fragment_container,f3);
+                    transaction.add(R.id.f1_container,f3);
                 }else{
                     transaction.show(f3);
                 }

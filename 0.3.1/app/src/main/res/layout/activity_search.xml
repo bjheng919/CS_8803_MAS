@@ -5,11 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/chatListTopBarTV"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:paddingStart="15dp"
+            android:gravity="center_vertical"
+            android:background="@color/discovery_bg_purple"
+            android:elevation="5dp"
+            android:text="Group Chats"
+            android:textSize="20sp"
+            android:textColor="@color/common_text_white"/>
 
         <LinearLayout
             android:id="@+id/discoveryTopSearchAndButton"
@@ -119,7 +130,7 @@
         </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/fragment_container"
+            android:id="@+id/f1_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/tab_menu"
@@ -138,6 +149,18 @@
                 app:backgroundTint="@color/floating_plus_bg"
                 app:elevation="12dp"
                 app:useCompatPadding="true" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/f2_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/tab_menu"
+            android:layout_below="@+id/chatListTopBarTV"
+            android:background="@android:color/transparent"
+            android:fadingEdge="horizontal|vertical"
+            android:soundEffectsEnabled="true">
 
         </FrameLayout>
 
