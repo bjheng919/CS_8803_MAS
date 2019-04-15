@@ -143,6 +143,7 @@ public class CreateProfile extends AppCompatActivity {
                     profile.setFname(etfname.getText().toString().trim());
                     profile.setLname(etlname.getText().toString().trim());
                     profile.setEmail(etemail.getText().toString().trim());
+                    profile.setCommitted("uncommitted");
                     myname=etfname.getText().toString().trim();
 
                     final DatabaseReference pushid = refDatabase.getReference().child("users").push();
