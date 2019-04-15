@@ -16,4 +16,5 @@
     <color name="common_text_white">#FFFFFF</color>
     <color name="common_button_text_white">#FFFFFF</color>
     <color name="common_edittext_line_white">#D0D0D0</color>
+    <color name="discovery_bg_purple">#534BAE</color>
 </resources>

@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Switch;
@@ -49,7 +50,8 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     private Toolbar toolbar;
     private FrameLayout ly_content;
     private Switch toggle;
-    private EditText searchBox;
+    private RelativeLayout searchBar;
+    private EditText searchET;
 
     private OnlyRecommendation f1;
     private OnlyGroups f2;
@@ -72,8 +74,14 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         for (boolean filterValue : filterValues) { filterValue = false; }
 
         searchValue = "";
-        searchBox = (EditText)findViewById(R.id.search_box);
-        searchBox.addTextChangedListener(new TextWatcher() {
+
+//        getSupportActionBar().setHomeButtonEnabled(false);      // Disable the button
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(false); // Remove the left caret
+//        getSupportActionBar().setDisplayShowHomeEnabled(false); // Remove the icon
+
+        bindView();
+
+        searchET.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             /**
@@ -96,13 +104,6 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        getSupportActionBar().setHomeButtonEnabled(false);      // Disable the button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false); // Remove the left caret
-        getSupportActionBar().setDisplayShowHomeEnabled(false); // Remove the icon
-
-        bindView();
-        tabDeal.performClick();
-
         /////////////fab below
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +124,8 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 tabDeal.performClick();
             }
         });
+
+        tabDeal.performClick();
     }
 
     //UI组件初始化与事件绑定
@@ -142,6 +145,9 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
         fab = (FloatingActionButton) findViewById(R.id.fab);////////////////fab
 
         toggle = (Switch) findViewById(R.id.commitedSortSW);
+
+        searchET = (EditText)findViewById(R.id.searchET);
+        searchBar = (RelativeLayout) findViewById(R.id.searchBarRL);
     }
 
     //重置所有文本的选中状态
@@ -283,6 +289,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 selected();
                 tabDeal.setSelected(true);
                 mBtnOpenLeftDrawer.setVisibility(View.VISIBLE);
+                searchBar.setVisibility(View.VISIBLE);
                 f1 = new OnlyRecommendation();
                 f1.setFilterValues(filterValues);
                 f1.setSearchString(searchValue);
@@ -295,6 +302,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 selected();
                 tabPoi.setSelected(true);
                 mBtnOpenLeftDrawer.setVisibility(View.GONE);
+                searchBar.setVisibility(View.GONE);
                 fab.setVisibility(View.GONE);
                 if(f2==null){
                     f2 = new OnlyGroups();
@@ -309,6 +317,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 selected();
                 tabUser.setSelected(true);
                 mBtnOpenLeftDrawer.setVisibility(View.GONE);
+                searchBar.setVisibility(View.GONE);
                 fab.setVisibility(View.GONE);
                 if(f3==null){
                     f3 = new OnlyMe();
