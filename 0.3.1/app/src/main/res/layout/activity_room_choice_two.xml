@@ -166,6 +166,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
                 android:hint="Input your property here"
                 android:inputType="text"
                 android:singleLine="true"
