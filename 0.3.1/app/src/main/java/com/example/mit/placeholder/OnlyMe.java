@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +40,7 @@ public class OnlyMe extends Fragment {
 
     private Button meProfileBtn;
     private Button meSurveyBtn;
+    private Button meLogoutBtn;
 
     public OnlyMe() {
         // Required empty public constructor
@@ -66,6 +68,7 @@ public class OnlyMe extends Fragment {
 
         meProfileBtn = (Button) view.findViewById(R.id.meProfileBtn);
         meSurveyBtn = (Button) view.findViewById(R.id.meSurveyBtn);
+        meLogoutBtn = (Button) view.findViewById(R.id.meLogoutBtn);
 
         meProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +82,16 @@ public class OnlyMe extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), FillSurvey.class);
+                startActivity(i);
+            }
+        });
+
+        meLogoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(getActivity(), LoginActivity.class);
+                getActivity().finish();
                 startActivity(i);
             }
         });

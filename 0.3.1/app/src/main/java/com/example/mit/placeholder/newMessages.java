@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
     private Switch toggle;
     private RelativeLayout searchBar;
     private EditText searchET;
+    private LinearLayout discoveryTopSearchAndButton;
 
     private OnlyRecommendation f1;
     private OnlyGroups f2;
@@ -148,6 +150,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
 
         searchET = (EditText)findViewById(R.id.searchET);
         searchBar = (RelativeLayout) findViewById(R.id.searchBarRL);
+        discoveryTopSearchAndButton = (LinearLayout) findViewById(R.id.discoveryTopSearchAndButton);
     }
 
     //重置所有文本的选中状态
@@ -290,6 +293,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 tabDeal.setSelected(true);
                 mBtnOpenLeftDrawer.setVisibility(View.VISIBLE);
                 searchBar.setVisibility(View.VISIBLE);
+                discoveryTopSearchAndButton.setVisibility(View.VISIBLE);
                 f1 = new OnlyRecommendation();
                 f1.setFilterValues(filterValues);
                 f1.setSearchString(searchValue);
@@ -303,6 +307,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 tabPoi.setSelected(true);
                 mBtnOpenLeftDrawer.setVisibility(View.GONE);
                 searchBar.setVisibility(View.GONE);
+                discoveryTopSearchAndButton.setVisibility(View.GONE);
                 fab.setVisibility(View.GONE);
                 if(f2==null){
                     f2 = new OnlyGroups();
@@ -318,6 +323,7 @@ public class newMessages extends AppCompatActivity implements View.OnClickListen
                 tabUser.setSelected(true);
                 mBtnOpenLeftDrawer.setVisibility(View.GONE);
                 searchBar.setVisibility(View.GONE);
+                discoveryTopSearchAndButton.setVisibility(View.GONE);
                 fab.setVisibility(View.GONE);
                 if(f3==null){
                     f3 = new OnlyMe();

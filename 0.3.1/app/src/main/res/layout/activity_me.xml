@@ -8,25 +8,24 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="260dp"
-
         android:background="@drawable/me_top_bg" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
+        android:layout_centerInParent="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="30dp"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/meCIV"
-                android:layout_width="105dp"
-                android:layout_height="105dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="40dp"
                 android:src="@mipmap/noimage" />
 
@@ -35,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:textColor="@color/common_text_white"
                 android:textSize="25sp" />
 
@@ -46,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
+            android:layout_marginBottom="15dp"
             card_view:cardCornerRadius="15dp"
             card_view:cardElevation="6dp">
 
@@ -95,7 +95,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="25dp"
                     android:background="@drawable/common_button_bg"
                     android:text="EDIT PROFILE"
@@ -107,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="25dp"
                     android:background="@drawable/common_button_bg"
                     android:text="FILL SURVEY"
@@ -119,9 +119,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="25dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="30dp"
                     android:background="@drawable/common_button_bg"
                     android:text="LOGOUT"
                     android:textColor="@color/common_button_text_white"

@@ -9,109 +9,79 @@
     <RelativeLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/discovery_bg_purple">
-        
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/searchBarCV"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/discoveryTopSearchAndButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            card_view:cardCornerRadius="25dp"
-            card_view:cardElevation="6dp" >
-
-            <RelativeLayout
-                android:id="@+id/searchBarRL"
+            android:orientation="vertical"
+            android:elevation="5dp"
+            android:background="@color/discovery_bg_purple">
+        
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/searchBarCV"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                card_view:cardCornerRadius="25dp"
+                card_view:cardElevation="6dp" >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="17dp"
-                    android:src="@drawable/search_24px"/>
-
-                <EditText
-                    android:id="@+id/searchET"
+                <RelativeLayout
+                    android:id="@+id/searchBarRL"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="25dp"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:hint="Search by group name"
-                    android:background="@android:color/transparent" />
-            </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:focusableInTouchMode="true" >
 
-        </android.support.v7.widget.CardView>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="17dp"
+                        android:src="@drawable/search_24px"/>
 
+                    <EditText
+                        android:id="@+id/searchET"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginEnd="25dp"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:hint="Search by group name"
+                        android:background="@android:color/transparent"/>
+                </RelativeLayout>
 
+            </android.support.v7.widget.CardView>
 
-        <Button
-            android:id="@+id/btn_open_left_drawer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/searchBarCV"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
-            android:drawableStart="@drawable/filter_button_icon"
-            android:background="@android:color/transparent"
-            android:text="    Sort/Filter"
-            android:textSize="18sp"
-            android:textColor="@color/common_button_text_white"/>
+            <Button
+                android:id="@+id/btn_open_left_drawer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="5dp"
+                android:drawableStart="@drawable/filter_button_icon"
+                android:background="@android:color/transparent"
+                android:text="    Sort/Filter"
+                android:textSize="18sp"
+                android:textColor="@color/common_button_text_white"/>
 
-        <!--<RelativeLayout-->
-            <!--android:id="@+id/tab_title"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="48dp"-->
-            <!--android:background="@color/black_overlay">-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/txt_top"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_marginBottom="0dp"-->
-            <!--android:gravity="center"-->
-            <!--android:text="Placeholder"-->
-            <!--android:textColor="@color/textColorPrimary"-->
-            <!--android:textSize="19sp" />-->
-
-            <!--<android.support.design.widget.AppBarLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
-
-                <!--<android.support.v7.widget.Toolbar-->
-                    <!--android:id="@+id/toolbar"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="?attr/actionBarSize"-->
-                    <!--android:background="@color/floating_plus_bg"-->
-                    <!--app:layout_scrollFlags="scroll|enterAlways"-->
-                    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
-
-            <!--</android.support.design.widget.AppBarLayout>-->
-
-            <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="2px"-->
-                <!--android:background="@color/windowBackground"-->
-                <!--android:layout_alignParentBottom="true"/>-->
-
-        <!--</RelativeLayout>-->
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/tab_menu"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="0dp"
             android:orientation="horizontal"
             android:background="@color/floating_plus_bg">
-
 
             <TextView
                 android:id="@+id/txt_deal"
@@ -148,20 +118,13 @@
 
         </LinearLayout>
 
-        <!--<View-->
-            <!--android:id="@+id/div_tab_bar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0px"-->
-            <!--android:background="@color/black_overlay"-->
-            <!--android:layout_above="@id/tab_menu"/>-->
-
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/tab_menu"
-            android:layout_below="@+id/btn_open_left_drawer"
-            android:background="@color/common_text_white"
+            android:layout_below="@+id/discoveryTopSearchAndButton"
+            android:background="@android:color/transparent"
             android:fadingEdge="horizontal|vertical"
             android:soundEffectsEnabled="true">
 
@@ -182,8 +145,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
         </FrameLayout>
-
-
 
     </RelativeLayout>
 
