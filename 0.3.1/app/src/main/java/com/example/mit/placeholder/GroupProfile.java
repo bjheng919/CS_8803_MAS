@@ -1,6 +1,7 @@
 package com.example.mit.placeholder;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,9 +9,19 @@ import java.util.List;
  */
 public class GroupProfile implements Serializable, Comparable<GroupProfile> {
 
-    String groupName, commitNum, totalNum, uuid, image, creatorUuid;
-    List<String> members;
-    int similarity;
+    private String groupName, commitNum, totalNum, uuid, image, creatorUuid;
+    private List<String> members;
+    private int similarity;
+
+    public GroupProfile() {
+        groupName = "";
+        commitNum = "";
+        totalNum = "";
+        uuid = "";
+        image = "";
+        creatorUuid = "";
+        members = new ArrayList<>();
+    }
 
     public List<String> getMembers() {
         return members;

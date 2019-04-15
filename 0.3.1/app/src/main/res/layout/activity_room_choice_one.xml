@@ -101,7 +101,7 @@
 
                     <EditText
                         android:id="@+id/surveyRentLow"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Lower bound $"
                         android:inputType="number"
@@ -112,7 +112,7 @@
 
                     <EditText
                         android:id="@+id/surveyRentHigh"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Upper bound $"
                         android:inputType="number"

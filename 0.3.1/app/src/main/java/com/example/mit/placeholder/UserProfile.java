@@ -7,9 +7,18 @@ import java.io.Serializable;
  */
 public class UserProfile implements Serializable, Comparable<UserProfile> {
 
-    String fname, lname, email, image, uuid;
-    int similarity;
-    public String committed;
+    private String fname, lname, email, image, uuid;
+    private int similarity;
+    private String committed;
+
+    public UserProfile() {
+        fname = "";
+        lname = "";
+        email = "";
+        image = "";
+        uuid = "";
+        committed = "";
+    }
 
     public String getCommitted() {
         return committed;

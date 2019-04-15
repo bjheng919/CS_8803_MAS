@@ -6,28 +6,50 @@ import java.io.Serializable;
 
 public class UserSurvey implements Serializable, Comparable<UserSurvey> {
 
-    String nation;
-    String gender;
-    String rmType;
-    String rmmtNum;
-    String lsStartTime;
-    String lsEndTime;
-    String rentLow;
-    String rentHigh;
+    private String nation;
+    private String gender;
+    private String rmType;
+    private String rmmtNum;
+    private String lsStartTime;
+    private String lsEndTime;
+    private String rentLow;
+    private String rentHigh;
 //    String party;
-    String prefNation;
-    String prefGender;
-    String smoke;
-    String mindSmoke;
-    String pet;
-    String mindPet;
-    String sUseRoom;
-    String cook;
-    String otherCook;
-    String timeFrom;
-    String timeTo;
-    String discription;
-    int similarity;
+    private String prefNation;
+    private String prefGender;
+    private String smoke;
+    private String mindSmoke;
+    private String pet;
+    private String mindPet;
+    private String sUseRoom;
+    private String cook;
+    private String otherCook;
+    private String timeFrom;
+    private String timeTo;
+    private String discription;
+    private int similarity;
+
+    public UserSurvey() {
+        nation = "";
+        gender = "";
+        rmType = "";
+        rmmtNum = "";
+        lsStartTime = "";
+        lsEndTime = "";
+        rentLow = "";
+        rentHigh = "";
+        prefNation = "";
+        prefGender = "";
+        smoke = "";
+        mindSmoke = "";
+        pet = "";
+        mindPet = "";
+        sUseRoom = "";
+        cook = "";
+        otherCook = "";
+        timeFrom = "";
+        timeTo = "";
+    }
 
     public String getRentLow() { return rentLow; }
 
