@@ -181,6 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="House"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:checked="true"
                     android:id="@+id/survey1b1b" />
@@ -191,6 +192,7 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="10dp"
                     android:text="Apartment"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:id="@+id/survey2b1b" />
 
@@ -200,6 +202,7 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="15dp"
                     android:text="Dorm"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:id="@+id/survey2b2b" />
 
@@ -209,6 +212,7 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="20dp"
                     android:text="I don't mind"
+                    android:textSize="18dp"
                     android:textColor="@color/textColorPrimary"
                     android:id="@+id/survey3b2b" />
             </RadioGroup>
