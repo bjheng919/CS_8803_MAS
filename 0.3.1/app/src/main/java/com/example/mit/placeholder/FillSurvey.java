@@ -155,13 +155,13 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         });
 
-        btnBack1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Update Cancelled",Toast.LENGTH_LONG).show();
-                finish();
-            }
-        });
+//        btnBack1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getApplicationContext(),"Update Cancelled",Toast.LENGTH_LONG).show();
+//                finish();
+//            }
+//        });
 
         tab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,7 +201,7 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         });
 
-        tab2.setOnClickListener(new View.OnClickListener() {
+        tab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String nation = (String) etNation.getSelectedItem();
@@ -238,6 +238,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         btnBack2 = (Button) findViewById(R.id.surveyback);
         btnNext2 = (Button) findViewById(R.id.surveynext);
 
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
+
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
@@ -256,12 +260,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        btnBack2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onCreate1();
-            }
-        });
+//        btnBack2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onCreate1();
+//            }
+//        });
 
         tab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -322,6 +326,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         etRentHigh = (EditText) findViewById(R.id.surveyRentHigh);
         btnBack3 = (Button) findViewById(R.id.surveyback);
         btnNext3 = (Button) findViewById(R.id.surveynext);
+
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
@@ -430,12 +438,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         });
 
-        btnBack3.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            onCreate2();
-        }
-        });
+//        btnBack3.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            onCreate2();
+//        }
+//        });
     }
 
     private String getSelectedRadioButtonText(RadioGroup rg) {
@@ -610,6 +618,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
         btnBack4 = (Button) findViewById(R.id.surveyback);
         btnNext4 = (Button) findViewById(R.id.surveynext);
 
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
+
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
 
@@ -645,12 +657,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        btnBack4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               onCreate3();
-            }
-        });
+//        btnBack4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//               onCreate3();
+//            }
+//        });
     }
 
     protected void onCreate5() {
@@ -663,6 +675,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         btnBack5 = (Button) findViewById(R.id.surveyback);
         btnNext5 = (Button) findViewById(R.id.surveynext);
+
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
@@ -716,12 +732,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        btnBack5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onCreate4();
-            }
-        });
+//        btnBack5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onCreate4();
+//            }
+//        });
     }
 
     protected void onCreate6() {
@@ -733,6 +749,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         btnBack6 = (Button) findViewById(R.id.surveyback);
         btnNext6 = (Button) findViewById(R.id.surveynext);
+
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
@@ -793,12 +813,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        btnBack6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onCreate5();
-            }
-        });
+//        btnBack6.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onCreate5();
+//            }
+//        });
     }
 
     protected void onCreate7() {
@@ -812,6 +832,10 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
 
         btnBack7 = (Button) findViewById(R.id.surveyback);
         btnFinish = (Button) findViewById(R.id.surveynext);
+
+        tab1 = (Button) findViewById(R.id.tabone);
+        tab2 = (Button) findViewById(R.id.tabtwo);
+        tab3 = (Button) findViewById(R.id.tabthree);
 
         refAuth = FirebaseAuth.getInstance();
         refDatabase = FirebaseDatabase.getInstance();
@@ -965,12 +989,12 @@ public class FillSurvey extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        btnBack7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onCreate6();
-            }
-        });
+//        btnBack7.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onCreate6();
+//            }
+//        });
     }
 
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
