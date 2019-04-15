@@ -1,30 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <!--<TableRow-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_margin="20dp"-->
-        <!--&gt;-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
 
-        <!--<Button-->
-            <!--android:id="@+id/surveyback"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginRight="194dp"-->
-            <!--android:text="Back" />-->
+        <Button
+            android:id="@+id/tabone"
+            android:layout_width="105dp"
+            android:layout_height="170dp"
+            android:gravity="start|center_vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:background="@drawable/survey_tab_one_bg"
+            android:text="01\nBasic\nInfo"
+            android:textSize="16sp"
+            android:textColor="@color/survey_bar_text_1" />
 
-        <!--<Button-->
-            <!--android:id="@+id/surveynext"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Next" />-->
-    <!--</TableRow>-->
+        <Button
+            android:id="@+id/tabtwo"
+            android:layout_width="105dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="-20dp"
+            android:gravity="start|center_vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:background="@drawable/survey_tab_two_bg"
+            android:text="02\nRoom\nChoices"
+            android:textSize="16sp"
+            android:textColor="@color/survey_bar_text_2" />
+
+        <Button
+            android:id="@+id/tabthree"
+            android:layout_width="105dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="-20dp"
+            android:gravity="start|center_vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:background="@drawable/survey_tab_three_bg"
+            android:text="03\nLife\nStyle"
+            android:textSize="16sp"
+            android:textColor="@color/survey_bar_text_3" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,82 +61,37 @@
         android:layout_gravity="center"
         android:text="Match Your Roommates"
         android:textStyle="bold"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textColor="@color/textColorPrimary"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/surveydescription" />
 
-    <RadioGroup
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="130dp">
-
-        <Button
-            android:id="@+id/tabone"
-            android:layout_width="105dip"
-            android:layout_height="200dip"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:background="@drawable/rounded_botton_one"
-            android:text="01\nBasic Info"
-            android:textColor="@color/textColor" />
-
-        <Button
-            android:id="@+id/tabtwo"
-            android:layout_width="105dip"
-            android:layout_height="200dip"
-            android:layout_marginTop="-20dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:background="@drawable/rounded_botton_two"
-            android:text="02\nRoom Choices"
-            android:textColor="@color/textColor" />
-
-        <Button
-            android:id="@+id/tabthree"
-            android:layout_width="105dip"
-            android:layout_height="180dip"
-            android:layout_marginTop="-20dp"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dp"
-            android:background="@drawable/rounded_botton_three"
-            android:text="03\nLifestyle"
-            android:textColor="@color/textColor" />
-
-    </RadioGroup>
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="false"
-        android:orientation="vertical"
-        android:paddingLeft="130dp"
-        android:paddingRight="20dp"
-        android:paddingTop="120dp">
+        android:layout_marginStart="130dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="80dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
             <TextView
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/common_text_white"
+                android:textSize="20sp"
                 android:text="How would you use your room?"
                 android:id="@+id/useroom" />
 
             <RadioGroup
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:textSize="18dp"
-                android:orientation="vertical"
                 android:id="@+id/surveyuseroom"
                 >
 
@@ -117,25 +100,26 @@
                     android:layout_height="wrap_content"
                     android:text="Social"
                     android:checked="true"
-                    android:textSize="18dp"
+                    android:textColor="@color/common_text_white"
+                    android:textSize="20sp"
                     android:id="@+id/Forsocial" />
 
                 <RadioButton
                     android:id="@+id/neutral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
                     android:layout_marginTop="10dp"
-                    android:textSize="18dp"
+                    android:textColor="@color/common_text_white"
+                    android:textSize="20sp"
                     android:text="Neutrally" />
-
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:text="Not for social"
+                    android:textColor="@color/common_text_white"
+                    android:textSize="20sp"
                     android:id="@+id/nosocial" />
             </RadioGroup>
 
@@ -143,17 +127,15 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="How oftern do you cook?"
-                android:textColor="@color/textColorPrimary"
+                android:textColor="@color/common_text_white"
+                android:textSize="20sp"
                 android:id="@+id/cook" />
 
             <RadioGroup
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:orientation="vertical"
                 android:id="@+id/surveycook"
                 >
 
@@ -161,8 +143,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Never"
-                    android:textSize="18dp"
-                    android:textColor="@color/textColorPrimary"
+                    android:textColor="@color/common_text_white"
+                    android:textSize="20sp"
                     android:checked="true"
                     android:id="@+id/cooknever" />
 
@@ -170,40 +152,36 @@
                     android:id="@+id/cookoncesemester"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
                     android:layout_marginTop="10dp"
                     android:text="Once a semester"
-                    android:textSize="18dp"
-                    android:textColor="@color/textColorPrimary" />
+                    android:textColor="@color/common_text_white"
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/cookoncemonth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:text="Once a month"
-                    android:textSize="18dp"
-                    android:textColor="@color/textColorPrimary" />
+                    android:textColor="@color/common_text_white"
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:text="Once a week"
-                    android:textSize="18dp"
-                    android:textColor="@color/textColorPrimary"
+                    android:textColor="@color/common_text_white"
+                    android:textSize="20sp"
                     android:id="@+id/cookonceweek" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="10dp"
                     android:text="Daily"
-                    android:textSize="18dp"
-                    android:textColor="@color/textColorPrimary"
+                    android:textColor="@color/common_text_white"
+                    android:textSize="20sp"
                     android:id="@+id/cookdaily" />
             </RadioGroup>
 
@@ -211,17 +189,16 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Do you mind if your roommates cook?"
-                android:textColor="@color/textColorPrimary"
+                android:textColor="@color/common_text_white"
+                android:textSize="20sp"
                 android:id="@+id/otherpet" />
 
             <RadioGroup
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:orientation="vertical"
                 android:id="@+id/othercook"
                 >
 
@@ -229,19 +206,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
-                    android:textSize="18dp"
-                    android:textColor="@color/textColorPrimary"
+                    android:textColor="@color/common_text_white"
+                    android:textSize="20sp"
                     android:checked="true"
                     android:id="@+id/othercookyes" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="200dp"
+                    android:layout_marginStart="150dp"
                     android:layout_marginTop="-32dp"
                     android:text="No"
-                    android:textSize="18dp"
-                    android:textColor="@color/textColorPrimary"
+                    android:textColor="@color/common_text_white"
+                    android:textSize="20sp"
                     android:id="@+id/othercookno" />
             </RadioGroup>
         </LinearLayout>
@@ -250,11 +227,11 @@
     <Button
         android:id="@+id/surveynext"
         android:layout_width="match_parent"
-        android:layout_height="90dip"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/rounded_botton_next"
+        android:background="@drawable/survey_btn_next_bg"
         android:text="Next ->"
-        android:textColor="@color/textColor"
-        android:textSize="24dp"/>
+        android:textColor="@color/survey_next_text"
+        android:textSize="24sp" />
 
 </RelativeLayout>

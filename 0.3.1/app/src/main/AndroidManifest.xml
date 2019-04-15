@@ -20,19 +20,19 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.mit.placeholder.CreateProfile" />
-        <activity android:name="com.example.mit.placeholder.FillSurvey" />
+        <activity android:name="com.example.mit.placeholder.FillSurvey"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name="com.example.mit.placeholder.LoginActivity" />
         <activity android:name="com.example.mit.placeholder.Messages" />
         <activity android:name="com.example.mit.placeholder.newMessages"
-            android:windowSoftInputMode="adjustNothing">
-        </activity>
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name="com.example.mit.placeholder.EditProfile" />
         <activity android:name="com.example.mit.placeholder.ProfileDetails" />
         <activity android:name="com.example.mit.placeholder.GroupSetting" />
 
         <activity android:name="com.example.mit.placeholder.MyChat" />
         <activity android:name="com.example.mit.placeholder.GroupChat" />
-        <activity android:name="com.example.mit.placeholder.SignUpActivity"></activity>
+        <activity android:name="com.example.mit.placeholder.SignUpActivity"/>
 
     </application>
 
