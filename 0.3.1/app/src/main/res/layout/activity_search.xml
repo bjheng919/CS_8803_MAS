@@ -139,11 +139,6 @@
                 app:elevation="12dp"
                 app:useCompatPadding="true" />
 
-            <ListView
-                android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
         </FrameLayout>
 
     </RelativeLayout>
