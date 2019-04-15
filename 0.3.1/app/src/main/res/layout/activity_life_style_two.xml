@@ -71,8 +71,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="130dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="150dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="80dp">
 
         <LinearLayout
@@ -81,72 +81,99 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/useroom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/common_text_white"
-                android:textSize="20sp"
                 android:text="How would you use your room?"
-                android:id="@+id/useroom" />
+                android:textColor="@color/common_text_white"
+                android:textSize="20sp" />
 
-            <RadioGroup
-                android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/surveyuseroom"
-                >
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Social"
-                    android:checked="true"
-                    android:textColor="@color/common_text_white"
-                    android:textSize="20sp"
-                    android:id="@+id/Forsocial" />
-
-                <RadioButton
-                    android:id="@+id/neutral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/common_text_white"
-                    android:textSize="20sp"
-                    android:text="Neutrally" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Not for social"
-                    android:textColor="@color/common_text_white"
-                    android:textSize="20sp"
-                    android:id="@+id/nosocial" />
-            </RadioGroup>
+            <SeekBar
+                android:id="@+id/sb"
+                android:layout_width="230dp"
+                android:layout_height="40dp"
+                android:maxHeight="100dp"
+                android:minHeight="50dp"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:max="6"
+                android:progress="1"
+                android:layout_marginTop="20dp" />
 
             <TextView
-                android:layout_marginTop="20dp"
+                android:id="@+id/social"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="For study"
+                android:textColor="@color/common_text_white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/notsocial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-30dp"
+                android:layout_marginLeft="160dp"
+                android:text="For social"
+                android:textColor="@color/common_text_white"
+                android:textSize="18sp" />
+
+            <!--<RadioGroup-->
+                <!--android:id="@+id/surveyuseroom"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="15dp">-->
+
+                <!--<RadioButton-->
+                    <!--android:id="@+id/Forsocial"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:checked="true"-->
+                    <!--android:text="Social"-->
+                    <!--android:textColor="@color/common_text_white"-->
+                    <!--android:textSize="20sp" />-->
+
+                <!--<RadioButton-->
+                    <!--android:id="@+id/neutral"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:text="Neutrally"-->
+                    <!--android:textColor="@color/common_text_white"-->
+                    <!--android:textSize="20sp" />-->
+
+                <!--<RadioButton-->
+                    <!--android:id="@+id/nosocial"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:text="Not for social"-->
+                    <!--android:textColor="@color/common_text_white"-->
+                    <!--android:textSize="20sp" />-->
+            <!--</RadioGroup>-->
+
+            <TextView
+                android:id="@+id/cook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="How oftern do you cook?"
                 android:textColor="@color/common_text_white"
-                android:textSize="20sp"
-                android:id="@+id/cook" />
+                android:textSize="20sp" />
 
             <RadioGroup
-                android:layout_marginTop="15dp"
+                android:id="@+id/surveycook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/surveycook"
-                >
+                android:layout_marginTop="15dp">
 
                 <RadioButton
+                    android:id="@+id/cooknever"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:text="Never"
                     android:textColor="@color/common_text_white"
-                    android:textSize="20sp"
-                    android:checked="true"
-                    android:id="@+id/cooknever" />
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/cookoncesemester"
@@ -167,59 +194,58 @@
                     android:textSize="20sp" />
 
                 <RadioButton
+                    android:id="@+id/cookonceweek"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Once a week"
                     android:textColor="@color/common_text_white"
-                    android:textSize="20sp"
-                    android:id="@+id/cookonceweek" />
+                    android:textSize="20sp" />
 
                 <RadioButton
+                    android:id="@+id/cookdaily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Daily"
                     android:textColor="@color/common_text_white"
-                    android:textSize="20sp"
-                    android:id="@+id/cookdaily" />
+                    android:textSize="20sp" />
             </RadioGroup>
 
             <TextView
-                android:layout_marginTop="20dp"
+                android:id="@+id/otherpet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="Do you mind if your roommates cook?"
                 android:textColor="@color/common_text_white"
-                android:textSize="20sp"
-                android:id="@+id/otherpet" />
+                android:textSize="20sp" />
 
             <RadioGroup
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="20dp"
+                android:id="@+id/othercook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/othercook"
-                >
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp">
 
                 <RadioButton
+                    android:id="@+id/othercookyes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:text="Yes"
                     android:textColor="@color/common_text_white"
-                    android:textSize="20sp"
-                    android:checked="true"
-                    android:id="@+id/othercookyes" />
+                    android:textSize="20sp" />
 
                 <RadioButton
+                    android:id="@+id/othercookno"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="150dp"
                     android:layout_marginTop="-32dp"
                     android:text="No"
                     android:textColor="@color/common_text_white"
-                    android:textSize="20sp"
-                    android:id="@+id/othercookno" />
+                    android:textSize="20sp" />
             </RadioGroup>
         </LinearLayout>
     </ScrollView>
