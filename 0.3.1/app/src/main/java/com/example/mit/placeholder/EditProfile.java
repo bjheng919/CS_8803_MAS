@@ -138,6 +138,7 @@ public class EditProfile extends AppCompatActivity {
                     profile.setEmail(editProfileEmailET.getText().toString().trim());
                     profile.setImage(imageurl);
                     profile.setUuid(uuid);
+                    profile.setCommitted(CreateProfile.committed);
 
                     if(imageurl!=null) {
 
