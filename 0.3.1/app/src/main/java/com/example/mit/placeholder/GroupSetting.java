@@ -57,9 +57,9 @@ public class GroupSetting extends AppCompatActivity {
         }
 
         if((CreateProfile.committed).equals(currGroup.getUuid())){
-            btn_Commit.setText("CANCEL YOUR COMMIT");
+            btn_Commit.setText("UNDO 'SETTLE DOWN'");
         }else{
-            btn_Commit.setText("COMMIT TO THE GROUP");
+            btn_Commit.setText("SETTLE DowN");
         }
 
 

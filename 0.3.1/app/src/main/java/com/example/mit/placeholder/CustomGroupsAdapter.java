@@ -105,11 +105,11 @@ public class CustomGroupsAdapter extends ArrayAdapter<GroupProfile> {
         tvlnmae.setText(group.getMembers().size()+" / "+group.getTotalNum());
         String commitNum = group.getCommitNum();
         if (commitNum.equals("0")) {
-            tvcommit.setText("Nobody has commited.");
+            tvcommit.setText("Nobody settles.");
         } else if (commitNum.equals("1")) {
-            tvcommit.setText("1 member has commited.");
+            tvcommit.setText("1 member settles.");
         } else {
-            tvcommit.setText(commitNum + " members has commited.");
+            tvcommit.setText(commitNum + " members settle.");
         }
 
         if(group.getImage()==null)
